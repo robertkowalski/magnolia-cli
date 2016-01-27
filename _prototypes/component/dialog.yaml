@@ -1,0 +1,51 @@
+form:
+  label: __name__
+  tabs:
+    - name: tabMain
+      label: Main
+      fields:
+        - name: title
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          label: Title
+          
+        - name: desc
+          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          i18n: true
+          label: Description
+          rows: 3
+
+        - name: internalLink
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: website
+          appName: pages
+          label: Select page
+          identifierToPathConverter:
+            class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+            
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Image
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent    
+            
+        - name: categories
+          class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
+          label: Select category
+          field:
+            name: linkField
+            class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+            targetWorkspace: category
+            appName: categories
+            identifierToPathConverter:
+              class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+                    
+actions:
+  commit:
+    class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition
+  cancel:
+    class: info.magnolia.ui.admincentral.dialog.action.CancelDialogActionDefinition

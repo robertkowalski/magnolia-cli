@@ -1,0 +1,10 @@
+title: __name__
+dialog: __dialog__
+templateScript: __templateScript__
+renderType: freemarker
+areas: 
+  main: 
+    type: list
+  footer: 
+    editable: false
+
