@@ -7,7 +7,7 @@
 	
 	
 	[#if content.desc?has_content]
-		<p>${content.desc!}</p>
+		${cmsfn.decode(content).desc!}
 	[/#if]
 	
 	

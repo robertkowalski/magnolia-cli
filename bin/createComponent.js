@@ -17,17 +17,17 @@ var availabilityPatern = userArgs[1];
 var createComponent = function() {
 	if(newComponentName){
 		
-		var templateDefinitionFile = packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.templates_components + "/" + newComponentName + ".yaml";
-		var templateDefinitionId = packageJson.lightDevModuleFolder.replace("/","") +":"+ packageJson.lightDevFoldersInModule.templates_components.replace("/templates/","") + "/" + newComponentName;
-		var templateScriptFile = packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.templates_components + "/" + newComponentName + ".ftl";
-		var dialogDefinitionFile = packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.dialogs_components + "/" + newComponentName + ".yaml";
-		var dialogDefinitionId = packageJson.lightDevModuleFolder.replace("/","") +":"+ packageJson.lightDevFoldersInModule.dialogs_components.replace("/dialogs/","") + "/" + newComponentName;
+		var templateDefinitionFile = packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.templates_components + "/" + newComponentName + ".yaml";
+		var templateDefinitionId = packageJson.lightModuleName +":"+ packageJson.lightDevFoldersInModule.templates_components.replace("/templates/","") + "/" + newComponentName;
+		var templateScriptFile = packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.templates_components + "/" + newComponentName + ".ftl";
+		var dialogDefinitionFile = packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.dialogs_components + "/" + newComponentName + ".yaml";
+		var dialogDefinitionId = packageJson.lightModuleName +":"+ packageJson.lightDevFoldersInModule.dialogs_components.replace("/dialogs/","") + "/" + newComponentName;
 		
 		// component definition
 		if(fs.existsSync(path.normalize(templateDefinitionFile))) {
 			console.log("'"+newComponentName+"' component template already exists")
 		} else {
-			createFromPrototype.createFromPrototype("/component/definition.yaml",templateDefinitionFile,{"__name__":newComponentName,"__templateScript__":templateScriptFile.replace(packageJson.lightDevResourcesFolder,""),"__dialog__":dialogDefinitionId});
+			createFromPrototype.createFromPrototype("/component/definition.yaml",templateDefinitionFile,{"__name__":newComponentName,"__templateScript__":templateScriptFile.replace(packageJson.config.outputPath,""),"__dialog__":dialogDefinitionId});
 		
 			if(availabilityPatern){
 				addAvailability.addAvailabilityWhenCreated(templateDefinitionId,availabilityPatern);

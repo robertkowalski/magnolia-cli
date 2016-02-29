@@ -8,8 +8,8 @@ var fs   = require('fs');
 var packageJson = require('../package.json');
 
 exports.buildLess = function() {
-	var folderToWatch = path.normalize(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.cssWatch);
-	var buildedCss = path.normalize(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.css + "/bootstrap.css");
+	var folderToWatch = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.cssWatch);
+	var buildedCss = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.css + "/bootstrap.css");
   	var src = folderToWatch+"/bootstrap.less";
     less.render(fs.readFileSync(src).toString(), {
         filename: path.resolve(src), // <- here we go

@@ -10,10 +10,9 @@ form:
           label: Title
           
         - name: desc
-          class: info.magnolia.ui.form.field.definition.TextFieldDefinition
+          class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           i18n: true
           label: Description
-          rows: 3
 
         - name: internalLink
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition

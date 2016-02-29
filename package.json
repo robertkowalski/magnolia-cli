@@ -1,7 +1,7 @@
 {
-  "name": "awesome_tomas_mgnl",
-  "version": "1.0.2",
-  "description": "WIP, just ignore this :)",
+  "name": "Magnolia_light_dev_cli",
+  "version": "1.0.3",
+  "description": "POC with using command line tool for generating light module and templates for it.",
   "scripts": {
     "start": "node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/build.js && ./bin/watchBootstrap.js &",
     "mgnlbuild": "node ./bin/build.js"
@@ -37,19 +37,18 @@
     }
   },
   "config": {
-    "outputPath": "./resources"
+    "outputPath": "../light-modules"
   },
-  "lightDevResourcesFolder": "./resources",
-  "lightDevModuleFolder": "/awesome",
+  "lightModuleName":"sampleModule",
   "lightDevFoldersInModule": {
     "dialogs_components": "/dialogs/components",
     "dialogs_pages": "/dialogs/pages",
     "templates_components": "/templates/components",
     "templates_pages": "/templates/pages",
-    "css": "/css",
-    "cssWatch": "/css/bootstrap-less",
-    "js": "/js",
-    "fonts": "/fonts"
+    "css": "/webresources/css",
+    "cssWatch": "/webresources/css/bootstrap-less",
+    "js": "/webresources/js",
+    "fonts": "/webresources/fonts"
   },
   "lightDevCopyResources": {
     "./node_modules/jquery/dist/jquery.js": "js",

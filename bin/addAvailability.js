@@ -20,19 +20,19 @@ function addAvailability() {
 	if(availabilityPatern && componentId){
 		var componentPath = componentId.split(":");
 		if(componentPath.length != 2){
-			console.log("something wrong with componentId, should looks like '"+packageJson.lightDevModuleFolder.replace("/","")+":components/myLink'");
+			console.log("something wrong with componentId, should looks like '"+packageJson.lightModuleName+":components/myLink'");
 		} else {
 			//componentId is ok, continue with availabilityPaternjavascript
 			var availabilityPath = availabilityPatern.split("@");			
 			if( availabilityPath.length != 3) {
 				//failed on wrong availabilityPath
-				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightDevModuleFolder.replace("/","")+":pages/myHome@main'");
+				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightModuleName+":pages/myHome@main'");
 			} else if ((availabilityPath[0]!="available") && (availabilityPath[0]!="autogenerate")){
 				//failed on availabilityPath doesn't begin with 'available'
-				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightDevModuleFolder.replace("/","")+":pages/myHome@main'");
+				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightModuleName+":pages/myHome@main'");
 			} else if (availabilityPath[1].indexOf(":") == -1){
 				//failed on wrong with componentId
-				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightDevModuleFolder.replace("/","")+":pages/myHome@main'");
+				console.log("something wrong with componentId, should looks like 'available@"+packageJson.lightModuleName+":pages/myHome@main'");
 			} else {
 				//availabilityPatern is fine...
 				var targetArea = availabilityPath[2];
@@ -41,7 +41,7 @@ function addAvailability() {
 				if(pagePath.length != 2){
 					//something wrong with pageId
 				} else {
-					var templateDefinitionFile = packageJson.lightDevResourcesFolder + "/" + pagePath[0] + "/templates/" + pagePath[1] + ".yaml";
+					var templateDefinitionFile = packageJson.config.outputPath + "/" + pagePath[0] + "/templates/" + pagePath[1] + ".yaml";
 					
 					templateDefinitionFile = path.normalize(templateDefinitionFile);
 					if(!fs.existsSync(templateDefinitionFile)) {
@@ -61,7 +61,7 @@ function addAvailability() {
 							
 							if(!(targetArea in jsonData.areas)) {
 								jsonData.areas[targetArea] = {};
-								fs.appendFile(path.normalize(packageJson.lightDevResourcesFolder + jsonData.templateScript), '\n\n[@cms.area name="'+targetArea+'"/]', function (err) {
+								fs.appendFile(path.normalize(packageJson.config.outputPath + jsonData.templateScript), '\n\n[@cms.area name="'+targetArea+'"/]', function (err) {
                   if (err) throw err;
                 });
 								console.log("new area '"+targetArea+"' added  in to '"+templateDefinitionFile+"'");
@@ -138,7 +138,7 @@ function addAvailability() {
 	} else {
 		console.log("componentId or availabilityPatern is missing");
 		console.log("please try again 'addAvailability <component_ID> available@<page_ID>@<area_name>'");
-		console.log("(e.g. 'addAvailability "+packageJson.lightDevModuleFolder.replace("/","")+":components/myLink available@"+packageJson.lightDevModuleFolder.replace("/","")+":pages/myHome@main')");
+		console.log("(e.g. 'addAvailability "+packageJson.lightModuleName+":components/myLink available@"+packageJson.lightModuleName+":pages/myHome@main')");
 	}
 
 }

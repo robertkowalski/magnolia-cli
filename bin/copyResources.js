@@ -5,7 +5,7 @@ var packageJson = require('../package.json');
 
 function copyResources(from,to) {		
 	var normalizedFrom = path.normalize(from);
-	var normalizedTo = path.normalize(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + to);
+	var normalizedTo = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + to);
 	if(fs.existsSync(normalizedFrom)) {
 		fs.copyRecursive(normalizedFrom, normalizedTo, function (err) {
 		  if (!err) {

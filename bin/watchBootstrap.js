@@ -9,8 +9,8 @@ global.__base = __dirname + '/';
 var buildBootstrap = require(__base + 'buildBootstrap');
 
 var packageJson = require('../package.json');
-var folderToWatch = path.normalize(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.cssWatch);
-var buildedCss = path.normalize(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule.css + "/bootstrap.css");
+var folderToWatch = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.cssWatch);
+var buildedCss = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.css + "/bootstrap.css");
 
 watch.watchTree(folderToWatch, function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {

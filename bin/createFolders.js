@@ -5,14 +5,14 @@ var path = require('path');
 var packageJson = require('../package.json');
 
 var folders = [
-	packageJson.lightDevResourcesFolder,
-	packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder
+	packageJson.config.outputPath,
+	packageJson.config.outputPath + "/"+ packageJson.lightModuleName
 ]
 
 function createFolders() {	
 	
 	Object.keys(packageJson.lightDevFoldersInModule).forEach(function(key) {
-		folders.push(packageJson.lightDevResourcesFolder + packageJson.lightDevModuleFolder + packageJson.lightDevFoldersInModule[key]);
+		folders.push(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule[key]);
 	});
 	
 	folders.forEach(function (folder) {
