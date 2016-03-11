@@ -29,9 +29,9 @@
   },
   "editMagnoliaProperties": {
     "author": {
-      "path": "apache-tomcat-7.0.64/webapps/magnoliaAuthor/WEB-INF/config/default/magnolia.properties",
+      "path": "../apache-tomcat-7.0.64/webapps/magnoliaAuthor/WEB-INF/config/default/magnolia.properties",
       "changes": {
-        "magnolia.resources.dir": "${magnolia.home}/../../../resources",
+        "magnolia.resources.dir": "${magnolia.home}/../../../light-modules",
         "magnolia.develop": "true"
       }
     }
