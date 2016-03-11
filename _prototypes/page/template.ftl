@@ -9,7 +9,7 @@
   	<meta name="keywords" content="${content.keywords!""}" />    
   	
   	[#-- use hcmcfn or link resources manualy --]
-  	${hcmcfn.css(["__lightDevModuleFolder__/.*.css"])}
+  	${hcmcfn.css(["__lightDevModuleFolder__/.*.css"])!}
 
   </head>
   <body class="__name__ ${cmsfn.language()}">
@@ -20,6 +20,6 @@
     </div>
   
   	[#-- use hcmcfn or link resources manualy --]
-    ${hcmcfn.js(["__lightDevModuleFolder__/.*.js"])}
+    ${hcmcfn.js(["__lightDevModuleFolder__/.*.js"])!}
   </body>
 </html>
