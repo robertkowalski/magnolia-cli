@@ -7,7 +7,7 @@ var packageJson = require('../package.json');
 var folders = [
 	packageJson.config.outputPath,
 	packageJson.config.outputPath + "/"+ packageJson.lightModuleName
-]
+];
 
 function createFolders() {	
 	

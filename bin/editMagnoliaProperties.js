@@ -33,7 +33,7 @@ function readWriteSync(pathToProperties,changes) {
 			  	
 			});
 		} else {
-			console.warn("'"+pathToProperties+"' not found")
+			console.warn("'"+pathToProperties+"' not found");
 		}
 	}
 }

@@ -20,7 +20,7 @@ var createPage = function() {
 		
 		// page definition
 		if(fs.existsSync(path.normalize(templateDefinitionFile))) {
-			console.log("'"+newPageName+"' page template already exists")
+			console.log("'"+newPageName+"' page template already exists");
 		} else {
 			createFromPrototype.createFromPrototype("/page/definition.yaml",templateDefinitionFile,{"__name__":newPageName,"__templateScript__":templateScriptFile.replace(packageJson.config.outputPath,""),"__dialog__":dialogDefinitionId});
 		}
@@ -29,24 +29,24 @@ var createPage = function() {
 		if(!fs.existsSync(path.normalize(templateScriptFile))) {
 			createFromPrototype.createFromPrototype("/page/template.ftl",templateScriptFile,{"__name__":newPageName,"__lightDevModuleFolder__":"/"+ packageJson.lightModuleName});
 		} else {
-			console.log("'"+templateScriptFile+"' templateScript already exists")
+			console.log("'"+templateScriptFile+"' templateScript already exists");
 		}
 		
 		// dialog
 		if(!fs.existsSync(path.normalize(dialogDefinitionFile))) {
 			createFromPrototype.createFromPrototype("/page/dialog.yaml",dialogDefinitionFile,{"__name__":newPageName});
 		} else {
-			console.log("'"+dialogDefinitionFile+"' dialog already exists")
+			console.log("'"+dialogDefinitionFile+"' dialog already exists");
 		}
 		
 	} else {
 		console.log("template name is missing, try again e.g. 'addPage myHome'");
 	}
 
-}
+};
 
 var exports = module.exports = {
 	createPage
-}
+};
 
 createPage();

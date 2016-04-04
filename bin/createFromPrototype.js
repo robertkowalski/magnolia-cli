@@ -25,7 +25,7 @@ var createFromPrototype = function(prototype,newFile,replace) {
 				  	var replaceString = new RegExp(change, 'g');
 			  		newValue = newValue.replace( replaceString, replace[change]);
 			  	});
-			  	if(newValue){
+			  	if(newValue) {
 				  	fs.writeFile(newFile, newValue, 'utf-8', function (err, data) {
 				  		if (err) throw err;
 				  	});
@@ -38,9 +38,9 @@ var createFromPrototype = function(prototype,newFile,replace) {
 	} else {
 		console.log("'"+prototype+"' doesn't exists");
 	}
-}
+};
 
 
 var exports = module.exports = {
 	createFromPrototype
-}
+};

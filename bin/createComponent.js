@@ -25,7 +25,7 @@ var createComponent = function() {
 		
 		// component definition
 		if(fs.existsSync(path.normalize(templateDefinitionFile))) {
-			console.log("'"+newComponentName+"' component template already exists")
+			console.log("'"+newComponentName+"' component template already exists");
 		} else {
 			createFromPrototype.createFromPrototype("/component/definition.yaml",templateDefinitionFile,{"__name__":newComponentName,"__templateScript__":templateScriptFile.replace(packageJson.config.outputPath,""),"__dialog__":dialogDefinitionId});
 		
@@ -38,24 +38,24 @@ var createComponent = function() {
 		if(!fs.existsSync(path.normalize(templateScriptFile))) {
 			createFromPrototype.createFromPrototype("/component/template.ftl",templateScriptFile,{"__name__":newComponentName});
 		} else {
-			console.log("'"+newComponentName+"' ["+templateScriptFile+"] templateScript already exists")
+			console.log("'"+newComponentName+"' ["+templateScriptFile+"] templateScript already exists");
 		}
 		
 		// dialog
 		if(!fs.existsSync(path.normalize(dialogDefinitionFile))) {
 			createFromPrototype.createFromPrototype("/component/dialog.yaml",dialogDefinitionFile,{"__name__":newComponentName});
 		} else {
-			console.log("'"+dialogDefinitionFile+"' dialog already exists")
+			console.log("'"+dialogDefinitionFile+"' dialog already exists");
 		}
 		
 	} else {
 		console.log("template name is missing, try again e.g. 'addComp myComponent'");
 	}
-}
+};
 
 var exports = module.exports = {
 	createComponent
-}
+};
 
 
 createComponent();
