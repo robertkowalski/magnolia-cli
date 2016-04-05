@@ -4,10 +4,10 @@ var fs = require('fs');
 var packageJson = require('../package.json');
 
 function editMagnoliaProperties(){
-	if(packageJson.editMagnoliaProperties){
-		Object.keys(packageJson.editMagnoliaProperties).forEach(function(instance) {
-			var pathToProperties = path.normalize(packageJson.editMagnoliaProperties[instance].path);
-			readWriteSync(pathToProperties,packageJson.editMagnoliaProperties[instance].changes);
+	if(packageJson.setupMagnolia.webapps){
+		Object.keys(packageJson.setupMagnolia.webapps).forEach(function(instance) {
+			var pathToProperties = path.normalize("./"+packageJson.setupMagnolia.tomcatFolder+"/webapps/"+instance+"/WEB-INF/config"+packageJson.setupMagnolia.webapps[instance].modifyPropertyFile);
+			readWriteSync(pathToProperties,packageJson.setupMagnolia.webapps[instance].changes);
 		});
 	} else {
 		console.log("no 'editMagnoliaProperties' configured");

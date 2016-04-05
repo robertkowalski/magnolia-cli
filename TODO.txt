@@ -1,5 +1,3 @@
 - when new area is add into yaml, check if thats areas not already exists in ftl before its added there
 - to current command 'addComp link' add option to do 'addComp customCompoennts/link' same as 'addComp anotherModule:components/link' (if module name or path is not there then one from current module will be used)
 - improve yaml > json > yaml not to throw away comments (# ...) or includes
-- new definition in package.json to set link to nexus to download .jar and place into WEB-INF/lib on 'npm start'
-- because of point above maybe definition for webapps should be changed (from current which is editing magnolia.property file) to something like: path to tomcat, name of webapps...

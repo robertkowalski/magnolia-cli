@@ -1,0 +1,76 @@
+{
+  "name": "@magnolia/cli-light-module",
+  "version": "1.0.0",
+  "description": "...",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "copy:nodeModules": "cp -rf ../node_modules/* ./node_modules/ && rm -r ../node_modules",
+    "preinstall": "npm run copy:nodeModules",
+    "printMessage": "echo \"Edit 'package.json' and run 'npm start'\"",
+    "postinstall": "npm run printMessage",  
+    "mgnlbuild": "node ./bin/build.js",
+    "donwloadMagnolia": "node ./bin/downloadMagnolia.js",
+    "unzipMagnolia": "node ./bin/extractMagnolia.js",
+    "editMagnoliaProperties":"node ./bin/editMagnoliaProperties.js",
+    "downloadJars": "node ./bin/downloadJars.js",
+    "createFolders": "node ./bin/createFolders.js",
+    "copyResources": "node ./bin/copyResources.js",
+    "start": "node ./bin/downloadMagnolia.js && node ./bin/extractMagnolia.js && node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/downloadJars.js" ,
+    "###start": "node ./bin/downloadMagnolia.js && node ./bin/extractMagnolia.js && node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/downloadJars.js && node ./bin/build.js && ./bin/watchBootstrap.js &" 
+  },
+  "bin": {
+    "addPage": "bin/createPage.js",
+    "addComp": "bin/createComponent.js",
+    "addAvailability": "bin/addAvailability.js"
+  },
+  "dependencies": {
+    "bootstrap-less": "^3.3.8",
+    "font-awesome": "^4.5.0",
+    "jquery": "^2.2.0"
+  },  
+  "setupMagnolia": {
+    "downloadTomcatBundleFrom": "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/5.4.5/magnolia-community-demo-bundle-5.4.5-tomcat-bundle.zip",
+    "tomcatFolder": "../apache-tomcat",
+    "webapps":{
+      "magnoliaAuthor": {
+        "modifyPropertyFile": "/default/magnolia.properties",
+        "changes": {
+          "magnolia.resources.dir": "${magnolia.home}/../../../light-modules",
+          "magnolia.develop": "true"
+        }
+      },
+      "magnoliaPublic": {
+        "modifyPropertyFile": "/default/magnolia.properties",
+        "changes": {
+          "magnolia.resources.dir": "${magnolia.home}/../../../light-modules"
+        }
+      }
+    },
+    "downloadJars":{
+      "neat-resources-1.0.1":"https://nexus.magnolia-cms.com/service/local/repositories/magnolia.forge.releases/content/com/neatresults/mgnltweaks/neat-resources/1.0.1/neat-resources-1.0.1.jar"
+    }
+  },
+  "config": {
+    "outputPath": "../light-modules"
+  },
+  "lightModuleName":"sampleModule",
+  "lightDevFoldersInModule": {
+    "dialogs_components": "/dialogs/components",
+    "dialogs_pages": "/dialogs/pages",
+    "templates_components": "/templates/components",
+    "templates_pages": "/templates/pages",
+    "css": "/webresources/css",
+    "cssWatch": "/webresources/css/bootstrap-less",
+    "js": "/webresources/js",
+    "fonts": "/webresources/fonts"
+  },
+  "lightDevCopyResources": {
+    "./node_modules/jquery/dist/jquery.js": "js",
+    "./node_modules/bootstrap-less/bootstrap": "cssWatch",
+    "./node_modules/bootstrap-less/fonts": "fonts",
+    "./node_modules/bootstrap-less/js/bootstrap.js": "js",
+    "./node_modules/font-awesome/fonts": "fonts",
+    "./node_modules/font-awesome/css/font-awesome.css": "css"
+  }
+}
