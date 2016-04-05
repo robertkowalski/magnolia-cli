@@ -3,12 +3,19 @@
   "version": "1.0.0",
   "description": "...",
   "scripts": {
-    "setupCli": "mkdir ../../../cli && cp -rf {_prototypes,bin,readme.txt} ../../../cli && cp replace-package.json ../../../cli/package.json ",
+    "setupCli": "mkdir ../../../cli && cp -rf {_prototypes,bin,README.md} ../../../cli && cp replace-package.json ../../../cli/package.json ",
     "printMessage": "echo \"Navigate to '/cli' folder and run 'npm install && sudo npm link'\"",
     "postinstall": "npm run setupCli && npm run printMessage"  
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.magnolia-cms.com/build/npm-cli.git"
+  },
+  "author": "Magnolia International Ltd.",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://jira.magnolia-cms.com/browse/NPMCLI"
+  },
   "dependencies": {
     "adm-zip": "^0.4.7",
     "fs": "0.0.2",

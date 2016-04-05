@@ -2,8 +2,12 @@
   "name": "@magnolia/cli-light-module",
   "version": "1.0.0",
   "description": "...",
-  "author": "",
-  "license": "ISC",
+  "author": "Magnolia International Ltd.",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.magnolia-cms.com/build/npm-cli.git"
+  },
   "scripts": {
     "copy:nodeModules": "cp -rf ../node_modules/* ./node_modules/ && rm -r ../node_modules",
     "preinstall": "npm run copy:nodeModules",
