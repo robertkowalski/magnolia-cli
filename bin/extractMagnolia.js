@@ -24,3 +24,14 @@ zipEntries.forEach(function (zipEntry) {
         }
     }
 });
+
+//workaround: for some reason AdmZip seems to skip empty folders. This means that Tomcat's logs folder isn't found when
+//starting up the container which eventually leads to abort the process
+var tomcatLogs = path.join(tomcatFolder, 'logs');
+if (!fs.existsSync(tomcatLogs)) {
+    fs.mkdirSync(tomcatLogs);
+}
+//sets scripts as executable
+fs.readdirSync(path.join(tomcatFolder, 'bin')).forEach(function (file) {
+    fs.chmodSync(path.join(tomcatFolder, 'bin', file), '755')
+});
