@@ -74,6 +74,35 @@ Don't forget they will always do stuff based on current configuration in `packag
 
 
 
+
+## Commands ##
+Add/create page template (will create page yaml file, main.ftl and page dialog)
+```
+addPage myHome
+```
+
+Add/create component template (will create component yaml file, component  ftl and component dialog)
+```
+addComp image
+```
+
+Same as above plus will set this component available on 'myHome' page in 'main' area (if area or availability configuration doesn't exist's in 'myHome' page, will create it as well)
+```
+addComp textImage available@sampleModule:pages/myHome@main
+```
+
+Same as above, just will do 'autogeneration' instead of availability
+```
+addComp footer autogenerate@sampleModule:pages/myHome@footer
+```
+
+Make component 'html' available at 'myHome' in 'main' area
+```
+addAvailability mtk:components/html available@sampleModule:pages/myHome@main
+```
+
+
+
 ## Example ##
 * start Magnolia from 'apache-tomcat/bin' (better in new terminal window), follow up and finish installation
 * create new page using command `addPage myHome` (in 'cli' folder, same for all other steps)
