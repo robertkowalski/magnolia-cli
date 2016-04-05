@@ -31,7 +31,12 @@
   "dependencies": {
     "bootstrap-less": "^3.3.8",
     "font-awesome": "^4.5.0",
-    "jquery": "^2.2.0"
+    "jquery": "^2.2.0",
+    "json2yaml": "^1.0.3",
+    "less": "^2.5.3",
+    "watch": "^0.17.1",
+    "yaml2json": "^1.0.2",
+    "yamljs": "^0.2.4"
   },  
   "setupMagnolia": {
     "downloadTomcatBundleFrom": "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/5.4.5/magnolia-community-demo-bundle-5.4.5-tomcat-bundle.zip",
