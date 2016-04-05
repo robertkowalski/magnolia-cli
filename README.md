@@ -1,11 +1,11 @@
-# Magnolia Light Development CLI tool
+# Magnolia Light Development CLI tool #
 
 Description TBD
 
 
 
 
-## Instalation
+## Instalation ##
 Before installation make sure you have right Node.js installed (tested with 5.4.1, one of dependent tools had issue to work with 5.6 so 5.4.1 is really recommended)
 ```
 node -v
@@ -33,7 +33,7 @@ npm install && sudo npm link
 
 
 
-## Configuration
+## Configuration ##
 Found `package.json` file in `cli` folder and open it to edit.
 
 As you can see there is a lot of stuff already preconfigured to happens during build (npm start). But lets describe some of them:
@@ -41,7 +41,7 @@ As you can see there is a lot of stuff already preconfigured to happens during b
 
 
 
-## Build
+## Build ##
 From now all command for CLI tool _has to be executed from `cli` folder_.
 
 Once you checked or edited `package.json` file you can build/start project using command:
@@ -74,7 +74,7 @@ Don't forget they will always do stuff based on current configuration in `packag
 
 
 
-## Example
+## Example ##
 * start Magnolia from 'apache-tomcat/bin' (better in new terminal window), follow up and finish installation
 * create new page using command `addPage myHome` (in 'cli' folder, same for all other steps)
 * go to Magnolia > pages app, add new page with 'myHome' template
