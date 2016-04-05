@@ -24,9 +24,9 @@
     "###start": "node ./bin/downloadMagnolia.js && node ./bin/extractMagnolia.js && node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/downloadJars.js && node ./bin/build.js && ./bin/watchBootstrap.js &" 
   },
   "bin": {
-    "addPage": "bin/createPage.js",
-    "addComp": "bin/createComponent.js",
-    "addAvailability": "bin/addAvailability.js"
+    "add-page": "bin/createPage.js",
+    "add-component": "bin/createComponent.js",
+    "add-availability": "bin/addAvailability.js"
   },
   "dependencies": {
     "bootstrap-less": "^3.3.8",
@@ -41,13 +41,15 @@
         "modifyPropertyFile": "/default/magnolia.properties",
         "changes": {
           "magnolia.resources.dir": "${magnolia.home}/../../../light-modules",
-          "magnolia.develop": "true"
+          "magnolia.develop": true,
+          "magnolia.update.auto": true
         }
       },
       "magnoliaPublic": {
         "modifyPropertyFile": "/default/magnolia.properties",
         "changes": {
-          "magnolia.resources.dir": "${magnolia.home}/../../../light-modules"
+          "magnolia.resources.dir": "${magnolia.home}/../../../light-modules",
+          "magnolia.update.auto": true
         }
       }
     },
