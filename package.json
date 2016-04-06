@@ -1,6 +1,6 @@
 {
   "name": "@magnolia/cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "...",
   "scripts": {
     "setupCli": "mkdir ../../../cli && cp -rf {_prototypes,bin,README.md} ../../../cli && cp replace-package.json ../../../cli/package.json ",
