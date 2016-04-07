@@ -2,7 +2,7 @@ form:
   label: Page properties
   tabs:
     - name: tabMain
-      label: Main
+      label: __name__
       fields:
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
@@ -36,7 +36,7 @@ form:
           i18n: true
           label: description
           rows: 5
-          
+
 actions:
   commit:
     class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition

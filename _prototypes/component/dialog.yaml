@@ -6,11 +6,11 @@ form:
     - name: tabMain
       label: Main
       fields:
-      
+
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           label: Title
-          
+
         - name: desc
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
           label: Description
@@ -22,7 +22,7 @@ form:
           label: Select page
           identifierToPathConverter:
             class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-            
+
         - name: image
           class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
           targetWorkspace: dam
@@ -31,8 +31,8 @@ form:
           identifierToPathConverter:
             class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
           contentPreviewDefinition:
-            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent    
-            
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
+
         - name: categories
           class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition
           label: Select category
@@ -43,16 +43,16 @@ form:
             appName: categories
             identifierToPathConverter:
               class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-              
+
         - name: option
           class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
           label: Option
           options:
             - name: a
-              value: a            
+              value: a
             - name: b
               value: b
-                    
+
 actions:
   commit:
     class: info.magnolia.ui.admincentral.dialog.action.SaveDialogActionDefinition

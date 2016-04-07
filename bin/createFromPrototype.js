@@ -1,43 +1,45 @@
-#! /usr/bin/env node
+var path = require('path')
+var fs = require('fs.extra')
 
-var path = require('path');
-var fs = require('fs');
-var fse = require('fs.extra');
-var prototypesFolder = "./_prototypes";
+// npm global location for prototypes
+var prototypesFolder = path.resolve(__dirname, '../_prototypes')
 
-var createFromPrototype = function(prototype,newFile,replace) {
-	prototype = path.normalize(prototypesFolder+prototype);
-	newFile = path.normalize(newFile);
-	
-	if(fs.existsSync(prototype)) {
-		fse.copy(prototype, newFile, function (err) {
-			if (err) {
-			    throw err;
-			}
-			if(replace){
-				fs.readFile(newFile, 'utf-8', function (err, data) {
-			  	if (err) throw err;
-			  	var newValue = data;
-			  	Object.keys(replace).forEach(function(change) {
-				  	var replaceString = new RegExp(change, 'g');
-			  		newValue = newValue.replace( replaceString, replace[change]);
-			  	});
-			  	if(newValue) {
-				  	fs.writeFile(newFile, newValue, 'utf-8', function (err, data) {
-				  		if (err) throw err;
-				  	});
-			  	}
-			});
-			console.log("DONE: ","'"+newFile+"' created");
+// a MGNLCLI_HOME env variable is set, use prototypes from there
+if (process.env.MGNLCLI_HOME) {
+  console.log('MGNLCLI_HOME env variable is set. Using prototypes from %s', process.env.MGNLCLI_HOME)
+  prototypesFolder = path.join(process.env.MGNLCLI_HOME, '_prototypes')
+}
 
-			}
-		});
-	} else {
-		console.log("ERROR: ","'"+prototype+"' doesn't exists");
-	}
-};
+var createFromPrototype = function (prototype, newFile, replace) {
+  prototype = path.join(prototypesFolder, prototype)
+  newFile = path.normalize(newFile)
+  // console.log("DEBUG prototype=%s newFile=%s replace=%s", prototype, newFile, replace)
 
+  if (fs.existsSync(prototype)) {
+    fs.copy(prototype, newFile, function (err) {
+      if (err) {
+        throw err
+      }
+      if (replace) {
+        fs.readFile(newFile, 'utf-8', function (err, data) {
+          if (err) throw err
+          var newValue = data
+          Object.keys(replace).forEach(function (change) {
+            var replaceString = new RegExp(change, 'g')
+            newValue = newValue.replace(replaceString, replace[change])
+          })
+          if (newValue) {
+            fs.writeFile(newFile, newValue, 'utf-8', function (err, data) {
+              if (err) throw err
+            })
+          }
+        })
+        console.log('%s created', newFile)
+      }
+    })
+  } else {
+    throw new Error(prototype + " doesn't exist")
+  }
+}
 
-var exports = module.exports = {
-	createFromPrototype
-};
+exports.createFromPrototype = createFromPrototype
