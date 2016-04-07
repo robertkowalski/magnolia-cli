@@ -1,7 +1,7 @@
 {
   "name": "@magnolia/cli",
-  "version": "1.0.3",
-  "description": "...",
+  "version": "0.0.1-snapshot",
+  "description": "An npm package providing a CLI tool to setup and facilitate light development with Magnolia",
   "scripts": {
     "setupCli": "mkdir ../../../cli && cp -rf {_prototypes,bin,README.md} ../../../cli && cp replace-package.json ../../../cli/package.json ",
     "printMessage": "echo \"Navigate to '/cli' folder and run 'npm install && sudo npm link'\"",

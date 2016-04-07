@@ -1,7 +1,7 @@
 {
   "name": "@magnolia/cli-light-module",
-  "version": "1.0.3",
-  "description": "...",
+  "version": "0.0.1-snapshot",
+  "description": "An npm package providing a CLI tool to setup and facilitate light development with Magnolia",
   "author": "Magnolia International Ltd.",
   "license": "GPL-3.0",
   "repository": {
