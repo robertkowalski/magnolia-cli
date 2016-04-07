@@ -4,10 +4,9 @@ An npm package providing a CLI tool to setup and facilitate light development wi
 
 
 ## Installation ##
-Before installation make sure you have right Node.js installed (tested with 5.4.1, one of dependent tools had issue to work with 5.6 so 5.4.1 is really recommended)
+Before installation make sure you have  Node.js installed
 ```
 node -v
-v5.4.1
 ```
 
 Then navigate to your <yourWorkingDirectory> and run (`magnolia-cli` is not on npm repository yet, so pls use second way)
