@@ -10,7 +10,7 @@ function editMagnoliaProperties(){
 			readWriteSync(pathToProperties,packageJson.setupMagnolia.webapps[instance].changes);
 		});
 	} else {
-		console.log("no 'editMagnoliaProperties' configured");
+		console.log("WARN: ","No 'editMagnoliaProperties' configured");
 	}
 }
 
@@ -27,13 +27,13 @@ function readWriteSync(pathToProperties,changes) {
 			  	if(newValue){
 				  	fs.writeFile(pathToProperties, newValue, 'utf-8', function (err, data) {
 				  		if (err) throw err;
-				  		console.log("'"+pathToProperties+"' file updated");
+				  		console.log("DONE: ","'"+pathToProperties+"' updated");
 				  	});
 			  	}
 			  	
 			});
 		} else {
-			console.warn("'"+pathToProperties+"' not found");
+			console.warn("WARN: ","'"+pathToProperties+"' not found");
 		}
 	}
 }

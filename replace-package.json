@@ -13,31 +13,29 @@
     "preinstall": "npm run copy:nodeModules",
     "printMessage": "echo \"Edit 'package.json' and run 'npm start'\"",
     "postinstall": "npm run printMessage",  
-    "mgnlbuild": "node ./bin/build.js",
-    "donwloadMagnolia": "node ./bin/downloadMagnolia.js",
-    "unzipMagnolia": "node ./bin/extractMagnolia.js",
-    "editMagnoliaProperties":"node ./bin/editMagnoliaProperties.js",
-    "downloadJars": "node ./bin/downloadJars.js",
-    "createFolders": "node ./bin/createFolders.js",
-    "copyResources": "node ./bin/copyResources.js",
-    "start": "node ./bin/downloadMagnolia.js && node ./bin/extractMagnolia.js && node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/downloadJars.js" ,
-    "###start": "node ./bin/downloadMagnolia.js && node ./bin/extractMagnolia.js && node ./bin/createFolders.js && node ./bin/copyResources.js && node ./bin/editMagnoliaProperties.js && node ./bin/downloadJars.js && node ./bin/build.js && ./bin/watchBootstrap.js &" 
+    
+    "donwloadMagnolia": "echo 'Donwnload Magnolia Tomcat =>' && node ./bin/downloadMagnolia.js",
+    "unzipMagnolia": "echo 'Unzip Magnolia into $setupMagnolia.tomcatFolder =>' && node ./bin/extractMagnolia.js",
+    "downloadJars": "echo 'Install others maven modules  =>' && node ./bin/downloadJars.js",
+    "editMagnoliaProperties": "echo 'Edit magnolia.properties files =>' && node ./bin/editMagnoliaProperties.js",
+    "createFolders": "echo 'Create resources and light module folders in $config.outputPath  =>' && node ./bin/createFolders.js",
+    "copyResources": "echo 'Copy resources  =>' && node ./bin/copyResources.js",
+    "mgnlbuild": "echo 'Mgnlbuild: check dependecies for another light modules =>' && node ./bin/build.js",
+    "watchBootstrap": "echo 'Watching bootstrap less files for changes =>' && node ./bin/watchBootstrap.js",
+
+    "start": "npm run donwloadMagnolia && npm run unzipMagnolia && npm run downloadJars && npm run editMagnoliaProperties && npm run createFolders && npm run copyResources" ,
+    "###start": "npm run donwloadMagnolia && npm run unzipMagnolia && npm run downloadJars && npm run editMagnoliaProperties && npm run createFolders && npm run copyResources && npm run mgnlbuild && npm run watchBootstrap &" 
   },
   "bin": {
-    "add-page": "bin/createPage.js",
-    "add-component": "bin/createComponent.js",
-    "add-availability": "bin/addAvailability.js"
+    "create-page": "bin/createPage.js",
+    "create-component": "bin/createComponent.js",
+    "add-availability": "bin/addAvailability.js",
+    "create-light-module": "bin/createFolders.js"
   },
   "dependencies": {
     "bootstrap-less": "^3.3.8",
     "font-awesome": "^4.5.0",
-    "fs.extra": "^1.3.2",
-    "jquery": "^2.2.0",
-    "json2yaml": "^1.0.3",
-    "less": "^2.5.3",
-    "watch": "^0.17.1",
-    "yaml2json": "^1.0.2",
-    "yamljs": "^0.2.4"
+    "jquery": "^2.2.0"
   },  
   "setupMagnolia": {
     "downloadTomcatBundleFrom": "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/5.4.5/magnolia-community-demo-bundle-5.4.5-tomcat-bundle.zip",

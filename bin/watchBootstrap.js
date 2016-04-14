@@ -15,15 +15,15 @@ var buildedCss = path.normalize(packageJson.config.outputPath + "/"+ packageJson
 watch.watchTree(folderToWatch, function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {
 	    buildBootstrap.buildLess();
-      	console.log("'"+folderToWatch+"' is now watched for changes");
+      console.log("DONE ","'"+folderToWatch+"' is now watched for changes");
     } else if (prev === null) {
-    	console.log("New file in '"+folderToWatch+"' detected.");
-		buildBootstrap.buildLess();
+    	console.log("WATCH: ","New file in '"+folderToWatch+"'.");
+      buildBootstrap.buildLess();
     } else if (curr.nlink === 0) {
-    	console.log("Some file was removed in '"+folderToWatch+"' detected.");
-		buildBootstrap.buildLess();
+    	console.log("WATCH: ","Some file was removed in '"+folderToWatch+"'.");
+      buildBootstrap.buildLess();
     } else {
-    	console.log("File changed in '"+folderToWatch+"' detected.");
-		buildBootstrap.buildLess();
+    	console.log("WATCH: ","File changed in '"+folderToWatch+"'.");
+      buildBootstrap.buildLess();
     }
 })

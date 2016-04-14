@@ -9,11 +9,11 @@ function copyResources(from,to) {
 	if(fs.existsSync(normalizedFrom)) {
 		fs.copyRecursive(normalizedFrom, normalizedTo, function (err) {
 		  if (!err) {
-		    console.log("Copied '"+normalizedFrom+"' to '"+normalizedTo+"'");
+		    console.log("DONE: ","Copied '"+normalizedFrom+"' to '"+normalizedTo+"'");
 		  }
 		});
 	} else {
-		console.log("can't found '"+normalizedFrom+"'");
+		console.log("ERROR: ","can't found '"+normalizedFrom+"'");
 	}
 }
 

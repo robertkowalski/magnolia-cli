@@ -31,12 +31,12 @@ var createFromPrototype = function(prototype,newFile,replace) {
 				  	});
 			  	}
 			});
-			console.log("'"+newFile+"' created");
+			console.log("DONE: ","'"+newFile+"' created");
 
 			}
 		});
 	} else {
-		console.log("'"+prototype+"' doesn't exists");
+		console.log("ERROR: ","'"+prototype+"' doesn't exists");
 	}
 };
 

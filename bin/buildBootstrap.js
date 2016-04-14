@@ -12,11 +12,11 @@ exports.buildLess = function() {
 	var buildedCss = path.normalize(packageJson.config.outputPath + "/"+ packageJson.lightModuleName + packageJson.lightDevFoldersInModule.css + "/bootstrap.css");
   	var src = folderToWatch+"/bootstrap.less";
     less.render(fs.readFileSync(src).toString(), {
-        filename: path.resolve(src), // <- here we go
+        filename: path.resolve(src),
     }, function(e, output) {
         fs.writeFile(buildedCss, output.css, 'utf8', function (err) {
 		  if (err) throw err;
-		  console.log("'"+buildedCss+"' built.");
+		  console.log("DONE: ","'"+buildedCss+"' built.");
 		});
     });	
 };

@@ -1,7 +1,2 @@
-- BLOCKER: improve yaml > json > yaml not to throw away comments (# ...) or includes
-
-- BLOCKER: 'sudo npm link' sometimes doesn't override already linked scripts
-
-- when new area is add into yaml, check if thats areas not already exists in ftl before its added there
-
-- to current command 'addComp link' add option to do 'addComp customCompoennts/link' same as 'addComp anotherModule:components/link' (if module name or path is not there then one from current module will be used)
+Please visit jira so see or report issues
+- https://jira.magnolia-cms.com/projects/NPMCLI/issues
