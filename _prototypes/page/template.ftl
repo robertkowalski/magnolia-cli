@@ -8,7 +8,7 @@
   	<meta name="description" content="${content.description!""}" />
   	<meta name="keywords" content="${content.keywords!""}" />    
   	
-  	[#-- use hcmcfn or link resources manualy --]
+  	[#-- use neat-resources (hcmcfn) to load all css which match patern or link resources manually or via theme --]
   	${hcmcfn.css(["__lightDevModuleFolder__/.*.css"])!}
 
   </head>
@@ -16,10 +16,9 @@
   
     <div class="container ">
     	<h1>__name__ works! </h1>
-    
     </div>
   
-  	[#-- use hcmcfn or link resources manualy --]
+  	[#-- use neat-resources (hcmcfn) to load all js which match patern or link resources manually or via theme --]
     ${hcmcfn.js(["__lightDevModuleFolder__/.*.js"])!}
   </body>
 </html>
