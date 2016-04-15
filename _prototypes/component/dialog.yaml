@@ -6,12 +6,10 @@ form:
       fields:
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
-          i18n: true
           label: Title
           
         - name: desc
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
-          i18n: true
           label: Description
 
         - name: internalLink
@@ -42,6 +40,15 @@ form:
             appName: categories
             identifierToPathConverter:
               class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
+              
+        - name: option
+          class: info.magnolia.ui.form.field.definition.SelectFieldDefinition
+          label: Option
+          options:
+            - name: a
+              value: a            
+            - name: b
+              value: b
                     
 actions:
   commit:
