@@ -1,9 +1,12 @@
+# Automatically generated dialog with few most often used fileds (text, right, link, DAM image, multivalue, link to app, select). Feel free to modify them for your specific component.
+
 form:
   label: __name__
   tabs:
     - name: tabMain
       label: Main
       fields:
+      
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           label: Title
