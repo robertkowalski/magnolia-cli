@@ -5,7 +5,8 @@
   "scripts": {
     "setupCli": "mkdir ../../../cli && cp -rf {_prototypes,bin,README.md} ../../../cli && cp replace-package.json ../../../cli/package.json ",
     "printMessage": "echo \"Navigate to '/cli' folder and run 'npm install' and 'sudo npm link' after it.\"",
-    "postinstall": "npm run setupCli && npm run printMessage"  
+    "postinstall": "npm run setupCli && npm run printMessage",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,11 @@
     "progress": "^1.1.8",
     "request": "^2.69.0",
     "watch": "^0.17.1",
-    "yamljs": "^0.2.7"
+    "yaml-js": "^0.1.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "mock-fs": "^3.8.0"
   }
 }
