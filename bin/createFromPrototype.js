@@ -3,9 +3,6 @@
 var path = require('path');
 var fs = require('fs');
 var fse = require('fs.extra');
-
-var packageJson = require('../package.json');
-
 var prototypesFolder = "./_prototypes";
 
 var createFromPrototype = function(prototype,newFile,replace) {
