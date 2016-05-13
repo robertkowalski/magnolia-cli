@@ -17,9 +17,9 @@ var prepareMagnolia = function (args) {
   editMagnoliaProperties.editProperties()
   downloadJars.download(function () {
     var successMessage = 'Magnolia has been successfully setup for light development!\n' +
-      "You can now go to 'apache-tomcat/bin' and start up Magnolia by entering './mgnl_control.sh start' " +
+      "You can now go to 'apache-tomcat/bin' and start up Magnolia by entering './magnolia_control.sh start' " +
       'Magnolia will be ready after a few seconds at localhost:8080/magnoliaAuthor. Username and password is superuser\n' +
-      "To stop Magnolia enter './mgnl_control.sh stop'. On Windows use mgnl_control.bat\n"
+      "To stop Magnolia enter './magnolia_control.sh stop'. On Windows use magnolia_control.bat\n"
 
     helper.printSuccess(successMessage)
   })
