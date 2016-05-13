@@ -1,5 +1,5 @@
 var packageJson = require('../package.json')
-var fs = require('fs.extra')
+var fs = require('fs-extra')
 var async = require('async')
 var downloadMagnolia = require('./downloadMagnolia.js')
 var downloadJars = require('./downloadJars.js')

@@ -1,5 +1,5 @@
 var fs = require('fs')
-var fse = require('fs.extra')
+var fse = require('fs-extra')
 var path = require('path')
 var chalk = require('chalk')
 var util = require('util')

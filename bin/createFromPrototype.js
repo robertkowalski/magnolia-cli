@@ -1,5 +1,5 @@
 var path = require('path')
-var fs = require('fs.extra')
+var fs = require('fs-extra')
 
 // npm global location for prototypes
 var prototypesFolder = path.resolve(__dirname, '../_prototypes')

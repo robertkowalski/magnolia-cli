@@ -5,6 +5,10 @@ var helper = require('./helper.js')
 var program = require('commander')
 
 var extract = function (location) {
+  if (!fse.existsSync(location)) {
+    helper.printError(location + ' path does not exist. Please fix it or create it.')
+    process.exit(1)
+  }
   var prototypesFolder = path.resolve(__dirname, '../_prototypes')
   console.log("Extracting Magnolia's CLI _prototypes and package.json to %s...", location)
   var pathToExtractedPrototypes = path.join(location, '_prototypes')
