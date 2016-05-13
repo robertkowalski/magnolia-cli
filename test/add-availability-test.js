@@ -148,7 +148,7 @@ describe('add-availability', function () {
           '      text:\n' +
           '        id: foo:components/text\n')
         done()
-      })
+      }, process.cwd())
     shell.cd('../../../')
   })
 

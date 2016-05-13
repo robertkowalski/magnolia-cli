@@ -18,12 +18,9 @@ var checkFileContains = function (file, values) {
     })
   })
 }
-var invokeAndVerify = function (subcommand, argv, pathToFile, callback) {
-  var basedir = process.cwd()
-  if (!basedir.endsWith('/npm-cli')) {
-    basedir = path.resolve(basedir, '../../../')
-  }
-  basedir = path.join(basedir, 'test/light-modules')
+var invokeAndVerify = function (subcommand, argv, pathToFile, callback, pathToModule) {
+  // if pathToModule is defined, then calculate the basedir based on it.
+  var basedir = pathToModule ? path.join(pathToModule, '../') : path.join(process.cwd(), 'test/light-modules')
 
   var result = invokeMgnlSubcommand(subcommand, argv)
   // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
