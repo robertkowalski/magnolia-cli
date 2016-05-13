@@ -3,8 +3,9 @@ describe('create-light-module', function () {
   var fs = require('fs-extra')
 
   var testHelper = require('./testHelper')
+  var invoke = testHelper.invoke
+
   var shell = require('shelljs')
-  var path = require('path')
 
   var expect = require('chai').expect
 
@@ -23,7 +24,7 @@ describe('create-light-module', function () {
 
   it('should create a light module in the current dir without passing a path option', function () {
     shell.cd('test/light-modules')
-    var lightModulesbasedir = invoke('create-light-module', 'foo')
+    var lightModulesbasedir = invoke('create-light-module', 'foo', process.cwd())
     checkExpectations(lightModulesbasedir)
     shell.cd('../../')
   })
@@ -49,19 +50,5 @@ describe('create-light-module', function () {
       // console.log("Checking %s", lightModulesbasedir + item)
       expect(fs.existsSync(lightModulesbasedir + item)).to.be.true
     })
-  }
-
-  function invoke (subcommand, argv) {
-    var basedir = process.cwd()
-    if (!basedir.endsWith('/npm-cli')) {
-      basedir = path.resolve(basedir, '../../')
-    }
-    basedir = path.join(basedir, 'test/light-modules')
-
-    var result = testHelper.invokeMgnlSubcommand(subcommand, argv)
-    // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
-    expect(result.stderr.toString()).to.be.empty
-
-    return basedir
   }
 })

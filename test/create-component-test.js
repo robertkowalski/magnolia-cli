@@ -125,7 +125,7 @@ describe('create-component', function () {
     shell.cd('test/light-modules/foo')
     invokeAndVerify('create-component',
       'text -a emptyPage@fooArea',
-      '/foo/templates/pages/emptyPage.yaml',
+      '/templates/pages/emptyPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +

@@ -1,10 +1,11 @@
 /* eslint-env mocha */
 describe('create-page', function () {
   var fs = require('fs-extra')
+  var path = require('path')
 
   var testHelper = require('./testHelper')
+  var invoke = testHelper.invoke
   var shell = require('shelljs')
-  var path = require('path')
 
   var expect = require('chai').expect
 
@@ -21,14 +22,14 @@ describe('create-page', function () {
   })
 
   it('should create a page template', function () {
-    var ligthModulesbasedir = invoke('create-page', 'myPage -p test/light-modules/foo')
-    checkExpectations(ligthModulesbasedir)
+    var basedir = invoke('create-page', 'myPage -p test/light-modules/foo')
+    checkExpectations(path.join(basedir, 'foo'))
   })
 
   it('should create a page template from inside a light module without passing a path option', function () {
     shell.cd('test/light-modules/foo')
-    var ligthModulesbasedir = invoke('create-page', 'myPage')
-    checkExpectations(ligthModulesbasedir)
+    var basedir = invoke('create-page', 'myPage', process.cwd())
+    checkExpectations(basedir)
     shell.cd('../../../')
   })
 
@@ -72,25 +73,11 @@ describe('create-page', function () {
   })
 
   function checkExpectations (ligthModulesbasedir) {
-    ['/foo/templates/pages/myPage.yaml', '/foo/templates/pages/myPage.ftl', '/foo/dialogs/pages/myPage.yaml'].forEach(function (item) {
+    ['/templates/pages/myPage.yaml', '/templates/pages/myPage.ftl', '/dialogs/pages/myPage.yaml'].forEach(function (item) {
       // console.log("Checking %s", ligthModulesbasedir + item)
       expect(fs.existsSync(ligthModulesbasedir + item)).to.be.true
     })
-    testHelper.checkFileContains(ligthModulesbasedir + '/foo/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
-    testHelper.checkFileContains(ligthModulesbasedir + '/foo/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
-  }
-
-  function invoke (subcommand, argv) {
-    var basedir = process.cwd()
-    if (!basedir.endsWith('/npm-cli')) {
-      basedir = path.resolve(basedir, '../../../')
-    }
-    basedir = path.join(basedir, 'test/light-modules')
-
-    var result = testHelper.invokeMgnlSubcommand(subcommand, argv)
-    // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
-    expect(result.stderr.toString()).to.be.empty
-
-    return basedir
+    testHelper.checkFileContains(ligthModulesbasedir + '/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
+    testHelper.checkFileContains(ligthModulesbasedir + '/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
   }
 })

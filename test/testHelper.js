@@ -19,12 +19,8 @@ var checkFileContains = function (file, values) {
   })
 }
 var invokeAndVerify = function (subcommand, argv, pathToFile, callback, pathToModule) {
-  // if pathToModule is defined, then calculate the basedir based on it.
-  var basedir = pathToModule ? path.join(pathToModule, '../') : path.join(process.cwd(), 'test/light-modules')
-
-  var result = invokeMgnlSubcommand(subcommand, argv)
-  // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
-  expect(result.stderr.toString()).to.be.empty
+  // pathToModule is usually defined when the calling test has 'cd' to a different dir.
+  var basedir = invoke(subcommand, argv, pathToModule)
 
   // Add availability to page with no configured areas whatsoever
   fs.readFile(basedir + pathToFile, 'utf-8', function (err, data) {
@@ -34,6 +30,18 @@ var invokeAndVerify = function (subcommand, argv, pathToFile, callback, pathToMo
   return basedir
 }
 
+var invoke = function (subcommand, argv, pathTo) {
+  // pathTo is usually defined when the calling test has 'cd' to a different dir.
+  var basedir = pathTo || path.join(process.cwd(), 'test/light-modules')
+
+  var result = invokeMgnlSubcommand(subcommand, argv)
+  // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
+  expect(result.stderr.toString()).to.be.empty
+
+  return basedir
+}
+
+exports.invoke = invoke
 exports.invokeMgnlSubcommand = invokeMgnlSubcommand
 exports.checkFileContains = checkFileContains
 exports.invokeAndVerify = invokeAndVerify
