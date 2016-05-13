@@ -9,10 +9,11 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
   ALL_COMMANDS=(jumpstart create-page create-component create-light-module add-availability setup help)
   COMPREPLY=()
 
-    # if command empty/null and could have been typed previously, store it
-  if [[ !( -z $command) && ${#COMP_WORDS[@]} -gt 3 ]]
+  # if more than two words were provided at the prompt, that at position 1
+  # (starting from 0) should be the command
+  if [[ ${#COMP_WORDS[@]} -gt 2 ]]
   then
-      command="${COMP_WORDS[COMP_CWORD-2]}"
+      command="${COMP_WORDS[1]}"
   fi
 
   if [[ ${cur} == -* ]]
