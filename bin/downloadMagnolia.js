@@ -1,38 +1,46 @@
-var fs = require('fs');
-var path = require('path');
-var ProgressBar = require("progress");
-var request = require("request");
+var fs = require('fs')
+var path = require('path')
+var ProgressBar = require('progress')
+var request = require('request')
+var truncateMiddle = require('truncate-middle')
 
-var packageJson = require('../package.json');
-var tomcatFolder = path.normalize(packageJson.setupMagnolia.tomcatFolder);
+var packageJson = require('../package.json')
 
-if(fs.existsSync("./magnolia.zip")) {
-    console.log("WARN: ","magnolia.zip exists. We won't download it again.")
-    return;
-} else if(!packageJson.setupMagnolia.downloadTomcatBundleFrom) {
-    console.log("WARN: ","No Magnolia Tomcat bundle to download.")
-    return;
-} else {
+var download = function (to, zip) {
+  var pathToZip = path.join(to, zip)
 
-  var piper = fs.createWriteStream("./magnolia.zip");
-  
+  if (fs.existsSync(pathToZip)) {
+    console.log("%s exists. We won't download it again.", zip)
+    return
+  } else if (!packageJson.setupMagnolia.downloadUrl) {
+    console.log('No Magnolia Tomcat bundle to download.')
+    return
+  }
+
+  var truncatedUrl = truncateMiddle(packageJson.setupMagnolia.downloadUrl, 40, 60, '...')
+
   request
-    .get(packageJson.setupMagnolia.downloadTomcatBundleFrom)
-    .on("response", function(res) {
-    		console.log("DOWNLOADING: ",packageJson.setupMagnolia.downloadTomcatBundleFrom);
-        var len = parseInt(res.headers['content-length'], 10);
-        var bar = new ProgressBar("[:bar] :percent :etas", {
+    .get(packageJson.setupMagnolia.downloadUrl)
+    .on('response', function (res) {
+      if (res.statusCode !== 200) {
+        console.log('Error while trying to get ' + packageJson.setupMagnolia.downloadUrl + '. Is the URL correct?')
+        process.exit(1)
+      }
+      var len = parseInt(res.headers['content-length'], 10)
+      var bar = new ProgressBar('Downloading ' + truncatedUrl + ' [:bar] :percent :etas', {
         width: 20,
-        total: len});
-  
-        res.on('data', function (chunk) {
-            bar.tick(chunk.length);
-        });
+        total: len
+      })
+
+      res.on('data', function (chunk) {
+        bar.tick(chunk.length)
+      })
+
+      res.on('end', function () {
+        fs.renameSync('./temp-magnolia.zip.download', zip)
+      })
     })
-    .pipe(piper);
-           
-  piper.on('close', function(){
-    console.log("DONE: ","Magnolia downloaded.");
-  });
+    .pipe(fs.createWriteStream('./temp-magnolia.zip.download'))
 }
 
+exports.download = download

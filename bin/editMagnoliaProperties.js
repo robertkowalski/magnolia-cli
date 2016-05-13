@@ -1,41 +1,42 @@
-var path = require('path');
-var fs = require('fs');
+var path = require('path')
+var fs = require('fs')
+var replace = require('replace')
 
-var packageJson = require('../package.json');
+var packageJson = require('../package.json')
 
-function editMagnoliaProperties(){
-	if(packageJson.setupMagnolia.webapps){
-		Object.keys(packageJson.setupMagnolia.webapps).forEach(function(instance) {
-			var pathToProperties = path.normalize("./"+packageJson.setupMagnolia.tomcatFolder+"/webapps/"+instance+"/WEB-INF/config"+packageJson.setupMagnolia.webapps[instance].modifyPropertyFile);
-			readWriteSync(pathToProperties,packageJson.setupMagnolia.webapps[instance].changes);
-		});
-	} else {
-		console.log("WARN: ","No 'editMagnoliaProperties' configured");
-	}
+var replaceProperties = function (obj, instance) {
+  var pathToConfig = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/config/default')
+  if (!fs.existsSync(pathToConfig)) {
+    console.log("Path '%s' not found. Skipping it...", pathToConfig)
+    return
+  }
+  console.log('Changing magnolia.properties at ' + pathToConfig + ' as follows:')
+
+  Object.keys(obj).forEach(function (key) {
+    console.log(key + '=' + obj[key])
+
+    var regex = '(' + key.replace(/\./g, '\\.') + ')(\s*=\s*)(.+)'
+    var replacement = '$1$2' + obj[key]
+
+    replace({
+      regex: regex,
+      replacement: replacement,
+      paths: [pathToConfig],
+      silent: true,
+      recursive: true,
+      include: 'magnolia.properties'
+    })
+  })
 }
 
-function readWriteSync(pathToProperties,changes) {
-  	if(changes){
-	  	if(fs.existsSync(path.normalize(pathToProperties))) {
-		  	fs.readFile(path.normalize(pathToProperties), 'utf-8', function (err, data) {
-			  	if (err) throw err;
-			  	var newValue = data;
-			  	
-			  	Object.keys(changes).forEach(function(change) {
-			  		newValue = newValue.replace(new RegExp(change+'=(.+)', 'i'), change+'='+changes[change]);
-			  	});
-			  	if(newValue){
-				  	fs.writeFile(pathToProperties, newValue, 'utf-8', function (err, data) {
-				  		if (err) throw err;
-				  		console.log("DONE: ","'"+pathToProperties+"' updated");
-				  	});
-			  	}
-			  	
-			});
-		} else {
-			console.warn("WARN: ","'"+pathToProperties+"' not found");
-		}
-	}
+var editProperties = function () {
+  if (packageJson.setupMagnolia.webapps) {
+    console.log('Replacing Magnolia properties to prepare it for light development...')
+    replaceProperties(packageJson.setupMagnolia.webapps.magnoliaAuthor, 'magnoliaAuthor')
+  // replaceProperties(packageJson.setupMagnolia.webapps.magnoliaPublic, "magnoliaPublic")
+  } else {
+    console.log('No properties configuration found')
+  }
 }
 
-editMagnoliaProperties();
+exports.editProperties = editProperties

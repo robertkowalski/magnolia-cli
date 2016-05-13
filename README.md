@@ -2,96 +2,47 @@
 
 An npm package providing a CLI tool to setup and facilitate light development with Magnolia
 
-
 ## Installation ##
-Before installation make sure you have  Node.js version 5.+ installed
-```
-node -v
-```
+Before installation make sure you have [Node.js](https://nodejs.org) installed
 
-Then navigate to your <yourWorkingDirectory> and run (`magnolia-cli` is not on npm repository yet, so pls use second way)
-```
-npm install magnolia-cli
-```
-or install it from locale source e.g.
-```
-npm install magnolia-cli-1.0.0.tgz
-```
-After this first step installation (which is like reconfiguration for CLI tool) navigate into `/cli` folder
-```
-cd cli
-```
-and run second step installation plus link script to be executable (have to do it with sudo permissions)
+Install the package **globally**
 
-```
-npm install && sudo npm link
-```
+`npm install magnolia-cli -g`
 
-## Configuration ##
-Found `package.json` file in `cli` folder and open it to edit.
+or build it with `npm pack` and then install it from locale source e.g.
 
-As you can see there is a lot of stuff already preconfigured to happens during build (npm start). But lets describe some of them:
-
-
-## Build ##
-From now all command for CLI tool _has to be executed from `cli` folder_.
-
-Once you checked or edited `package.json` file you can build/start project using command:
-('-s' is optional parameter to run start silently)
-```
-npm start -s
-```
-
-After this you should have folder structure like this (may be different if you edit `package.json`)
-```
-<yourWorkingDirectory>
-    - apache-tomcat
-    - cli
-    - light-modules
-```
-
-If you change some configuration in `package.json` file later you can repeat 'npm start' command. Or execute just specific command like:
-
-```
-npm run mgnlbuild
-npm run donwloadMagnolia
-npm run unzipMagnolia
-npm run editMagnoliaProperties
-npm run downloadJars
-npm run createFolders
-npm run copyResources
-```
-**Don't forget they will always do stuff based on current configuration in `package.json` file, so it may override some of your previous changes in project.** 
+`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g`
 
 
 ## Commands ##
-Add/create page template (will create page yaml file, main.ftl and page dialog)
+
+The Magnolia CLI uses a syntax similar to that of Git.
+To invoke a command you do `mgnl <command> [options]`
+
+To see what commands are available simply enter `mgnl` (or `mgnl -h`)
+
 ```
-create-page myHome
+    create-light-module   Creates a light module
+    create-page           Creates a page template
+    create-component      Creates a component
+    add-availability      Adds component availability
+    setup                 Extracts prototypes and packge.json of CLI tools so that they can be customized
+    jumpstart             Prepares Magnolia CMS for light dev
 ```
 
-Add/create component template (will create component yaml file, component  ftl and component dialog)
+To get help for any of the subcommands, simply enter `mgnl help <subcommand>`. For instance, `mgnl help create-page` will output
+
 ```
-create-component image
+Usage: mgnl create-page <templateName> [options]
+
+  Creates a page template in a light module.
+
+  Options:
+
+    -h, --help         output usage information
+    -V, --version      output the version number
+    -p, --path <path>  The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.
 ```
 
-Same as above plus will set this component available on 'myHome' page in 'main' area (if area or availability configuration doesn't exist's in 'myHome' page, will create it as well)
-```
-create-component textImage --available@pages/myHome@main
-create-component textImage --available@sampleModule:pages/myHome@main
-```
-
-Same as above, just will do 'autogeneration' instead of availability
-```
-create-component footer --autogenerate@sampleModule:pages/myHome@footer
-```
-
-Make component 'html' available at 'myHome' in 'main' area
-```
-add-availability components/text --available@pages/myHome@main
-add-availability mtk:components/link --available@pages/myHome@main
-```
-
-
-## Bootstrap less + watch ##
-If 'start' script includes 'watchBootstrap' then `less` files are watched for changes and if you do any change in bootstrap less files (by default in <lightModule>/webresources/css/bootstrap-less) botstrap.css file should be imediately recompiled, so only what you ahve to do is to reload a page in browser. 
+## Example ##
+TODO

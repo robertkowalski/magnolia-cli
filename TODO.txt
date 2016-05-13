@@ -1,2 +1,0 @@
-Please visit jira so see or report issues
-- https://jira.magnolia-cms.com/projects/NPMCLI/issues
