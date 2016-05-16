@@ -1,5 +1,7 @@
 # Magnolia Light Development CLI tool #
 
+[![Build Status](https://jenkins.magnolia-cms.com/job/build_npm-cli/badge/icon)](https://jenkins.magnolia-cms.com/job/build_npm-cli/)
+
 An npm package providing a CLI tool to setup and facilitate light development with Magnolia
 
 ## Installation ##
