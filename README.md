@@ -45,6 +45,10 @@ Usage: mgnl create-page <templateName> [options]
     -V, --version      output the version number
     -p, --path <path>  The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.
 ```
-
+## Bash autocompletion ##
+The package also provides a basic autocompletion feature for Bash shells. To enable it, add this to your ```.profile ```
+```
+source /usr/local/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
+```
 ## Example ##
 TODO
