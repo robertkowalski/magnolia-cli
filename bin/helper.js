@@ -29,9 +29,11 @@ var resolvePathRelativeToCurrentDir = function (pathToResolve, create) {
 var printError = function (msg) {
   console.error(chalk.red(msg))
 }
+
 var printSuccess = function (msg) {
   console.log(chalk.green('DONE:'), chalk.green(msg))
 }
+
 var printInfo = function (msg) {
   console.log('INFO:', msg)
 }
