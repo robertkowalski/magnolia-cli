@@ -42,11 +42,6 @@
     "should": "^8.3.1",
     "standard": "^6.0.8"
   },
-  "standard": {
-    "ignore": [
-      "/bin/watchBootstrap.js"
-    ]
-  },
   "scripts": {
     "test": "standard && mocha"
   },

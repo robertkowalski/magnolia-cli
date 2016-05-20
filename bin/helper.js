@@ -30,7 +30,10 @@ var printError = function (msg) {
   console.error(chalk.red(msg))
 }
 var printSuccess = function (msg) {
-  console.log(chalk.green(msg))
+  console.log(chalk.green('DONE:'), chalk.green(msg))
+}
+var printInfo = function (msg) {
+  console.log('INFO:', msg)
 }
 
 /**
@@ -39,6 +42,7 @@ var printSuccess = function (msg) {
  */
 var MgnlCliError = function (message, displayHelp) {
   Error.call(this)
+  this.name = 'ERROR'
   this.message = message
   this.displayHelp = displayHelp || false
 }
@@ -74,7 +78,7 @@ var createFolders = function (lightModulesRoot, moduleName) {
     var normalizedFolder = path.normalize(folder)
     if (!fs.existsSync(normalizedFolder)) {
       if (fse.mkdirpSync(normalizedFolder)) {
-        console.log("Resource folder '%s' created.", normalizedFolder)
+        printInfo(util.format("Folder '%s' created.", normalizedFolder))
       }
     }
   })

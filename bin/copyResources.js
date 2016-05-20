@@ -6,12 +6,10 @@ var nodeModulesFolder = path.resolve(__dirname, '../node_modules')
 
 var copyResources = function (lightModulesRoot, moduleName, from, to) {
   var normalizedFrom = path.join(nodeModulesFolder, from)
-  var normalizedTo = path.join(lightModulesRoot, moduleName, to)
-  if (fs.existsSync(normalizedTo)) {
-    return
-  }
+  var normalizedTo = path.join(lightModulesRoot, moduleName, to, from)
+
   if (fs.existsSync(normalizedFrom)) {
-    fs.copyRecursive(normalizedFrom, normalizedTo, function (err) {
+    fs.copy(normalizedFrom, normalizedTo, function (err) {
       if (err) {
         throw err
       }

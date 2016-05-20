@@ -24,7 +24,7 @@ program
   .command('add-availability', 'add component availability')
   .parse(process.argv)
 
-var availableCommands = ['help', 'jumpstart', 'setup', 'create-light-module', 'create-page', 'create-component', 'add-availability']
+var availableCommands = ['help', 'jumpstart', 'setup', 'create-light-module', 'create-page', 'create-component', 'add-availability', 'build']
 
 if (availableCommands.indexOf(program.args[0]) === -1) {
   helper.printError(program.args[0] + ' is not a valid command')
