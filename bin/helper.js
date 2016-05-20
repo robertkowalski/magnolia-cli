@@ -8,7 +8,7 @@ var packageJson = require('../package.json')
 var handlePath = function (pathToCheck, create) {
   if (!fs.existsSync(pathToCheck)) {
     if (create) {
-      console.log("'%s' does not seem to exist. Path will be created automatically.", pathToCheck)
+      printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", pathToCheck))
       fse.mkdirpSync(pathToCheck)
     } else {
       throw new Error(util.format("'%s' does not seem to exist. Please provide a valid path.", pathToCheck))
@@ -78,7 +78,7 @@ var createFolders = function (lightModulesRoot, moduleName) {
     var normalizedFolder = path.normalize(folder)
     if (!fs.existsSync(normalizedFolder)) {
       if (fse.mkdirpSync(normalizedFolder)) {
-        printInfo(util.format("Folder '%s' created.", normalizedFolder))
+        printInfo(util.format("Resource folder '%s' created.", normalizedFolder))
       }
     }
   })
@@ -121,4 +121,5 @@ exports.handlePath = handlePath
 exports.resolvePathRelativeToCurrentDir = resolvePathRelativeToCurrentDir
 exports.printError = printError
 exports.printSuccess = printSuccess
+exports.printInfo = printInfo
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder

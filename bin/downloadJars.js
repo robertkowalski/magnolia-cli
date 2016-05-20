@@ -32,14 +32,16 @@ var downloadJars = function (done) {
       piper.on('close', function () {
         if (packageJson.setupMagnolia.webapps) {
           Object.keys(packageJson.setupMagnolia.webapps).forEach(function (instance) {
-            var pathToFile = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/', fileName)
-            if (!fs.existsSync(pathToFile)) {
-              fs.rename(fileName, pathToFile, function (err) {
-                if (err) throw err
-                console.log('%s copied to WEB-INF/lib/ of Magnolia webapps', fileName)
-              })
-            } else {
-              fse.remove(fileName)
+            if (fs.existsSync(path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/'))) {
+              var pathToFile = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/', fileName)
+              if (!fs.existsSync(pathToFile)) {
+                fs.rename(fileName, pathToFile, function (err) {
+                  if (err) throw err
+                  console.log('%s copied to WEB-INF/lib/ of Magnolia webapps', fileName)
+                })
+              } else {
+                fse.remove(fileName)
+              }
             }
           })
           if (done) {
