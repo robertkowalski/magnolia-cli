@@ -5,7 +5,7 @@
 An npm package providing a CLI tool to setup and facilitate light development with Magnolia
 
 ## Installation ##
-Before installation make sure you have [Node.js](https://nodejs.org) installed
+Before installation make sure you have [Node.js](https://nodejs.org) installed (recommended v 5.8.0+)
 
 Install the package **globally**
 
@@ -13,11 +13,19 @@ Install the package **globally**
 
 or build it with `npm pack` and then install it from locale source e.g.
 
-`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g`
+`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g` (not working yet, instead use one from Magnolia npm repository:
+`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli -g`)
 
+
+## Usage ##
+A) To create light module:
+In your working directory do `mgnl create-light-module <name>`
+...
+
+B) ...
+...
 
 ## Commands ##
-
 The Magnolia CLI uses a syntax similar to that of Git.
 To invoke a command you do `mgnl <command> [options]`
 
@@ -45,10 +53,14 @@ Usage: mgnl create-page <templateName> [options]
     -V, --version      output the version number
     -p, --path <path>  The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.
 ```
+
+
 ## Bash autocompletion ##
 The package also provides a basic autocompletion feature for Bash shells. To enable it, add this to your ```.profile ```
 ```
 source /usr/local/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
 ```
+
+
 ## Example ##
 TODO
