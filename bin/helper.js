@@ -8,7 +8,7 @@ var packageJson = require('../package.json')
 var handlePath = function (pathToCheck, create) {
   if (!fs.existsSync(pathToCheck)) {
     if (create) {
-      console.log("'%s' does not seem to exist. Path will be created automatically.", pathToCheck)
+      printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", pathToCheck))
       fse.mkdirpSync(pathToCheck)
     } else {
       throw new Error(util.format("'%s' does not seem to exist. Please provide a valid path.", pathToCheck))
@@ -29,13 +29,11 @@ var resolvePathRelativeToCurrentDir = function (pathToResolve, create) {
 var printError = function (msg) {
   console.error(chalk.red(msg))
 }
-
 var printSuccess = function (msg) {
-  console.log(chalk.green('DONE:'), chalk.green(msg))
+  console.log(chalk.green("DONE:"),chalk.green(msg))
 }
-
 var printInfo = function (msg) {
-  console.log('INFO:', msg)
+  console.log("INFO:",msg)
 }
 
 /**
@@ -44,7 +42,7 @@ var printInfo = function (msg) {
  */
 var MgnlCliError = function (message, displayHelp) {
   Error.call(this)
-  this.name = 'ERROR'
+  this.name = "ERROR"
   this.message = message
   this.displayHelp = displayHelp || false
 }
@@ -80,7 +78,7 @@ var createFolders = function (lightModulesRoot, moduleName) {
     var normalizedFolder = path.normalize(folder)
     if (!fs.existsSync(normalizedFolder)) {
       if (fse.mkdirpSync(normalizedFolder)) {
-        printInfo(util.format("Folder '%s' created.", normalizedFolder))
+        printInfo(util.format("Resource folder '%s' created.", normalizedFolder))
       }
     }
   })
@@ -123,4 +121,5 @@ exports.handlePath = handlePath
 exports.resolvePathRelativeToCurrentDir = resolvePathRelativeToCurrentDir
 exports.printError = printError
 exports.printSuccess = printSuccess
+exports.printInfo = printInfo
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder
