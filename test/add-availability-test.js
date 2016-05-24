@@ -11,22 +11,23 @@ describe('add-availability', function () {
   beforeEach(function () {
     var emptyPage =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-      'templateScript: /foo/templates/bar/baz.ftl'
+      'templateScript: /foo/templates/pages/baz.ftl'
 
     var pageWithAreas =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-      'templateScript: /foo/templates/bar/baz.ftl\n' +
+      'templateScript: /foo/templates/pages/baz.ftl\n' +
       'areas:\n' +
       '  fooArea:\n' +
-      '    templateScript: /foo/templates/bar/baz.ftl'
+      '    templateScript: /foo/templates/pages/baz.ftl'
 
     var emptyPageWithTaggedElement =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       "includedFile: !include 'foo/bar'\n" +
-      'templateScript: /foo/templates/bar/baz.ftl'
+      'templateScript: /foo/templates/pages/baz.ftl'
 
     fs.outputFileSync('test/light-modules/quux/templates/pages/emptyPage.yaml', emptyPage)
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPage.yaml', emptyPage)
+    fs.outputFileSync('test/light-modules/foo/templates/pages/baz.ftl', '<h1>Hello</h1>')
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPageWithTaggedElement.yaml', emptyPageWithTaggedElement)
     fs.outputFileSync('test/light-modules/foo/templates/pages/pageWithAreas.yaml', pageWithAreas)
     // also make dirs expected when validating module structure
@@ -47,7 +48,7 @@ describe('add-availability', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -64,7 +65,7 @@ describe('add-availability', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -82,7 +83,7 @@ describe('add-availability', function () {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
           "includedFile: !include 'foo/bar'\n" +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -100,10 +101,10 @@ describe('add-availability', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
-          '    templateScript: /foo/templates/bar/baz.ftl\n' +
+          '    templateScript: /foo/templates/pages/baz.ftl\n' +
           '    availableComponents:\n' +
           '      text:\n' +
           '        id: foo:components/text\n')
@@ -119,7 +120,7 @@ describe('add-availability', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  main:\n' +
           '    autoGeneration:\n' +
@@ -141,7 +142,7 @@ describe('add-availability', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -150,6 +151,28 @@ describe('add-availability', function () {
         done()
       }, process.cwd())
     shell.cd('../../../')
+  })
+
+  it('should add area to template script', function (done) {
+    invokeAndVerify('add-availability',
+      'text emptyPage@fooArea -p test/light-modules/foo',
+      '/foo/templates/pages/baz.ftl',
+      function (data) {
+        expect(data).to.contain('[@cms.area name="fooArea"/]')
+        done()
+      }
+    )
+  })
+
+  it('should not add area to template script', function (done) {
+    invokeAndVerify('add-availability',
+      'text pageWithAreas@fooArea -p test/light-modules/foo',
+      '/foo/templates/pages/baz.ftl',
+      function (data) {
+        expect(data).to.not.contain('[@cms.area name="fooArea"/]')
+        done()
+      }
+    )
   })
 
   it('should fail with less than two args', function () {
