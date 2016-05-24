@@ -33,7 +33,7 @@ var createPage = function (params) {
       '__lightDevModuleFolder__': '/' + params.moduleName
     })
   } else {
-    console.log("'%s' templateScript already exists", templateScriptFile)
+    helper.printInfo(util.format("'%s' templateScript already exists", templateScriptFile))
   }
 
   // dialog
@@ -42,7 +42,7 @@ var createPage = function (params) {
       '__name__': params.newPageName
     })
   } else {
-    console.log("'%s' dialog already exists", dialogDefinitionFile)
+    helper.printInfo(util.format("'%s' dialog already exists", dialogDefinitionFile))
   }
   helper.printSuccess('Page template created')
 }
@@ -59,7 +59,7 @@ var validateAndResolveArgs = function (program) {
 
   // assume the current dir is a light module.
   if (typeof program.path === 'undefined') {
-    console.log('No path option provided, page template will be created in the current folder.')
+    helper.printInfo(util.format('No path option provided, page template will be created in the current folder.'))
     moduleName = path.basename(process.cwd())
   } else {
     // clever trick with filter to get rid of unwanted separators found on http://stackoverflow.com/a/19888749 of course
