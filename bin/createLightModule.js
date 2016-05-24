@@ -16,16 +16,16 @@ var validateAndResolveArgs = function (program) {
     lightModulesRoot = program.path
     var absPath = path.resolve(process.cwd(), './' + lightModulesRoot)
     if (!fs.existsSync(absPath)) {
-      throw util.format('Path %s does not exist. Please fix it or create it first', absPath)
+      throw MgnlCliError(util.format('Path %s does not exist. Please fix it or create it first', absPath))
     }
   } else {
-    console.log('No path option provided, light module will be created in the current folder.')
+    helper.printInfo('No path option provided, light module will be created in the current folder.')
     lightModulesRoot = process.cwd()
   }
   var moduleName = program.args[0]
 
   if (fs.existsSync(path.join(lightModulesRoot, moduleName))) {
-    throw new MgnlCliError(util.format('Module %s already exists at %s', moduleName, lightModulesRoot))
+    throw new MgnlCliError(util.format("Module '%s' already exists at %s", moduleName, lightModulesRoot))
   }
 
   return {
