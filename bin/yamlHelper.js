@@ -101,4 +101,18 @@ function create (yamlStream) {
   return this
 }
 
+this.getScalarValue = function (scalarPropertyPath) {
+  var pathMatcher = /^(.*)\/(.+?)$/.exec(scalarPropertyPath)
+
+  var scalarName = pathMatcher[2]
+  var parentPath = pathMatcher[1]
+  var parentNode = this.getYamlNodeByPath(parentPath || '/')
+
+  if (parentNode != null) {
+    return this.getChildNode(parentNode, scalarName).value
+  }
+
+  return null
+}
+
 exports.create = create

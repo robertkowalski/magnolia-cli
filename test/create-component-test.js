@@ -11,22 +11,23 @@ describe('create-component', function () {
   beforeEach(function () {
     var emptyPage =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-      'templateScript: /foo/templates/bar/baz.ftl'
+      'templateScript: /foo/templates/pages/baz.ftl'
 
     var pageWithAreas =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-      'templateScript: /foo/templates/bar/baz.ftl\n' +
+      'templateScript: /foo/templates/pages/baz.ftl\n' +
       'areas:\n' +
       '  fooArea:\n' +
-      '    templateScript: /foo/templates/bar/baz.ftl'
+      '    templateScript: /foo/templates/pages/baz.ftl'
 
     var emptyPageWithTaggedElement =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       "includedFile: !include 'foo/bar'\n" +
-      'templateScript: /foo/templates/bar/baz.ftl'
+      'templateScript: /foo/templates/pages/baz.ftl'
 
     fs.outputFileSync('test/light-modules/quux/templates/pages/emptyPage.yaml', emptyPage)
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPage.yaml', emptyPage)
+    fs.outputFileSync('test/light-modules/foo/templates/pages/baz.ftl', '<h1>Hello</h1>')
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPageWithTaggedElement.yaml', emptyPageWithTaggedElement)
     fs.outputFileSync('test/light-modules/foo/templates/pages/pageWithAreas.yaml', pageWithAreas)
     // also make dirs expected when validating module structure
@@ -47,7 +48,7 @@ describe('create-component', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -90,7 +91,7 @@ describe('create-component', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +
@@ -107,7 +108,7 @@ describe('create-component', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  main:\n' +
           '    autoGeneration:\n' +
@@ -129,7 +130,7 @@ describe('create-component', function () {
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
-          'templateScript: /foo/templates/bar/baz.ftl\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
           '    availableComponents:\n' +

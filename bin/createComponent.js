@@ -90,7 +90,7 @@ var validateAndResolveArgs = function (program) {
       args.path = path.join('../', splitPath[0])
       moduleName = splitPath[0]
     } else {
-      args.path = program.path.substring(0, program.path.indexOf('/'))
+      args.path = path.resolve(program.path, '../')
       // assume last part is module name
       moduleName = splitPath[splitPath.length - 1]
     }

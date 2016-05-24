@@ -25,7 +25,7 @@ var validateAndResolveArgs = function (program) {
       args.path = path.join('../', splitPath[0])
       moduleName = splitPath[0]
     } else {
-      args.path = program.path.substring(0, program.path.indexOf('/'))
+      args.path = path.resolve(program.path, '../')
       // assume last part is module name
       moduleName = splitPath[splitPath.length - 1]
     }
@@ -67,8 +67,9 @@ function addAvailability (args) {
 
 function modifyYamlConfiguration (yaml, args) {
   if (!yaml.hasNode('/areas/' + args.targetArea)) {
-    fs.appendFile(args.templateDefinitionFilePath, '\n\n[@cms.area name="' + args.targetArea + '"/]', rethrowOnError)
-    helper.printSuccess(util.format('Created new area %s at the end of %s', args.targetArea, args.templateDefinitionFilePath))
+    var templateScriptPath = path.join(args.path, yaml.getScalarValue('/templateScript'))
+    fs.appendFile(templateScriptPath, '\n\n[@cms.area name="' + args.targetArea + '"/]', rethrowOnError)
+    helper.printSuccess(util.format('Created new area %s at the end of %s', args.targetArea, templateScriptPath))
   }
 
   if (args.available ? injectComponentAvailability(yaml, args) : injectAutoGeneration(yaml, args)) {
