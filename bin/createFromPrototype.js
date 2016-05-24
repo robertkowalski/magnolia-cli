@@ -1,19 +1,20 @@
 var path = require('path')
 var fs = require('fs-extra')
+var util = require('util')
+var helper = require('./helper.js')
 
 // npm global location for prototypes
 var prototypesFolder = path.resolve(__dirname, '../_prototypes')
 
 // a MGNLCLI_HOME env variable is set, use prototypes from there
 if (process.env.MGNLCLI_HOME) {
-  console.log('MGNLCLI_HOME env variable is set. Using prototypes from %s', process.env.MGNLCLI_HOME)
+  helper.printInfo(util.format('MGNLCLI_HOME env variable is set. Using prototypes from %s', process.env.MGNLCLI_HOME))
   prototypesFolder = path.join(process.env.MGNLCLI_HOME, '_prototypes')
 }
 
 var createFromPrototype = function (prototype, newFile, replace) {
   prototype = path.join(prototypesFolder, prototype)
   newFile = path.normalize(newFile)
-  // console.log("DEBUG prototype=%s newFile=%s replace=%s", prototype, newFile, replace)
 
   if (fs.existsSync(prototype)) {
     fs.copy(prototype, newFile, function (err) {
@@ -34,7 +35,7 @@ var createFromPrototype = function (prototype, newFile, replace) {
             })
           }
         })
-        console.log('%s created', newFile)
+        helper.printInfo(util.format('%s created', newFile))
       }
     })
   } else {
