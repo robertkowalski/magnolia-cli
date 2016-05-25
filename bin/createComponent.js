@@ -57,7 +57,7 @@ var createComponent = function (args) {
       '__name__': args.component.name
     })
   } else {
-    console.log('%s template script already exists at [%s]', args.component.name, templateScriptFile)
+    helper.printInfo(util.format('%s template script already exists at [%s]', args.component.name, templateScriptFile))
   }
 
   // dialog
@@ -66,7 +66,7 @@ var createComponent = function (args) {
       '__name__': args.component.name
     })
   } else {
-    console.log('%s dialog already exists', dialogDefinitionFile)
+    helper.printInfo(util.format('%s dialog already exists', dialogDefinitionFile))
   }
   helper.printSuccess('Component created')
 }
@@ -96,7 +96,7 @@ var validateAndResolveArgs = function (program) {
     }
   } else {
     // defaults to current dir
-    console.log('No path option provided, component will be created in the current folder.')
+    helper.printInfo(util.format('No path option provided, component will be created in the current folder.'))
     var cwd = process.cwd()
     args.path = cwd.substring(0, cwd.lastIndexOf('/'))
     // token after last slash is assumed to be module name
@@ -112,13 +112,14 @@ var validateAndResolveArgs = function (program) {
   if (program.available || program.autogenerate) {
     var ref = program.available || program.autogenerate
     args.targetPage = helper.parseDefinitionReference(ref, moduleName)
-    args.targetArea = args.targetPage.area
+    args.targetArea = args.targetPage.area 
     if (typeof args.targetArea === 'undefined') {
-      throw new Error(util.format('Could not resolve area for %s', ref))
+        args.targetArea = "main"
+        // throw new MgnlCliError(util.format("Could not resolve area for '%s'", ref))
     }
     args.templateDefinitionFilePath = path.normalize(args.pathToLightModule + '/templates/' + args.targetPage.path + '.yaml')
     if (!fs.existsSync(args.templateDefinitionFilePath)) {
-      throw new Error(util.format("%s page definition doesn't exist", args.templateDefinitionFilePath))
+      throw new MgnlCliError(util.format("%s page definition doesn't exist", args.templateDefinitionFilePath))
     }
     args.available = program.available
     args.autogenerate = program.autogenerate

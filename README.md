@@ -19,11 +19,15 @@ or build it with `npm pack` and then install it from locale source e.g.
 
 ## Usage ##
 A) To create light module:
-In your working directory do `mgnl create-light-module <name>`
-...
+In your working directory do `mgnl create-light-module <light-module-name>`
+Navigate to just created folder for your new light module na and continue with commands e.g. `mgnl create-page <page-tempalte-name>`
+Or use `path` parameter `mgnl create-page <page-tempalte-name> -p <light-module-name>`
 
-B) ...
-...
+B) To download and setup Magnolia + create light module:
+Start with `mgnl setup`, in your <workingDirectory> (recommend empty folder), which will expose you package.json file with basic configuration when you may change stuff like 'lightModuleName', folder structure of light module, and much more.
+Then do `mgnl jumpstart` which will download and extract Magnolia and automatically does also mgln create-light-module.
+Then you can continue using commands for creating pages and components e.g. `mgnl create-page <page-tempalte-name>`
+
 
 ## Commands ##
 The Magnolia CLI uses a syntax similar to that of Git.

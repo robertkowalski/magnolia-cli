@@ -18,21 +18,17 @@
   "dependencies": {
     "adm-zip": "^0.4.7",
     "async": "^2.0.0-rc.3",
-    "bootstrap-less": "^3.3.8",
     "chalk": "^1.1.3",
     "commander": "^2.9.0",
-    "font-awesome": "^4.6.1",
     "fs": "0.0.2",
     "fs-extra": "^0.30.0",
     "http": "0.0.0",
     "jquery": "^2.2.3",
     "json2yaml": "^1.1.0",
-    "less": "^2.5.3",
     "progress": "^1.1.8",
     "replace": "^0.3.0",
     "request": "^2.69.0",
     "truncate-middle": "^1.0.3",
-    "watch": "^0.17.1",
     "yaml-js": "^0.1.3"
   },
   "devDependencies": {
@@ -71,16 +67,9 @@
     "templates_components": "/templates/components",
     "templates_pages": "/templates/pages",
     "css": "/webresources/css",
-    "cssWatch": "/webresources/css/bootstrap-less",
-    "js": "/webresources/js",
-    "fonts": "/webresources/fonts"
+    "js": "/webresources/js"
   },
   "lightDevCopyResources": {
-    "jquery/dist/jquery.js": "js",
-    "bootstrap-less/bootstrap": "cssWatch",
-    "bootstrap-less/fonts": "fonts",
-    "bootstrap-less/js/bootstrap.js": "js",
-    "font-awesome/fonts": "fonts",
-    "font-awesome/css/font-awesome.css": "css"
+    "jquery/dist/jquery.js": "js"  
   }
 }

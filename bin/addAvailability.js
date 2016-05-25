@@ -10,8 +10,9 @@ var validateAndResolveArgs = function (program) {
   if (program.args.length !== 2) {
     throw new MgnlCliError('Expected two arguments', true)
   }
-  if (!helper.matchesDefinitionReferenceWithAreaPattern(program.args[1])) {
-    throw util.format('Expected a value in the form e.g. [myModule:pages/]myHome@someArea but was %s', program.args[1])
+  var arg = program.args[1];
+  if (!helper.matchesDefinitionReferenceWithAreaPattern(arg) && !helper.matchesDefinitionReferenceWithoutAreaPattern(arg)) {
+    throw util.format('Expected a value in the form e.g. [myModule:pages/]myHome@someArea but was %s', arg)
   }
 
   var args = {}
@@ -39,7 +40,7 @@ var validateAndResolveArgs = function (program) {
 
   args.component = helper.parseDefinitionReference(program.args[0], moduleName)
 
-  args.targetPage = helper.parseDefinitionReference(program.args[1], moduleName)
+  args.targetPage = helper.parseDefinitionReference(arg, moduleName)
   args.targetArea = args.targetPage.area
 
   if (typeof args.targetArea === 'undefined') {

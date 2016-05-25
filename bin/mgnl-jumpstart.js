@@ -29,7 +29,7 @@ var validateAndResolveArgs = function (program) {
   // defaults to package.json value
   if (typeof program.path === 'undefined') {
     program.path = packageJson.config.outputPath
-    console.log('No path option provided. Will use the default %s in the current directory', program.path)
+    helper.printInfo(util.format("No path option provided. Will use the default '%s' in the current directory", program.path))
   }
 
   if (program.path === '-i' || program.path === '--install-sample-module' ||
@@ -44,7 +44,7 @@ var validateAndResolveArgs = function (program) {
   } else {
     // hardcode the latest release. Would be nice to have nexus automagically expose a URL to the 'latest' artifacts released
     packageJson.setupMagnolia.downloadUrl = packageJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, '5.4.6')
-    console.log('No magnolia-version option provided. Will use the default Community Edition 5.4.6')
+    helper.printInfo(util.format('No magnolia-version option provided. Will use the default Community Edition 5.4.6'))
   }
   var lightModulesRoot = helper.resolvePathRelativeToCurrentDir(program.path, true)
   packageJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
@@ -53,7 +53,7 @@ var validateAndResolveArgs = function (program) {
   if (program.installSampleModule) {
     moduleName = program.installSampleModule
   } else {
-    console.log('No install-sample-module option provided. Will use the default %s', moduleName)
+    helper.printInfo(util.format("No install-sample-module option provided. Will use the default '%s'", moduleName))
   }
 
   return {

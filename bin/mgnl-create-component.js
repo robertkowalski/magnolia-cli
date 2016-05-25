@@ -5,7 +5,7 @@ var helper = require('./helper')
 var packageJson = require('../package.json')
 
 var matchesPattern = function (val) {
-  if (helper.matchesDefinitionReferenceWithAreaPattern(val)) {
+  if (helper.matchesDefinitionReferenceWithAreaPattern(val) || helper.matchesDefinitionReferenceWithoutAreaPattern(val)) {
     return val
   }
   console.error('Expected a value in the form e.g. [pages/]myHome@someArea but was %s', val)

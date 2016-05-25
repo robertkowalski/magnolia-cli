@@ -10,6 +10,16 @@ form:
         - name: title
           class: info.magnolia.ui.form.field.definition.TextFieldDefinition
           label: Title
+          
+        - name: image
+          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
+          targetWorkspace: dam
+          appName: assets
+          label: Image
+          identifierToPathConverter:
+            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
+          contentPreviewDefinition:
+            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
 
         - name: desc
           class: info.magnolia.ui.form.field.definition.RichTextFieldDefinition
@@ -22,16 +32,6 @@ form:
           label: Select page
           identifierToPathConverter:
             class: info.magnolia.ui.form.field.converter.BaseIdentifierToPathConverter
-
-        - name: image
-          class: info.magnolia.ui.form.field.definition.LinkFieldDefinition
-          targetWorkspace: dam
-          appName: assets
-          label: Image
-          identifierToPathConverter:
-            class: info.magnolia.dam.app.assets.field.translator.AssetCompositeIdKeyTranslator
-          contentPreviewDefinition:
-            contentPreviewClass: info.magnolia.dam.app.ui.field.DamFilePreviewComponent
 
         - name: categories
           class: info.magnolia.ui.form.field.definition.MultiValueFieldDefinition

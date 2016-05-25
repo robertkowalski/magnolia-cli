@@ -112,9 +112,13 @@ function parseDefinitionReference (definitionId, moduleName) {
 var matchesDefinitionReferenceWithAreaPattern = function (val) {
   return /^([\w\/:]+)@(\w+)$/.exec(val)
 }
+var matchesDefinitionReferenceWithoutAreaPattern = function (val) {
+  return /^([\w\/:]+)$/.exec(val)
+}
 
 exports.parseDefinitionReference = parseDefinitionReference
 exports.matchesDefinitionReferenceWithAreaPattern = matchesDefinitionReferenceWithAreaPattern
+exports.matchesDefinitionReferenceWithoutAreaPattern = matchesDefinitionReferenceWithoutAreaPattern
 exports.createFolders = createFolders
 exports.MgnlCliError = MgnlCliError
 exports.handlePath = handlePath
