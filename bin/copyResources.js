@@ -1,6 +1,6 @@
 var fs = require('fs-extra')
 var path = require('path')
-var packageJson = require('../package.json')
+var packageJson = require('./helper').requirePackageJson()
 
 var nodeModulesFolder = path.resolve(__dirname, '../node_modules')
 

@@ -2,7 +2,7 @@ var AdmZip = require('adm-zip')
 var path = require('path')
 var fs = require('fs')
 var util = require('util')
-var packageJson = require('../package.json')
+var packageJson = require('./helper').requirePackageJson()
 
 var extract = function (to, zipPath) {
   var tomcatFolder = path.join(to, packageJson.setupMagnolia.tomcatFolder)

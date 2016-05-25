@@ -1,4 +1,3 @@
-var packageJson = require('../package.json')
 var fs = require('fs-extra')
 var async = require('async')
 var downloadMagnolia = require('./downloadMagnolia.js')
@@ -7,6 +6,7 @@ var extractMagnolia = require('./extractMagnolia.js')
 var copyResources = require('./copyResources.js')
 var editMagnoliaProperties = require('./editMagnoliaProperties.js')
 var helper = require('./helper.js')
+var packageJson = helper.requirePackageJson()
 var program = require('commander')
 var util = require('util')
 

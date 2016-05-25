@@ -2,7 +2,7 @@ var path = require('path')
 var fs = require('fs')
 var replace = require('replace')
 
-var packageJson = require('../package.json')
+var packageJson = require('./helper').requirePackageJson()
 
 var replaceProperties = function (obj, instance) {
   var pathToConfig = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/config/default')

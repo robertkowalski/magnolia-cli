@@ -5,7 +5,7 @@ var util = require('util')
 var createFromPrototype = require('./createFromPrototype')
 var helper = require('./helper.js')
 var MgnlCliError = helper.MgnlCliError
-var packageJson = require('../package.json')
+var packageJson = helper.requirePackageJson()
 
 var createPage = function (params) {
   var templatePath = path.join(params.pathToLightModule, packageJson.lightDevFoldersInModule.templates_pages, params.newPageName)

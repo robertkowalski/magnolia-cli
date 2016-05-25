@@ -4,7 +4,7 @@ var ProgressBar = require('progress')
 var request = require('request')
 var truncateMiddle = require('truncate-middle')
 
-var packageJson = require('../package.json')
+var packageJson = require('./helper').requirePackageJson()
 
 var download = function (to, zip) {
   var pathToZip = path.join(to, zip)

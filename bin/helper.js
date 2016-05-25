@@ -116,6 +116,19 @@ var matchesDefinitionReferenceWithoutAreaPattern = function (val) {
   return /^([\w\/:]+)$/.exec(val)
 }
 
+/**
+ * Imports a custom package.json from MGNLCLI_HOME if the latter is set or the default one.
+ */
+var requirePackageJson = function () {
+  // a MGNLCLI_HOME env variable is set, use package.json from there
+  if (process.env.MGNLCLI_HOME) {
+    printInfo(util.format('MGNLCLI_HOME env variable is set. Using package.json at %s', process.env.MGNLCLI_HOME))
+    return require(path.join(process.env.MGNLCLI_HOME, 'package.json'))
+  } else {
+    return require('../package.json')
+  }
+}
+
 exports.parseDefinitionReference = parseDefinitionReference
 exports.matchesDefinitionReferenceWithAreaPattern = matchesDefinitionReferenceWithAreaPattern
 exports.matchesDefinitionReferenceWithoutAreaPattern = matchesDefinitionReferenceWithoutAreaPattern
@@ -127,3 +140,4 @@ exports.printError = printError
 exports.printSuccess = printSuccess
 exports.printInfo = printInfo
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder
+exports.requirePackageJson = requirePackageJson

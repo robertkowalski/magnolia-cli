@@ -4,11 +4,10 @@ var util = require('util')
 var async = require('async')
 var helper = require('./helper')
 var MgnlCliError = helper.MgnlCliError
+var packageJson = helper.requirePackageJson()
 
 var createFromPrototype = require('./createFromPrototype')
 var addAvailability = require('./addAvailability')
-
-var packageJson = require('../package.json')
 
 var createComponent = function (args) {
   var templatePath = path.join(args.pathToLightModule, packageJson.lightDevFoldersInModule.templates_components, args.component.name)

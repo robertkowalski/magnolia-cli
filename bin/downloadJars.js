@@ -4,7 +4,7 @@ var path = require('path')
 var ProgressBar = require('progress')
 var request = require('request')
 
-var packageJson = require('../package.json')
+var packageJson = require('./helper').requirePackageJson()
 
 var downloadJars = function (done) {
   if (packageJson.setupMagnolia.downloadJars) {
