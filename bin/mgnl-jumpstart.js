@@ -8,6 +8,7 @@ var copyResources = require('./copyResources.js')
 var editMagnoliaProperties = require('./editMagnoliaProperties.js')
 var helper = require('./helper.js')
 var program = require('commander')
+var util = require('util')
 
 var prepareMagnolia = function (args) {
   extractMagnolia.extract(process.cwd(), magnoliaZip)

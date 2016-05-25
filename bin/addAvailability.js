@@ -10,7 +10,7 @@ var validateAndResolveArgs = function (program) {
   if (program.args.length !== 2) {
     throw new MgnlCliError('Expected two arguments', true)
   }
-  var arg = program.args[1];
+  var arg = program.args[1]
   if (!helper.matchesDefinitionReferenceWithAreaPattern(arg) && !helper.matchesDefinitionReferenceWithoutAreaPattern(arg)) {
     throw util.format('Expected a value in the form e.g. [myModule:pages/]myHome@someArea but was %s', arg)
   }

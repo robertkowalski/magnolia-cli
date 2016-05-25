@@ -30,10 +30,10 @@ var printError = function (msg) {
   console.error(chalk.red(msg))
 }
 var printSuccess = function (msg) {
-  console.log(chalk.green("DONE:"),chalk.green(msg))
+  console.log(chalk.green('DONE:'), chalk.green(msg))
 }
 var printInfo = function (msg) {
-  console.log("INFO:",msg)
+  console.log('INFO:', msg)
 }
 
 /**
@@ -42,7 +42,7 @@ var printInfo = function (msg) {
  */
 var MgnlCliError = function (message, displayHelp) {
   Error.call(this)
-  this.name = "ERROR"
+  this.name = 'ERROR'
   this.message = message
   this.displayHelp = displayHelp || false
 }

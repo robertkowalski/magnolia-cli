@@ -112,10 +112,9 @@ var validateAndResolveArgs = function (program) {
   if (program.available || program.autogenerate) {
     var ref = program.available || program.autogenerate
     args.targetPage = helper.parseDefinitionReference(ref, moduleName)
-    args.targetArea = args.targetPage.area 
+    args.targetArea = args.targetPage.area
     if (typeof args.targetArea === 'undefined') {
-        args.targetArea = "main"
-        // throw new MgnlCliError(util.format("Could not resolve area for '%s'", ref))
+      args.targetArea = 'main'
     }
     args.templateDefinitionFilePath = path.normalize(args.pathToLightModule + '/templates/' + args.targetPage.path + '.yaml')
     if (!fs.existsSync(args.templateDefinitionFilePath)) {
