@@ -5,27 +5,6 @@ var chalk = require('chalk')
 var util = require('util')
 var packageJson = require('../package.json')
 
-var handlePath = function (pathToCheck, create) {
-  if (!fs.existsSync(pathToCheck)) {
-    if (create) {
-      printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", pathToCheck))
-      fse.mkdirpSync(pathToCheck)
-    } else {
-      throw new Error(util.format("'%s' does not seem to exist. Please provide a valid path.", pathToCheck))
-    }
-  }
-}
-
-var resolvePathRelativeToCurrentDir = function (pathToResolve, create) {
-  if (!path.isAbsolute(pathToResolve)) {
-    var resolved = path.resolve(process.cwd(), './' + pathToResolve)
-    handlePath(resolved, create)
-    return resolved
-  }
-  handlePath(pathToResolve)
-  return pathToResolve
-}
-
 var printError = function (msg) {
   console.error(chalk.red(msg))
 }
@@ -48,11 +27,11 @@ var MgnlCliError = function (message, displayHelp) {
 }
 util.inherits(MgnlCliError, Error)
 
-var invalidLightModuleMsg = "Sorry, path '%s' does not seem to point at a valid existing light module folder." +
-  '\nPath option should point at a valid light module (e.g. one created with mgnl create-light-module). ' +
-  'Please, ensure your light module complies with the expected structure.\nSee https://documentation.magnolia-cms.com/display/DOCS/Modules#Modules-Modulestructure'
-
 var ensureIsAValidLightModuleFolder = function (pathToModule) {
+  var invalidLightModuleMsg = "Sorry, path '%s' does not seem to point at a valid existing light module folder." +
+    '\nPath option should point at a valid light module (e.g. one created with mgnl create-light-module). ' +
+    'Please, ensure your light module complies with the expected structure.\nSee https://documentation.magnolia-cms.com/display/DOCS/Modules#Modules-Modulestructure'
+
   if (!fs.existsSync(pathToModule)) {
     throw new MgnlCliError(util.format('Path %s does not exist. Please fix it or create it first', pathToModule))
   } else {
@@ -134,8 +113,6 @@ exports.matchesDefinitionReferenceWithAreaPattern = matchesDefinitionReferenceWi
 exports.matchesDefinitionReferenceWithoutAreaPattern = matchesDefinitionReferenceWithoutAreaPattern
 exports.createFolders = createFolders
 exports.MgnlCliError = MgnlCliError
-exports.handlePath = handlePath
-exports.resolvePathRelativeToCurrentDir = resolvePathRelativeToCurrentDir
 exports.printError = printError
 exports.printSuccess = printSuccess
 exports.printInfo = printInfo

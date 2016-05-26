@@ -1,4 +1,5 @@
 var fs = require('fs-extra')
+var path = require('path')
 var async = require('async')
 var downloadMagnolia = require('./downloadMagnolia.js')
 var downloadJars = require('./downloadJars.js')
@@ -47,7 +48,12 @@ var validateAndResolveArgs = function (program) {
     packageJson.setupMagnolia.downloadUrl = packageJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, '5.4.6')
     helper.printInfo(util.format('No magnolia-version option provided. Will use the default Community Edition 5.4.6'))
   }
-  var lightModulesRoot = helper.resolvePathRelativeToCurrentDir(program.path, true)
+  var lightModulesRoot = path.resolve(program.path)
+
+  if (!fs.existsSync(lightModulesRoot)) {
+    helper.printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", lightModulesRoot))
+    fs.mkdirpSync(lightModulesRoot)
+  }
   packageJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
 
   var moduleName = packageJson.lightModuleName
