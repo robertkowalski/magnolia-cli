@@ -7,26 +7,40 @@ describe('setup', function () {
 
   var expect = require('chai').expect
 
-  it('should extract prototypes to destination path', function () {
+  beforeEach(function () {
     fs.mkdirsSync('test/destination')
+  })
 
-    invoke('setup', '-p test/destination')
-
-    expect(fs.existsSync('test/destination/_prototypes')).to.be.true
-
+  afterEach(function () {
     fs.removeSync('test/destination')
   })
 
-  it('should extract prototypes to current folder if no path option is given', function () {
-    fs.mkdirsSync('test/destination')
+  it('should extract prototypes and package.json to destination path', function () {
+    invoke('setup', '-p test/destination')
+
+    expect(fs.existsSync('test/destination/_prototypes')).to.be.true
+    expect(fs.existsSync('test/destination/package.json')).to.be.true
+  })
+
+  it('should extract prototypes and package.json to current folder if no path option is given', function () {
     shell.cd('test/destination')
 
     invoke('setup', '')
 
     expect(fs.existsSync('_prototypes')).to.be.true
+    expect(fs.existsSync('package.json')).to.be.true
 
     shell.cd('../../')
-    fs.removeSync('test/destination')
+  })
+
+  it('should not overwrite existing files', function () {
+    invoke('setup', '-p test/destination')
+
+    var customPackageJson = require('./destination/package.json')
+    customPackageJson.config.outputPath = 'foobar'
+
+    invoke('setup', '-p test/destination')
+    expect(customPackageJson.config.outputPath).to.be.equal('foobar')
   })
 
   it('should fail if path is non existent', function () {

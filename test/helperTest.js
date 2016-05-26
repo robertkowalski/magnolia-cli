@@ -33,7 +33,7 @@ describe('helper', function () {
     })
   })
 
-  describe('#requirePackageJson())', function () {
+  describe('#requirePackageJson()', function () {
     beforeEach(function () {
       fs.mkdirsSync('test/destination')
     })
