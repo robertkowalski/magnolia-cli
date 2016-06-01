@@ -30,7 +30,9 @@ var extract = function (location) {
       helper.printError(err)
       process.exit(1)
     }
-    helper.printSuccess('Extraction completed. To start using custom prototypes and package.json you need to set an environment variable MGNLCLI_HOME pointing at ' + location)
+    helper.printSuccess('Extraction completed.')
+    helper.printImportant('To start using custom prototypes and package.json you need to set an environment variable MGNLCLI_HOME pointing at ' + location + ' in your .profile OR run this command:')
+    helper.printImportant('export MGNLCLI_HOME="' + location + '"')
   })
 }
 

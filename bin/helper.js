@@ -11,6 +11,14 @@ var printError = function (msg) {
 var printSuccess = function (msg) {
   console.log(chalk.green('DONE:'), chalk.green(msg))
 }
+
+var printImportant = function (msg) {
+  console.log(chalk.yellow('IMPORTANT:'), chalk.yellow(msg))
+}
+
+var printSuccess = function (msg) {
+  console.log(chalk.green('DONE:'), chalk.green(msg))
+}
 var printInfo = function (msg) {
   console.log('INFO:', msg)
 }
@@ -116,5 +124,6 @@ exports.MgnlCliError = MgnlCliError
 exports.printError = printError
 exports.printSuccess = printSuccess
 exports.printInfo = printInfo
+exports.printImportant = printImportant
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder
 exports.requirePackageJson = requirePackageJson
