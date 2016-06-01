@@ -8,14 +8,18 @@ var packageJson = require('./helper').requirePackageJson()
 
 var downloadJars = function (done) {
   if (packageJson.setupMagnolia.downloadJars) {
+    var urls = {}
+    var downloadedJars = 0
     Object.keys(packageJson.setupMagnolia.downloadJars).forEach(function (jar) {
       var url = packageJson.setupMagnolia.downloadJars[jar]
       var fileName = url.split('/')[url.split('/').length - 1]
-
+      urls[fileName] = url
+    })
+    Object.keys(urls).forEach(function (fileName) {
       var piper = fs.createWriteStream('./' + fileName)
 
       request
-        .get(url)
+        .get(urls[fileName])
         .on('response', function (res) {
           var len = parseInt(res.headers['content-length'], 10)
           var bar = new ProgressBar('Downloading ' + fileName + ' [:bar] :percent :etas', {
@@ -31,6 +35,7 @@ var downloadJars = function (done) {
 
       piper.on('close', function () {
         if (packageJson.setupMagnolia.webapps) {
+          downloadedJars++
           Object.keys(packageJson.setupMagnolia.webapps).forEach(function (instance) {
             if (fs.existsSync(path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/'))) {
               var pathToFile = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/', fileName)
@@ -44,7 +49,7 @@ var downloadJars = function (done) {
               }
             }
           })
-          if (done) {
+          if (done && downloadedJars === Object.keys(urls).length) {
             done()
           }
         }

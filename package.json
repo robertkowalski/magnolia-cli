@@ -70,6 +70,6 @@
     "js": "/webresources/js"
   },
   "lightDevCopyResources": {
-    "jquery/dist/jquery.js": "js"  
+    "jquery/dist/jquery.js": "js"
   }
 }
