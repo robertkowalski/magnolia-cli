@@ -11,13 +11,8 @@ var printError = function (msg) {
 var printSuccess = function (msg) {
   console.log(chalk.green('DONE:'), chalk.green(msg))
 }
-
 var printImportant = function (msg) {
   console.log(chalk.yellow('IMPORTANT:'), chalk.yellow(msg))
-}
-
-var printSuccess = function (msg) {
-  console.log(chalk.green('DONE:'), chalk.green(msg))
 }
 var printInfo = function (msg) {
   console.log('INFO:', msg)
