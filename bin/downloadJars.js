@@ -12,7 +12,7 @@ var downloadJars = function (done) {
     var downloadedJars = 0
     Object.keys(packageJson.setupMagnolia.downloadJars).forEach(function (jar) {
       var url = packageJson.setupMagnolia.downloadJars[jar]
-      var fileName = url.split('/')[url.split('/').length - 1]
+      var fileName = path.basename(url)
       urls[fileName] = url
     })
     Object.keys(urls).forEach(function (fileName) {
