@@ -1,0 +1,16 @@
+{
+  "name": "not-a-light-module",
+  "version": "1.0.0",
+  "description": "foo",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "meh"
+  ],
+  "author": "Qux",
+  "license": "ISC"
+}

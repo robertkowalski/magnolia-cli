@@ -6,7 +6,7 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
   cur="${COMP_WORDS[COMP_CWORD]}"
   command="${COMP_WORDS[COMP_CWORD-1]}"
 
-  ALL_COMMANDS=(jumpstart create-page create-component create-light-module add-availability setup help)
+  ALL_COMMANDS=(jumpstart create-page create-component create-light-module add-availability setup build help)
   COMPREPLY=()
 
   # if more than two words were provided at the prompt, that at position 1
@@ -31,6 +31,8 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
       COMPREPLY=( $( compgen -W '--path --help' -- $cur ) );;
       jumpstart)
       COMPREPLY=( $( compgen -W '--path --magnolia-version --install-sample-module --help' -- $cur ) );;
+      build)
+      COMPREPLY=( $( compgen -W '--path --node-modules --help' -- $cur ) );;
       *)
       COMPREPLY=();; #restore default bash completion
     esac
@@ -38,7 +40,7 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
 
   case "$command" in
     help)
-    COMPREPLY=( $( compgen -W '${ALL_COMMANDS[@]:0:6}' -- $cur ) );;
+    COMPREPLY=( $( compgen -W '${ALL_COMMANDS[@]:0:7}' -- $cur ) );;
     mgnl)
     COMPREPLY=( $( compgen -W '${ALL_COMMANDS[*]}' -- $cur ) );;
   esac
@@ -54,6 +56,8 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
     COMPREPLY=( $( compgen -W 'add-availability' -- $cur ) );;
     s*)
     COMPREPLY=( $( compgen -W 'setup' -- $cur ) );;
+    b*)
+    COMPREPLY=( $( compgen -W 'build' -- $cur ) );;
   esac
   return 0
 }

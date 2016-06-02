@@ -22,6 +22,7 @@ program
   .command('create-page', 'create a page template')
   .command('create-component', 'create a component and optionally add availability for it')
   .command('add-availability', 'add component availability')
+  .command('build', 'scan a node_modules folder for Magnola light modules and extract them to a directory of choice')
   .parse(process.argv)
 
 var availableCommands = ['help', 'jumpstart', 'setup', 'create-light-module', 'create-page', 'create-component', 'add-availability', 'build']
