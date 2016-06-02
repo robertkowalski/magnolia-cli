@@ -31,6 +31,12 @@ describe('helper', function () {
       var res = helper.parseDefinitionReference('baz:meh/text', 'foo')
       expect(res.refId).to.be.equal('baz:meh/text')
     })
+
+    it('should accept an id containing the dash character', function () {
+      var res = helper.parseDefinitionReference('qux-bar:components/text', 'foo')
+      expect(res.refId).to.be.equal('qux-bar:components/text')
+      expect(res.name).to.be.equal('text')
+    })
   })
 
   describe('#requirePackageJson()', function () {

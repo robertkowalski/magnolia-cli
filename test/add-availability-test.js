@@ -58,6 +58,23 @@ describe('add-availability', function () {
       })
   })
 
+  it('should create missing YAML entries and add availability for a component with an id containing the dash character', function (done) {
+    invokeAndVerify('add-availability',
+      'qux-bar:components/text emptyPage@fooArea -p  test/light-modules/foo',
+      '/foo/templates/pages/emptyPage.yaml',
+      function (data) {
+        expect(data).to.be.equal(
+          'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
+          'areas:\n' +
+          '  fooArea:\n' +
+          '    availableComponents:\n' +
+          '      text:\n' +
+          '        id: qux-bar:components/text\n')
+        done()
+      })
+  })
+
   it('should create missing YAML entries and add availability for a default light module', function (done) {
     invokeAndVerify('add-availability',
       'text emptyPage@fooArea -p test/light-modules/quux',
