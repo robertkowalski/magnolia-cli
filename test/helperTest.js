@@ -32,10 +32,14 @@ describe('helper', function () {
       expect(res.refId).to.be.equal('baz:meh/text')
     })
 
-    it('should accept an id containing the dash character', function () {
+    it('should parse an id containing the dash character', function () {
       var res = helper.parseDefinitionReference('qux-bar:components/text', 'foo')
       expect(res.refId).to.be.equal('qux-bar:components/text')
       expect(res.name).to.be.equal('text')
+    })
+
+    it('should throw an exception if definition id does not match pattern', function () {
+      expect(function () { helper.parseDefinitionReference('meh:-;', 'foo') }).to.throw(Error)
     })
   })
 

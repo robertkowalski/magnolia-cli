@@ -87,6 +87,8 @@ function parseDefinitionReference (definitionId, moduleName) {
     def.path = path
     def.name = refIdMatcher[3]
     def.refId = module + ':' + path
+  } else {
+    throw new Error(util.format("%s doesn't match definitionId pattern", definitionId))
   }
   return def
 }
