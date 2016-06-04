@@ -9,12 +9,11 @@ Before installation make sure you have [Node.js](https://nodejs.org) installed (
 
 Install the package **globally**
 
-`npm install magnolia-cli -g`
+`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli -g`
 
-or build it with `npm pack` and then install it from locale source e.g.
+or checkout the code, build it with `npm pack` and finally install it from locale source e.g.
 
-`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g` (not working yet, instead use one from Magnolia npm repository:
-`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli -g`)
+`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g`
 
 
 ## Usage ##
@@ -36,12 +35,20 @@ To invoke a command you do `mgnl <command> [options]`
 To see what commands are available simply enter `mgnl` (or `mgnl -h`)
 
 ```
-    create-light-module   Creates a light module
-    create-page           Creates a page template
-    create-component      Creates a component
-    add-availability      Adds component availability
-    setup                 Extracts prototypes and packge.json of CLI tools so that they can be customized
-    jumpstart             Prepares Magnolia CMS for light dev
+Usage: mgnl <command> [options]
+
+
+  Commands:
+
+    add-availability      add component availability
+    build                 scan a node_modules folder for Magnola light modules and extract them to a directory of choice
+    create-component      create a component and optionally add availability for it
+    create-light-module   create a light module
+    create-page           create a page template
+    jumpstart             prepare Magnolia CMS for light dev
+    setup                 extract prototypes and package.json of CLI tools so that they can be customized
+    help [cmd]            display help for [cmd]
+
 ```
 
 To get help for any of the subcommands, simply enter `mgnl help <subcommand>`. For instance, `mgnl help create-page` will output

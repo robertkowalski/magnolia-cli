@@ -16,13 +16,13 @@ program
   .version(packageJson.version)
   .usage('<command> [options]')
   .description(packageJson.description)
-  .command('jumpstart', 'prepare Magnolia CMS for light dev')
-  .command('setup', 'extract prototypes and packge.json of CLI tools so that they can be customized')
-  .command('create-light-module', 'create a light module')
-  .command('create-page', 'create a page template')
-  .command('create-component', 'create a component and optionally add availability for it')
   .command('add-availability', 'add component availability')
   .command('build', 'scan a node_modules folder for Magnola light modules and extract them to a directory of choice')
+  .command('create-component', 'create a component and optionally add availability for it')
+  .command('create-light-module', 'create a light module')
+  .command('create-page', 'create a page template')
+  .command('jumpstart', 'prepare Magnolia CMS for light dev')
+  .command('setup', 'extract prototypes and package.json of CLI tools so that they can be customized')
   .parse(process.argv)
 
 var availableCommands = ['help', 'jumpstart', 'setup', 'create-light-module', 'create-page', 'create-component', 'add-availability', 'build']
