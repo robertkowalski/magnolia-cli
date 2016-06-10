@@ -170,7 +170,7 @@ describe('add-availability', function () {
     shell.cd('../../../')
   })
 
-  it('should add area to template script', function (done) {
+  it('should add area to template script if not yet added', function (done) {
     invokeAndVerify('add-availability',
       'text emptyPage@fooArea -p test/light-modules/foo',
       '/foo/templates/pages/baz.ftl',
@@ -181,7 +181,7 @@ describe('add-availability', function () {
     )
   })
 
-  it('should not add area to template script', function (done) {
+  it('should not add area to template script if already added', function (done) {
     invokeAndVerify('add-availability',
       'text pageWithAreas@fooArea -p test/light-modules/foo',
       '/foo/templates/pages/baz.ftl',
