@@ -77,7 +77,7 @@ function parseDefinitionReference (definitionId, moduleName) {
     def.area = definitionId.substring(idx + 1)
     definitionId = definitionId.substring(0, idx)
   }
-  var refIdMatcher = /^(?:([\w-]+):)?([\w\/]+\/)?(\w+)$/.exec(definitionId)
+  var refIdMatcher = /^(?:([\w-]+):)?([\w-\/]+\/)?([\w-]+)$/.exec(definitionId)
   if (refIdMatcher) {
     // if 'module' is not provided - then use the one passed
     var module = refIdMatcher[1] ? refIdMatcher[1] : moduleName
@@ -94,10 +94,10 @@ function parseDefinitionReference (definitionId, moduleName) {
 }
 
 var matchesDefinitionReferenceWithAreaPattern = function (val) {
-  return /^([\w\/:]+)@(\w+)$/.exec(val)
+  return /^([\w-\/:]+)@([\w-]+)$/.exec(val)
 }
 var matchesDefinitionReferenceWithoutAreaPattern = function (val) {
-  return /^([\w\/:]+)$/.exec(val)
+  return /^([\w-\/:]+)$/.exec(val)
 }
 
 /**
