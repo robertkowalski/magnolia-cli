@@ -36,6 +36,22 @@ describe('helper', function () {
       var res = helper.parseDefinitionReference('qux-bar:components/text', 'foo')
       expect(res.refId).to.be.equal('qux-bar:components/text')
       expect(res.name).to.be.equal('text')
+
+      res = helper.parseDefinitionReference('qux-bar:components/with-dash', 'foo')
+      expect(res.refId).to.be.equal('qux-bar:components/with-dash')
+      expect(res.name).to.be.equal('with-dash')
+
+      res = helper.parseDefinitionReference('qux-bar:baz-bar/with-dash', 'foo')
+      expect(res.refId).to.be.equal('qux-bar:baz-bar/with-dash')
+      expect(res.name).to.be.equal('with-dash')
+    })
+
+    it('should match an id containing the dash character', function () {
+      var res = helper.matchesDefinitionReferenceWithAreaPattern('meh/baz-bar@some-area', 'foo')
+      expect(res).not.to.be.null
+
+      res = helper.matchesDefinitionReferenceWithoutAreaPattern('meh/baz-bar', 'foo')
+      expect(res).not.to.be.null
     })
 
     it('should throw an exception if definition id does not match pattern', function () {

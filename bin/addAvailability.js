@@ -19,14 +19,12 @@ var validateAndResolveArgs = function (program) {
   var moduleName
 
   if (program.path) {
+    args.path = path.resolve(program.path, '../')
     // token after last slash is assumed to be module name
     var splitPath = program.path.split(path.sep).filter(Boolean)
     if (splitPath.length === 1) {
-      // assume parent is light module root
-      args.path = path.join('../', splitPath[0])
       moduleName = splitPath[0]
     } else {
-      args.path = path.resolve(program.path, '../')
       // assume last part is module name
       moduleName = splitPath[splitPath.length - 1]
     }

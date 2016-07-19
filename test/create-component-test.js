@@ -26,6 +26,7 @@ describe('create-component', function () {
       'templateScript: /foo/templates/pages/baz.ftl'
 
     fs.outputFileSync('test/light-modules/quux/templates/pages/emptyPage.yaml', emptyPage)
+    fs.outputFileSync('test/light-modules/quux/templates/pages/empty-page.yaml', emptyPage)
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPage.yaml', emptyPage)
     fs.outputFileSync('test/light-modules/foo/templates/pages/baz.ftl', '<h1>Hello</h1>')
     fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPageWithTaggedElement.yaml', emptyPageWithTaggedElement)
@@ -97,6 +98,23 @@ describe('create-component', function () {
           '    availableComponents:\n' +
           '      text:\n' +
           '        id: quux:components/text\n')
+        done()
+      })
+  })
+
+  it('should create missing YAML entries and add availability for component with dash character in name', function (done) {
+    invokeAndVerify('create-component',
+      'with-dash -a empty-page@foo-area -p test/light-modules/quux',
+      '/quux/templates/pages/empty-page.yaml',
+      function (data) {
+        expect(data).to.be.equal(
+          'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
+          'areas:\n' +
+          '  foo-area:\n' +
+          '    availableComponents:\n' +
+          '      with-dash:\n' +
+          '        id: quux:components/with-dash\n')
         done()
       })
   })
