@@ -22,7 +22,6 @@ var invokeAndVerify = function (subcommand, argv, pathToFile, callback, pathToMo
   // pathToModule is usually defined when the calling test has 'cd' to a different dir.
   var basedir = invoke(subcommand, argv, pathToModule)
 
-  // Add availability to page with no configured areas whatsoever
   fs.readFile(basedir + pathToFile, 'utf-8', function (err, data) {
     expect(err).to.be.null
     callback(data)

@@ -75,14 +75,26 @@ describe('create-component', function () {
     done()
   })
 
-  it('should build templateScript path correctly regardless of trailing slash in path', function () {
-    // with trailing slash
-    testHelper.invokeMgnlSubcommand('create-component', 'text -p test/light-modules/foo/')
-    testHelper.checkFileContains('/foo/templates/components/text.yaml', ['templateScript: /foo/templates/components/text.ftl'])
+  it('should build templateScript path correctly with trailing slash in path', function (done) {
+    invokeAndVerify('create-component',
+      'text -p test/light-modules/foo/',
+      '/foo/templates/components/text.yaml',
+      function (data) {
+        expect(data).to.contain('templateScript: /foo/templates/components/text.ftl')
+        done()
+      }
+    )
+  })
 
-    // and without
-    testHelper.invokeMgnlSubcommand('create-component', 'text -p test/light-modules/foo')
-    testHelper.checkFileContains('/foo/templates/components/text.yaml', ['templateScript: /foo/templates/components/text.ftl'])
+  it('should build templateScript path correctly without trailing slash in path', function (done) {
+    invokeAndVerify('create-component',
+      'text -p test/light-modules/foo',
+      '/foo/templates/components/text.yaml',
+      function (data) {
+        expect(data).to.contain('templateScript: /foo/templates/components/text.ftl')
+        done()
+      }
+    )
   })
 
   it('should create missing YAML entries and add availability for a default light module', function (done) {

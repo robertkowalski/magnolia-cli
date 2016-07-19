@@ -5,6 +5,8 @@ describe('create-page', function () {
 
   var testHelper = require('./testHelper')
   var invoke = testHelper.invoke
+  var invokeAndVerify = testHelper.invokeAndVerify
+
   var shell = require('shelljs')
 
   var expect = require('chai').expect
@@ -33,14 +35,26 @@ describe('create-page', function () {
     shell.cd('../../../')
   })
 
-  it('should build templateScript path correctly regardless of trailing slash in path', function () {
-    // with trailing slash
-    testHelper.invokeMgnlSubcommand('create-page', 'myPage -p test/light-modules/foo/')
-    testHelper.checkFileContains('/foo/templates/components/text.yaml', ['templateScript: /foo/templates/pages/myPage.ftl'])
+  it('should build templateScript path correctly with trailing slash in path', function (done) {
+    invokeAndVerify('create-page',
+      'myPage -p test/light-modules/foo/',
+      '/foo/templates/pages/myPage.yaml',
+      function (data) {
+        expect(data).to.contain('templateScript: /foo/templates/pages/myPage.ftl')
+        done()
+      }
+    )
+  })
 
-    // and without
-    testHelper.invokeMgnlSubcommand('create-component', 'myPage -p test/light-modules/foo')
-    testHelper.checkFileContains('/foo/templates/components/text.yaml', ['templateScript: /foo/templates/pages/myPage.ftl'])
+  it('should build templateScript path correctly without trailing slash in path', function (done) {
+    invokeAndVerify('create-page',
+      'myPage -p test/light-modules/foo',
+      '/foo/templates/pages/myPage.yaml',
+      function (data) {
+        expect(data).to.contain('templateScript: /foo/templates/pages/myPage.ftl')
+        done()
+      }
+    )
   })
 
   it('should fail if no arg is passed', function () {
