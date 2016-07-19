@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 describe('add-availability', function () {
   var fs = require('fs-extra')
+  var path = require('path')
 
   var testHelper = require('./testHelper')
   var invokeAndVerify = testHelper.invokeAndVerify
@@ -168,6 +169,25 @@ describe('add-availability', function () {
         done()
       }, process.cwd())
     shell.cd('../../../')
+  })
+
+  it('should create missing YAML entries and add availability when run from parent folder of light module', function (done) {
+    shell.cd('test/light-modules/')
+    invokeAndVerify('add-availability',
+      'text emptyPage@fooArea -p foo/',
+      '/templates/pages/emptyPage.yaml',
+      function (data) {
+        expect(data).to.be.equal(
+          'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
+          'areas:\n' +
+          '  fooArea:\n' +
+          '    availableComponents:\n' +
+          '      text:\n' +
+          '        id: foo:components/text\n')
+        done()
+      }, path.join(process.cwd(), 'foo'))
+    shell.cd('../../')
   })
 
   it('should add area to template script if not yet added', function (done) {
