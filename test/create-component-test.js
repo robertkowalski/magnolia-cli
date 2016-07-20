@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 describe('create-component', function () {
   var fs = require('fs-extra')
+  var path = require('path')
 
   var testHelper = require('./testHelper')
   var invokeAndVerify = testHelper.invokeAndVerify
@@ -169,6 +170,25 @@ describe('create-component', function () {
         done()
       }, process.cwd())
     shell.cd('../../../')
+  })
+
+  it('should create missing YAML entries and add availability when run from parent folder of light module', function (done) {
+    shell.cd('test/light-modules/')
+    invokeAndVerify('create-component',
+      'text -a emptyPage@fooArea -p foo/',
+      '/templates/pages/emptyPage.yaml',
+      function (data) {
+        expect(data).to.be.equal(
+          'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
+          'templateScript: /foo/templates/pages/baz.ftl\n' +
+          'areas:\n' +
+          '  fooArea:\n' +
+          '    availableComponents:\n' +
+          '      text:\n' +
+          '        id: foo:components/text\n')
+        done()
+      }, path.join(process.cwd(), 'foo'))
+    shell.cd('../../')
   })
 
   it('should fail with no arg', function () {
