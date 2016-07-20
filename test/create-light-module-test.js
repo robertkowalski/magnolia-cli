@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 describe('create-light-module', function () {
   var fs = require('fs-extra')
+  var path = require('path')
 
   var testHelper = require('./testHelper')
   var invoke = testHelper.invoke
@@ -19,6 +20,11 @@ describe('create-light-module', function () {
 
   it('should create a light module', function () {
     var lightModulesbasedir = invoke('create-light-module', 'foo -p test/light-modules')
+    checkExpectations(lightModulesbasedir)
+  })
+
+  it('should create a light module passing an absolute path option', function () {
+    var lightModulesbasedir = invoke('create-light-module', 'foo -p ' + path.join(process.cwd(), 'test/light-modules'))
     checkExpectations(lightModulesbasedir)
   })
 
