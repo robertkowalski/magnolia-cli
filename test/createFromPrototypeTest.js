@@ -15,7 +15,7 @@ describe('createFromPrototype', function () {
     var customContent = 'Hi, I am a custom template!'
 
     testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
-    fs.writeFileSync('test/destination/_prototypes/page/template.ftl', customContent, 'utf-8')
+    fs.writeFileSync('test/destination/mgnl-cli-prototypes/page/template.ftl', customContent, 'utf-8')
 
     createFromPrototype.createFromPrototype('/page/template.ftl', customPage)
 

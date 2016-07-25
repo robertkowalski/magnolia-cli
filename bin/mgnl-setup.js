@@ -9,9 +9,9 @@ var extract = function (location) {
     helper.printError(location + ' path does not exist. Please fix it or create it.')
     process.exit(1)
   }
-  console.log("Extracting Magnolia's CLI _prototypes and package.json to %s...", location)
-  var prototypesFolder = path.resolve(__dirname, '../_prototypes')
-  var pathToExtractedPrototypes = path.join(location, '_prototypes')
+  console.log("Extracting Magnolia's CLI mgnl-cli-prototypes and package.json to %s...", location)
+  var prototypesFolder = path.resolve(__dirname, '../mgnl-cli-prototypes')
+  var pathToExtractedPrototypes = path.join(location, 'mgnl-cli-prototypes')
   var packageJsonPath = path.resolve(__dirname, '../package.json')
   var pathToExtractedJson = path.join(location, 'package.json')
 

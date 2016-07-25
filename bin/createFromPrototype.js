@@ -4,12 +4,12 @@ var util = require('util')
 var helper = require('./helper.js')
 
 // npm global location for prototypes
-var prototypesFolder = path.resolve(__dirname, '../_prototypes')
+var prototypesFolder = path.resolve(__dirname, '../mgnl-cli-prototypes')
 
 // a MGNLCLI_HOME env variable is set, use prototypes from there
 if (process.env.MGNLCLI_HOME) {
   helper.printInfo(util.format('MGNLCLI_HOME env variable is set. Using prototypes at %s', process.env.MGNLCLI_HOME))
-  prototypesFolder = path.join(process.env.MGNLCLI_HOME, '_prototypes')
+  prototypesFolder = path.join(process.env.MGNLCLI_HOME, 'mgnl-cli-prototypes')
 }
 
 var createFromPrototype = function (prototype, newFile, replace) {

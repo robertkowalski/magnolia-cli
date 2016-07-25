@@ -18,7 +18,7 @@ describe('setup', function () {
   it('should extract prototypes and package.json to destination path', function () {
     invoke('setup', '-p test/destination')
 
-    expect(fs.existsSync('test/destination/_prototypes')).to.be.true
+    expect(fs.existsSync('test/destination/mgnl-cli-prototypes')).to.be.true
     expect(fs.existsSync('test/destination/package.json')).to.be.true
   })
 
@@ -27,7 +27,7 @@ describe('setup', function () {
 
     invoke('setup', '')
 
-    expect(fs.existsSync('_prototypes')).to.be.true
+    expect(fs.existsSync('mgnl-cli-prototypes')).to.be.true
     expect(fs.existsSync('package.json')).to.be.true
 
     shell.cd('../../')
