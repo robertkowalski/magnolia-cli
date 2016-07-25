@@ -7,7 +7,7 @@ var extractMagnolia = require('./extractMagnolia.js')
 var copyResources = require('./copyResources.js')
 var editMagnoliaProperties = require('./editMagnoliaProperties.js')
 var helper = require('./helper.js')
-var packageJson = helper.requirePackageJson()
+var configJson = require(helper.resolveMgnlCliJsonPath())
 var program = require('commander')
 var util = require('util')
 
@@ -30,7 +30,7 @@ var prepareMagnolia = function (args) {
 var validateAndResolveArgs = function (program) {
   // defaults to package.json value
   if (typeof program.path === 'undefined') {
-    program.path = packageJson.config.outputPath
+    program.path = configJson.config.outputPath
     helper.printInfo(util.format("No path option provided. Will use the default '%s' in the current directory", program.path))
   }
 
@@ -42,10 +42,10 @@ var validateAndResolveArgs = function (program) {
   }
 
   if (typeof program.magnoliaVersion !== 'undefined') {
-    packageJson.setupMagnolia.downloadUrl = packageJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, program.magnoliaVersion)
+    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, program.magnoliaVersion)
   } else {
     // hardcode the latest release. Would be nice to have nexus automagically expose a URL to the 'latest' artifacts released
-    packageJson.setupMagnolia.downloadUrl = packageJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, '5.4.6')
+    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, '5.4.6')
     helper.printInfo(util.format('No magnolia-version option provided. Will use the default Community Edition 5.4.6'))
   }
   var lightModulesRoot = path.resolve(program.path)
@@ -54,9 +54,9 @@ var validateAndResolveArgs = function (program) {
     helper.printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", lightModulesRoot))
     fs.mkdirpSync(lightModulesRoot)
   }
-  packageJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
+  configJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
 
-  var moduleName = packageJson.lightModuleName
+  var moduleName = configJson.lightModuleName
   if (program.installSampleModule) {
     moduleName = program.installSampleModule
   } else {
@@ -70,7 +70,7 @@ var validateAndResolveArgs = function (program) {
 }
 
 program
-  .version(packageJson.version)
+  .version(require('../package.json').version)
   .description('Downloads and sets up an instance of Magnolia CE for light development in the current directory.')
   .option('-p, --path <path>', "The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to 'light-modules' in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of 'magnolia.resources.dir' property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.")
   .option('-m, --magnolia-version <version>', 'If not provided defaults to the magnolia-community-demo-bundle version provided in package.json')

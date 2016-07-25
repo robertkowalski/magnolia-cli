@@ -5,21 +5,21 @@ var util = require('util')
 var createFromPrototype = require('./createFromPrototype')
 var helper = require('./helper.js')
 var MgnlCliError = helper.MgnlCliError
-var packageJson = helper.requirePackageJson()
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var createPage = function (params) {
-  var templatePath = path.join(params.pathToLightModule, packageJson.lightDevFoldersInModule.templates_pages, params.newPageName)
+  var templatePath = path.join(params.pathToLightModule, configJson.lightDevFoldersInModule.templates_pages, params.newPageName)
   var templateDefinitionFile = templatePath + '.yaml'
   var templateScriptFile = templatePath + '.ftl'
 
-  var dialogDefinitionFile = path.join(params.pathToLightModule, packageJson.lightDevFoldersInModule.dialogs_pages, params.newPageName + '.yaml')
-  var dialogDefinitionId = params.moduleName + ':' + packageJson.lightDevFoldersInModule.dialogs_pages.replace('/dialogs/', '') + '/' + params.newPageName
+  var dialogDefinitionFile = path.join(params.pathToLightModule, configJson.lightDevFoldersInModule.dialogs_pages, params.newPageName + '.yaml')
+  var dialogDefinitionId = params.moduleName + ':' + configJson.lightDevFoldersInModule.dialogs_pages.replace('/dialogs/', '') + '/' + params.newPageName
 
   // page definition
   if (fs.existsSync(templateDefinitionFile)) {
     throw new MgnlCliError(util.format("'%s' page template already exists at %s", params.newPageName, templateDefinitionFile))
   } else {
-    createFromPrototype.createFromPrototype('/page/definition.yaml', templateDefinitionFile, {
+    createFromPrototype.create('/page/definition.yaml', templateDefinitionFile, {
       '__name__': params.newPageName,
       '__templateScript__': templateScriptFile.replace(params.pathToLightModule, '/' + params.moduleName),
       '__dialog__': dialogDefinitionId
@@ -28,7 +28,7 @@ var createPage = function (params) {
 
   // template script
   if (!fs.existsSync(templateScriptFile)) {
-    createFromPrototype.createFromPrototype('/page/template.ftl', templateScriptFile, {
+    createFromPrototype.create('/page/template.ftl', templateScriptFile, {
       '__name__': params.newPageName,
       '__lightDevModuleFolder__': '/' + params.moduleName
     })
@@ -38,7 +38,7 @@ var createPage = function (params) {
 
   // dialog
   if (!fs.existsSync(dialogDefinitionFile)) {
-    createFromPrototype.createFromPrototype('/page/dialog.yaml', dialogDefinitionFile, {
+    createFromPrototype.create('/page/dialog.yaml', dialogDefinitionFile, {
       '__name__': params.newPageName
     })
   } else {
@@ -57,11 +57,7 @@ var validateAndResolveArgs = function (program) {
     throw new MgnlCliError(util.format('%s is not valid page name. It should contain no slash character', newPageName), true)
   }
 
-  // assume the current dir is a light module.
-  if (typeof program.path === 'undefined') {
-    helper.printInfo(util.format('No path option provided, page template will be created in the current folder.'))
-    moduleName = path.basename(process.cwd())
-  } else {
+  if (program.path) {
     // clever trick with filter to get rid of unwanted separators found on http://stackoverflow.com/a/19888749 of course
     var splitPath = program.path.split(path.sep).filter(Boolean)
     newPageName = program.args[0]
@@ -72,6 +68,10 @@ var validateAndResolveArgs = function (program) {
       // assume last part is module name
       moduleName = splitPath[splitPath.length - 1]
     }
+  } else {
+    // assume the current dir is a light module.
+    helper.printInfo(util.format('No path option provided, page template will be created in the current folder.'))
+    moduleName = path.basename(process.cwd())
   }
   var pathToModule = program.path || process.cwd()
 

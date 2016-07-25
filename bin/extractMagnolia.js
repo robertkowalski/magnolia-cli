@@ -2,10 +2,11 @@ var AdmZip = require('adm-zip')
 var path = require('path')
 var fs = require('fs')
 var util = require('util')
-var packageJson = require('./helper').requirePackageJson()
+var helper = require('./helper')
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var extract = function (to, zipPath) {
-  var tomcatFolder = path.join(to, packageJson.setupMagnolia.tomcatFolder)
+  var tomcatFolder = path.join(to, configJson.setupMagnolia.tomcatFolder)
 
   if (fs.existsSync(tomcatFolder)) {
     console.log("%s already exists. We won't extract it again.", tomcatFolder)

@@ -4,7 +4,8 @@ var ProgressBar = require('progress')
 var request = require('request')
 var truncateMiddle = require('truncate-middle')
 
-var packageJson = require('./helper').requirePackageJson()
+var helper = require('./helper')
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var download = function (to, zip) {
   var pathToZip = path.join(to, zip)
@@ -12,18 +13,18 @@ var download = function (to, zip) {
   if (fs.existsSync(pathToZip)) {
     console.log("%s exists. We won't download it again.", zip)
     return
-  } else if (!packageJson.setupMagnolia.downloadUrl) {
+  } else if (!configJson.setupMagnolia.downloadUrl) {
     console.log('No Magnolia Tomcat bundle to download.')
     return
   }
 
-  var truncatedUrl = truncateMiddle(packageJson.setupMagnolia.downloadUrl, 40, 60, '...')
+  var truncatedUrl = truncateMiddle(configJson.setupMagnolia.downloadUrl, 40, 60, '...')
 
   request
-    .get(packageJson.setupMagnolia.downloadUrl)
+    .get(configJson.setupMagnolia.downloadUrl)
     .on('response', function (res) {
       if (res.statusCode !== 200) {
-        console.log('Error while trying to get ' + packageJson.setupMagnolia.downloadUrl + '. Is the URL correct?')
+        console.log('Error while trying to get ' + configJson.setupMagnolia.downloadUrl + '. Is the URL correct?')
         process.exit(1)
       }
       var len = parseInt(res.headers['content-length'], 10)

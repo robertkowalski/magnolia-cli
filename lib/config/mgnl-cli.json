@@ -1,0 +1,33 @@
+{
+  "setupMagnolia": {
+    "downloadUrl": "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnoliaVersion}/magnolia-community-demo-bundle-${magnoliaVersion}-tomcat-bundle.zip",
+    "tomcatFolder": "apache-tomcat",
+    "webapps": {
+      "magnoliaAuthor": {
+        "magnolia.develop": true,
+        "magnolia.update.auto": true
+      },
+      "magnoliaPublic": {
+        "magnolia.update.auto": true
+      }
+    },
+    "downloadJars": {
+      "neat-resources-1.0.1": "https://nexus.magnolia-cms.com/service/local/repositories/magnolia.forge.releases/content/com/neatresults/mgnltweaks/neat-resources/1.0.1/neat-resources-1.0.1.jar"
+    }
+  },
+  "config": {
+    "outputPath": "light-modules"
+  },
+  "lightModuleName": "sampleModule",
+  "lightDevFoldersInModule": {
+    "dialogs_components": "/dialogs/components",
+    "dialogs_pages": "/dialogs/pages",
+    "templates_components": "/templates/components",
+    "templates_pages": "/templates/pages",
+    "css": "/webresources/css",
+    "js": "/webresources/js"
+  },
+  "lightDevCopyResources": {
+    "jquery/dist/jquery.js": "js"
+  }
+}

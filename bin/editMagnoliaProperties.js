@@ -2,10 +2,11 @@ var path = require('path')
 var fs = require('fs')
 var replace = require('replace')
 
-var packageJson = require('./helper').requirePackageJson()
+var helper = require('./helper')
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var replaceProperties = function (obj, instance) {
-  var pathToConfig = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/config/default')
+  var pathToConfig = path.join(configJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/config/default')
   if (!fs.existsSync(pathToConfig)) {
     console.log("Path '%s' not found. Skipping it...", pathToConfig)
     return
@@ -30,10 +31,10 @@ var replaceProperties = function (obj, instance) {
 }
 
 var editProperties = function () {
-  if (packageJson.setupMagnolia.webapps) {
+  if (configJson.setupMagnolia.webapps) {
     console.log('Replacing Magnolia properties to prepare it for light development...')
-    replaceProperties(packageJson.setupMagnolia.webapps.magnoliaAuthor, 'magnoliaAuthor')
-  // replaceProperties(packageJson.setupMagnolia.webapps.magnoliaPublic, "magnoliaPublic")
+    replaceProperties(configJson.setupMagnolia.webapps.magnoliaAuthor, 'magnoliaAuthor')
+  // replaceProperties(configJson.setupMagnolia.webapps.magnoliaPublic, "magnoliaPublic")
   } else {
     console.log('No properties configuration found')
   }

@@ -3,7 +3,8 @@ var fse = require('fs-extra')
 var path = require('path')
 var chalk = require('chalk')
 var util = require('util')
-var packageJson = require('../package.json')
+var findup = require('findup-sync')
+var findParentDir = require('find-parent-dir')
 
 var printError = function (msg) {
   console.error(chalk.red(msg))
@@ -16,6 +17,26 @@ var printImportant = function (msg) {
 }
 var printInfo = function (msg) {
   console.log('INFO:', msg)
+}
+
+var resolveMgnlCliJsonPath = function () {
+  var mgnlCliJson = findup('mgnl-cli.json')
+  if (mgnlCliJson) {
+    return mgnlCliJson
+  } else {
+    // npm global location for mgnl-cli.json
+    return path.resolve(__dirname, '../lib/config/mgnl-cli.json')
+  }
+}
+
+var resolveMgnlCliPrototypesPath = function () {
+  var parent = findParentDir.sync(process.cwd(), 'mgnl-cli.json')
+  if (parent) {
+    return path.join(parent, 'mgnl-cli-prototypes')
+  } else {
+    // npm global location for prototypes
+    return path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
+  }
 }
 
 /**
@@ -38,8 +59,9 @@ var ensureIsAValidLightModuleFolder = function (pathToModule) {
   if (!fs.existsSync(pathToModule)) {
     throw new MgnlCliError(util.format('Path %s does not exist. Please fix it or create it first', pathToModule))
   } else {
-    var pages = path.join(pathToModule, packageJson.lightDevFoldersInModule.templates_pages)
-    var components = path.join(pathToModule, packageJson.lightDevFoldersInModule.templates_components)
+    var configJson = require(resolveMgnlCliJsonPath())
+    var pages = path.join(pathToModule, configJson.lightDevFoldersInModule.templates_pages)
+    var components = path.join(pathToModule, configJson.lightDevFoldersInModule.templates_components)
 
     if (!fs.existsSync(pages) || !fs.existsSync(components)) {
       throw new MgnlCliError(util.format(invalidLightModuleMsg, pathToModule))
@@ -51,9 +73,9 @@ var createFolders = function (lightModulesRoot, moduleName) {
   var folders = [
     lightModulesRoot,
     lightModulesRoot + '/' + moduleName]
-
-  Object.keys(packageJson.lightDevFoldersInModule).forEach(function (key) {
-    folders.push(path.join(lightModulesRoot, moduleName, packageJson.lightDevFoldersInModule[key]))
+  var configJson = require(resolveMgnlCliJsonPath())
+  Object.keys(configJson.lightDevFoldersInModule).forEach(function (key) {
+    folders.push(path.join(lightModulesRoot, moduleName, configJson.lightDevFoldersInModule[key]))
   })
 
   folders.forEach(function (folder) {
@@ -100,19 +122,6 @@ var matchesDefinitionReferenceWithoutAreaPattern = function (val) {
   return /^([\w-\/:]+)$/.exec(val)
 }
 
-/**
- * Imports a custom package.json from MGNLCLI_HOME if the latter is set or the default one.
- */
-var requirePackageJson = function () {
-  // a MGNLCLI_HOME env variable is set, use package.json from there
-  if (process.env.MGNLCLI_HOME) {
-    printInfo(util.format('MGNLCLI_HOME env variable is set. Using package.json at %s', process.env.MGNLCLI_HOME))
-    return require(path.join(process.env.MGNLCLI_HOME, 'package.json'))
-  } else {
-    return require('../package.json')
-  }
-}
-
 exports.parseDefinitionReference = parseDefinitionReference
 exports.matchesDefinitionReferenceWithAreaPattern = matchesDefinitionReferenceWithAreaPattern
 exports.matchesDefinitionReferenceWithoutAreaPattern = matchesDefinitionReferenceWithoutAreaPattern
@@ -123,4 +132,5 @@ exports.printSuccess = printSuccess
 exports.printInfo = printInfo
 exports.printImportant = printImportant
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder
-exports.requirePackageJson = requirePackageJson
+exports.resolveMgnlCliJsonPath = resolveMgnlCliJsonPath
+exports.resolveMgnlCliPrototypesPath = resolveMgnlCliPrototypesPath
