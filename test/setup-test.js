@@ -15,20 +15,20 @@ describe('setup', function () {
     fs.removeSync('test/destination')
   })
 
-  it('should extract prototypes and package.json to destination path', function () {
+  it('should extract prototypes and mgnl-cli.json to destination path', function () {
     invoke('setup', '-p test/destination')
 
-    expect(fs.existsSync('test/destination/_prototypes')).to.be.true
-    expect(fs.existsSync('test/destination/package.json')).to.be.true
+    expect(fs.existsSync('test/destination/mgnl-cli-prototypes')).to.be.true
+    expect(fs.existsSync('test/destination/mgnl-cli.json')).to.be.true
   })
 
-  it('should extract prototypes and package.json to current folder if no path option is given', function () {
+  it('should extract prototypes and mgnl-cli.json to current folder if no path option is given', function () {
     shell.cd('test/destination')
 
     invoke('setup', '')
 
-    expect(fs.existsSync('_prototypes')).to.be.true
-    expect(fs.existsSync('package.json')).to.be.true
+    expect(fs.existsSync('mgnl-cli-prototypes')).to.be.true
+    expect(fs.existsSync('mgnl-cli.json')).to.be.true
 
     shell.cd('../../')
   })
@@ -36,11 +36,11 @@ describe('setup', function () {
   it('should not overwrite existing files', function () {
     invoke('setup', '-p test/destination')
 
-    var customPackageJson = require('./destination/package.json')
-    customPackageJson.config.outputPath = 'foobar'
+    var customConfigJson = require('./destination/mgnl-cli.json')
+    customConfigJson.config.outputPath = 'foobar'
 
     invoke('setup', '-p test/destination')
-    expect(customPackageJson.config.outputPath).to.be.equal('foobar')
+    expect(customConfigJson.config.outputPath).to.be.equal('foobar')
   })
 
   it('should fail if path is non existent', function () {

@@ -4,6 +4,8 @@ describe('helper', function () {
   var expect = require('chai').expect
   var fs = require('fs-extra')
   var path = require('path')
+  var shell = require('shelljs')
+
   var testHelper = require('./testHelper')
 
   describe('#parseDefinitionReference()', function () {
@@ -59,7 +61,7 @@ describe('helper', function () {
     })
   })
 
-  describe('#requirePackageJson()', function () {
+  describe('#resolveMgnlCliJsonPath()', function () {
     beforeEach(function () {
       fs.mkdirsSync('test/destination')
     })
@@ -68,25 +70,56 @@ describe('helper', function () {
       fs.removeSync('test/destination')
     })
 
-    it('should return default package.json if no MGNLCLI_HOME is set', function () {
-      var packageJson = helper.requirePackageJson()
-      expect(packageJson.config.outputPath).to.be.equal('light-modules')
+    it('should return default mgnl-cli.json if no mgnl-cli.json is found', function () {
+      var configJson = require(helper.resolveMgnlCliJsonPath())
+      expect(configJson.config.outputPath).to.be.equal('light-modules')
     })
 
-    it('should return custom package.json if MGNLCLI_HOME is set', function () {
-      process.env.MGNLCLI_HOME = path.join(process.cwd(), 'test/destination')
-
+    it('should return custom mgnl-cli.json if mgnl-cli.json is found', function () {
       testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
 
-      fs.exists('./destination/package.json', function (err) {
-        if (err) throw err
-        var customPackageJson = require('./destination/package.json')
-        customPackageJson.config.outputPath = 'foobar'
+      var customPackageJson = require(path.resolve('test/destination/mgnl-cli.json'))
+      customPackageJson.config.outputPath = 'foobar'
 
-        var packageJson = helper.requirePackageJson()
-        expect(packageJson.config.outputPath).to.be.equal('foobar')
-        delete process.env.MGNLCLI_HOME
+      shell.cd('test/destination')
+
+      var configJson = require(helper.resolveMgnlCliJsonPath())
+      expect(configJson.config.outputPath).to.be.equal('foobar')
+
+      shell.cd('../../')
+    })
+  })
+
+  describe('#resolveMgnlCliPrototypesPath()', function () {
+    beforeEach(function () {
+      fs.mkdirsSync('test/destination')
+    })
+
+    afterEach(function () {
+      fs.removeSync('test/destination')
+    })
+
+    it('should return default mgnl-cli-prototypes if no custom one is found', function () {
+      var prototypes = helper.resolveMgnlCliPrototypesPath()
+      fs.readFile(path.join(prototypes, '/page/definition.yaml'), 'utf-8', function (err, data) {
+        if (err) throw err
+        expect(data).not.to.contain('hello there!')
       })
+    })
+
+    it('should return custom mgnl-cli-prototypes if mgnl-cli-prototypes is found', function () {
+      testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
+      shell.cd('test/destination')
+
+      fs.writeFileSync('mgnl-cli-prototypes/page/definition.yaml', 'hello there!', 'utf-8')
+
+      var prototypes = helper.resolveMgnlCliPrototypesPath()
+      fs.readFile(path.join(prototypes, '/page/definition.yaml'), 'utf-8', function (err, data) {
+        if (err) throw err
+        expect(data).to.contain('hello there!')
+      })
+
+      shell.cd('../../')
     })
   })
 })

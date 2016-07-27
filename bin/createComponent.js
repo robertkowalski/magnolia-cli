@@ -4,24 +4,24 @@ var util = require('util')
 var async = require('async')
 var helper = require('./helper')
 var MgnlCliError = helper.MgnlCliError
-var packageJson = helper.requirePackageJson()
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var createFromPrototype = require('./createFromPrototype')
 var addAvailability = require('./addAvailability')
 
 var createComponent = function (args) {
-  var templatePath = path.join(args.pathToLightModule, packageJson.lightDevFoldersInModule.templates_components, args.component.name)
+  var templatePath = path.join(args.pathToLightModule, configJson.lightDevFoldersInModule.templates_components, args.component.name)
   var templateDefinitionFile = templatePath + '.yaml'
   var templateScriptFile = templatePath + '.ftl'
 
-  var dialogDefinitionFile = path.join(args.pathToLightModule, packageJson.lightDevFoldersInModule.dialogs_components, args.component.name + '.yaml')
-  var dialogDefinitionId = args.component.module + ':' + packageJson.lightDevFoldersInModule.dialogs_components.replace('/dialogs/', '') + '/' + args.component.name
+  var dialogDefinitionFile = path.join(args.pathToLightModule, configJson.lightDevFoldersInModule.dialogs_components, args.component.name + '.yaml')
+  var dialogDefinitionId = args.component.module + ':' + configJson.lightDevFoldersInModule.dialogs_components.replace('/dialogs/', '') + '/' + args.component.name
 
   // component definition
   if (fs.existsSync(templateDefinitionFile)) {
     throw new MgnlCliError(util.format('%s component template already exists at %s', args.component.name, templateDefinitionFile))
   } else {
-    createFromPrototype.createFromPrototype('/component/definition.yaml', templateDefinitionFile, {
+    createFromPrototype.create('/component/definition.yaml', templateDefinitionFile, {
       '__name__': args.component.name,
       '__templateScript__': templateScriptFile.replace(args.pathToLightModule, '/' + args.component.module),
       '__dialog__': dialogDefinitionId
@@ -52,7 +52,7 @@ var createComponent = function (args) {
 
   // template script
   if (!fs.existsSync(templateScriptFile)) {
-    createFromPrototype.createFromPrototype('/component/template.ftl', templateScriptFile, {
+    createFromPrototype.create('/component/template.ftl', templateScriptFile, {
       '__name__': args.component.name
     })
   } else {
@@ -61,7 +61,7 @@ var createComponent = function (args) {
 
   // dialog
   if (!fs.existsSync(dialogDefinitionFile)) {
-    createFromPrototype.createFromPrototype('/component/dialog.yaml', dialogDefinitionFile, {
+    createFromPrototype.create('/component/dialog.yaml', dialogDefinitionFile, {
       '__name__': args.component.name
     })
   } else {
@@ -93,7 +93,7 @@ var validateAndResolveArgs = function (program) {
     }
   } else {
     // defaults to current dir
-    helper.printInfo(util.format('No path option provided, component will be created in the current folder.'))
+    helper.printInfo(util.format('No path option provided, component will be created relative to the current folder.'))
     var cwd = process.cwd()
     args.path = cwd.substring(0, cwd.lastIndexOf('/'))
     // token after last slash is assumed to be module name

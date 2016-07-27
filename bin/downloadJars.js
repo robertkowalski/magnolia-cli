@@ -4,14 +4,15 @@ var path = require('path')
 var ProgressBar = require('progress')
 var request = require('request')
 
-var packageJson = require('./helper').requirePackageJson()
+var helper = require('./helper')
+var configJson = require(helper.resolveMgnlCliJsonPath())
 
 var downloadJars = function (done) {
-  if (packageJson.setupMagnolia.downloadJars) {
+  if (configJson.setupMagnolia.downloadJars) {
     var urls = {}
     var downloadedJars = 0
-    Object.keys(packageJson.setupMagnolia.downloadJars).forEach(function (jar) {
-      var url = packageJson.setupMagnolia.downloadJars[jar]
+    Object.keys(configJson.setupMagnolia.downloadJars).forEach(function (jar) {
+      var url = configJson.setupMagnolia.downloadJars[jar]
       var fileName = path.basename(url)
       urls[fileName] = url
     })
@@ -34,11 +35,11 @@ var downloadJars = function (done) {
         .pipe(piper)
 
       piper.on('close', function () {
-        if (packageJson.setupMagnolia.webapps) {
+        if (configJson.setupMagnolia.webapps) {
           downloadedJars++
-          Object.keys(packageJson.setupMagnolia.webapps).forEach(function (instance) {
-            if (fs.existsSync(path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/'))) {
-              var pathToFile = path.join(packageJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/', fileName)
+          Object.keys(configJson.setupMagnolia.webapps).forEach(function (instance) {
+            if (fs.existsSync(path.join(configJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/'))) {
+              var pathToFile = path.join(configJson.setupMagnolia.tomcatFolder, '/webapps/', instance, '/WEB-INF/lib/', fileName)
               if (!fs.existsSync(pathToFile)) {
                 fs.rename(fileName, pathToFile, function (err) {
                   if (err) throw err

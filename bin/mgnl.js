@@ -22,13 +22,19 @@ program
   .command('create-light-module', 'create a light module')
   .command('create-page', 'create a page template')
   .command('jumpstart', 'prepare Magnolia CMS for light dev')
-  .command('setup', 'extract prototypes and package.json of CLI tools so that they can be customized')
+  .command('setup', 'extract mgnl-cli-prototypes folder and mgnl-cli.json so that they can be customized')
   .parse(process.argv)
 
-var availableCommands = ['help', 'jumpstart', 'setup', 'create-light-module', 'create-page', 'create-component', 'add-availability', 'build']
+var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', 'create-component']
+var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability'])
 
 if (availableCommands.indexOf(program.args[0]) === -1) {
   helper.printError(program.args[0] + ' is not a valid command')
   program.outputHelp()
   process.exit(1)
+}
+
+if (customizableCommands.indexOf(program.args[0]) !== -1) {
+  helper.printInfo('Using configuration at ' + helper.resolveMgnlCliJsonPath())
+  helper.printInfo('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
 }
