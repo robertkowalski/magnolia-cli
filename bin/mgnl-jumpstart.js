@@ -41,12 +41,12 @@ var validateAndResolveArgs = function (program) {
     process.exit(1)
   }
 
-  if (typeof program.magnoliaVersion !== 'undefined') {
+  if (program.magnoliaVersion) {
     configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, program.magnoliaVersion)
   } else {
-    // hardcode the latest release. Would be nice to have nexus automagically expose a URL to the 'latest' artifacts released
-    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, '5.4.6')
-    helper.printInfo(util.format('No magnolia-version option provided. Will use the default Community Edition 5.4.6'))
+    // get the latest release.
+    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, 'LATEST')
+    helper.printInfo('No magnolia-version option provided. Will use the latest Community Edition')
   }
   var lightModulesRoot = path.resolve(program.path)
 
@@ -73,7 +73,7 @@ program
   .version(require('../package.json').version)
   .description('Downloads and sets up an instance of Magnolia CE for light development in the current directory.')
   .option('-p, --path <path>', "The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to 'light-modules' in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of 'magnolia.resources.dir' property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.")
-  .option('-m, --magnolia-version <version>', 'If not provided defaults to the magnolia-community-demo-bundle version provided in package.json')
+  .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest magnolia-community-demo-bundle.')
   .option('-i, --install-sample-module <name>', 'If provided will create a sample module under the light modules root folder. If no name is provided defaults to sampleModule')
   .parse(process.argv)
 

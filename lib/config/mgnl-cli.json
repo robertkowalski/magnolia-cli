@@ -1,6 +1,6 @@
 {
   "setupMagnolia": {
-    "downloadUrl": "https://nexus.magnolia-cms.com/content/repositories/magnolia.public.releases/info/magnolia/bundle/magnolia-community-demo-bundle/${magnoliaVersion}/magnolia-community-demo-bundle-${magnoliaVersion}-tomcat-bundle.zip",
+    "downloadUrl": "https://nexus.magnolia-cms.com/service/local/artifact/maven/content?r=magnolia.public.releases&g=info.magnolia.bundle&a=magnolia-community-demo-bundle&c=tomcat-bundle&e=zip&v=${magnoliaVersion}",
     "tomcatFolder": "apache-tomcat",
     "webapps": {
       "magnoliaAuthor": {
