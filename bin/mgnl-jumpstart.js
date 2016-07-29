@@ -48,7 +48,12 @@ var validateAndResolveArgs = function (program) {
     configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, 'LATEST')
     helper.printInfo('No magnolia-version option provided. Will use the latest Community Edition')
   }
-  var lightModulesRoot = path.resolve(program.path)
+  /*
+   * This absolute path will end up in magnolia.properties as the value of magnolia.resources.dir
+   * If we're on Windows we need to replace the backslash, else it will cause Magnolia start up to fail.
+   * See also top comment in magnolia.properties
+   */
+  var lightModulesRoot = process.platform === 'win32' ? path.resolve(program.path).replace(/\\/g, '/') : path.resolve(program.path)
 
   if (!fs.existsSync(lightModulesRoot)) {
     helper.printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", lightModulesRoot))
