@@ -25,6 +25,8 @@
     "templates_components": "/templates/components",
     "templates_pages": "/templates/pages",
     "css": "/webresources/css",
-    "js": "/webresources/js"
+    "js": "/webresources/js",
+    "decorations": "decorations",
+    "i18n": "i18n"
   }
 }
