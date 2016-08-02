@@ -4,7 +4,7 @@ var util = require('util')
 
 var helper = require('./helper')
 var MgnlCliError = helper.MgnlCliError
-var copyResources = require('./copyResources.js')
+// var copyResources = require('./copyResources.js')
 
 var validateAndResolveArgs = function (program) {
   if (program.args.length !== 1) {
@@ -35,7 +35,7 @@ var validateAndResolveArgs = function (program) {
 
 var createLightModule = function (args) {
   helper.createFolders(args.lightModulesRoot, args.moduleName)
-  copyResources.copyLightDevResources(args.lightModulesRoot, args.moduleName)
+  // copyResources.copyLightDevResources(args.lightModulesRoot, args.moduleName)
   helper.printSuccess(util.format('Module %s created at %s', args.moduleName, args.lightModulesRoot))
 }
 

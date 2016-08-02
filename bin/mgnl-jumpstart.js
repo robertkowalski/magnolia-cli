@@ -4,7 +4,7 @@ var async = require('async')
 var downloadMagnolia = require('./downloadMagnolia.js')
 var downloadJars = require('./downloadJars.js')
 var extractMagnolia = require('./extractMagnolia.js')
-var copyResources = require('./copyResources.js')
+var createLightModule = require('./createLightModule.js')
 var editMagnoliaProperties = require('./editMagnoliaProperties.js')
 var helper = require('./helper.js')
 var configJson = require(helper.resolveMgnlCliJsonPath())
@@ -13,8 +13,7 @@ var util = require('util')
 
 var prepareMagnolia = function (args) {
   extractMagnolia.extract(process.cwd(), magnoliaZip)
-  helper.createFolders(args.lightModulesRoot, args.moduleName)
-  copyResources.copyLightDevResources(args.lightModulesRoot, args.moduleName)
+  createLightModule.create(args)
 
   editMagnoliaProperties.editProperties()
   downloadJars.download(function () {

@@ -26,8 +26,5 @@
     "templates_pages": "/templates/pages",
     "css": "/webresources/css",
     "js": "/webresources/js"
-  },
-  "lightDevCopyResources": {
-    "jquery/dist/jquery.js": "js"
   }
 }
