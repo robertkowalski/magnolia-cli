@@ -52,7 +52,7 @@ describe('create-light-module', function () {
   })
 
   function checkExpectations (lightModulesbasedir) {
-    ['/foo/templates/pages', '/foo/templates/components', '/foo/dialogs/pages', '/foo/dialogs/components', '/foo/webresources'].forEach(function (item) {
+    ['/foo/templates/pages', '/foo/templates/components', '/foo/dialogs/pages', '/foo/dialogs/components', '/foo/decorations', '/foo/i18n/foo-messages_en.properties'].forEach(function (item) {
       // console.log("Checking %s", lightModulesbasedir + item)
       expect(fs.existsSync(lightModulesbasedir + item)).to.be.true
     })
