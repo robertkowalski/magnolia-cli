@@ -4,7 +4,6 @@ var path = require('path')
 var chalk = require('chalk')
 var util = require('util')
 var findup = require('findup-sync')
-var findParentDir = require('find-parent-dir')
 
 var printError = function (msg) {
   console.error(chalk.red(msg))
@@ -30,9 +29,9 @@ var resolveMgnlCliJsonPath = function () {
 }
 
 var resolveMgnlCliPrototypesPath = function () {
-  var parent = findParentDir.sync(process.cwd(), 'mgnl-cli.json')
-  if (parent) {
-    return path.join(parent, 'mgnl-cli-prototypes')
+  var mgnlCliJson = findup('mgnl-cli.json')
+  if (mgnlCliJson) {
+    return path.join(path.resolve(mgnlCliJson, '..'), 'mgnl-cli-prototypes')
   } else {
     // npm global location for prototypes
     return path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
