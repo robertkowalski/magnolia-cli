@@ -13,7 +13,10 @@ var util = require('util')
 
 var prepareMagnolia = function (args) {
   extractMagnolia.extract(process.cwd(), magnoliaZip)
-  createLightModule.create(args)
+
+  if (args.moduleName) {
+    createLightModule.create(args)
+  }
 
   editMagnoliaProperties.editProperties()
   downloadJars.download(function () {
@@ -60,11 +63,9 @@ var validateAndResolveArgs = function (program) {
   }
   configJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
 
-  var moduleName = configJson.lightModuleName
+  var moduleName = null
   if (program.installSampleModule) {
     moduleName = program.installSampleModule
-  } else {
-    helper.printInfo(util.format("No install-sample-module option provided. Will use the default '%s'", moduleName))
   }
 
   return {
@@ -78,7 +79,7 @@ program
   .description('Downloads and sets up an instance of Magnolia CE for light development in the current directory.')
   .option('-p, --path <path>', "The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to 'light-modules' in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of 'magnolia.resources.dir' property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.")
   .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest magnolia-community-demo-bundle.')
-  .option('-i, --install-sample-module <name>', 'If provided will create a sample module under the light modules root folder. If no name is provided defaults to sampleModule')
+  .option('-i, --install-sample-module <name>', 'If provided will create a sample module under the light modules root folder with the given name.')
   .parse(process.argv)
 
 var args = validateAndResolveArgs(program)
