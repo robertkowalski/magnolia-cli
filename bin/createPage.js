@@ -21,7 +21,7 @@ var createPage = function (params) {
   } else {
     createFromPrototype.create('/page/definition.yaml', templateDefinitionFile, {
       '__name__': params.newPageName,
-      '__templateScript__': templateScriptFile.replace(params.pathToLightModule, '/' + params.moduleName),
+      '__templateScript__': templateScriptFile.replace(params.pathToLightModule, path.sep + params.moduleName),
       '__dialog__': dialogDefinitionId
     })
   }

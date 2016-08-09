@@ -23,7 +23,7 @@ var createComponent = function (args) {
   } else {
     createFromPrototype.create('/component/definition.yaml', templateDefinitionFile, {
       '__name__': args.component.name,
-      '__templateScript__': templateScriptFile.replace(args.pathToLightModule, '/' + args.component.module),
+      '__templateScript__': templateScriptFile.replace(args.pathToLightModule, path.sep + args.component.module),
       '__dialog__': dialogDefinitionId
     })
 
@@ -94,10 +94,9 @@ var validateAndResolveArgs = function (program) {
   } else {
     // defaults to current dir
     helper.printInfo(util.format('No path option provided, component will be created relative to the current folder.'))
-    var cwd = process.cwd()
-    args.path = cwd.substring(0, cwd.lastIndexOf('/'))
+    args.path = path.resolve('..')
     // token after last slash is assumed to be module name
-    moduleName = path.basename(cwd)
+    moduleName = path.basename(process.cwd())
   }
   args.component = helper.parseDefinitionReference(program.args[0], moduleName)
 

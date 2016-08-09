@@ -29,11 +29,9 @@ var validateAndResolveArgs = function (program) {
       moduleName = splitPath[splitPath.length - 1]
     }
   } else {
-    // defaults to current dir
-    var cwd = process.cwd()
-    args.path = cwd.substring(0, cwd.lastIndexOf('/'))
+    args.path = path.resolve('..')
     // token after last slash is assumed to be module name
-    moduleName = path.basename(cwd)
+    moduleName = path.basename(process.cwd())
   }
 
   args.component = helper.parseDefinitionReference(program.args[0], moduleName)
