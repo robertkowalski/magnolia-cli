@@ -1,6 +1,6 @@
 var path = require('path')
 var fs = require('fs')
-var replace = require('replace')
+var replace = require('replace-in-file')
 
 var helper = require('./helper')
 var configJson = require(helper.resolveMgnlCliJsonPath())
@@ -20,12 +20,9 @@ var replaceProperties = function (obj, instance) {
     var replacement = '$1$2' + obj[key]
 
     replace({
-      regex: regex,
-      replacement: replacement,
-      paths: [pathToConfig],
-      silent: true,
-      recursive: true,
-      include: 'magnolia.properties'
+      files: path.join(pathToConfig, 'magnolia.properties'),
+      replace: regex,
+      with: replacement
     })
   })
 }
