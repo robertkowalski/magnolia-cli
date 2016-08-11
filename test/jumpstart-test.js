@@ -44,7 +44,7 @@ describe('jumpstart', function () {
     shell.cd('../../')
   })
 
-  it('must create the sample light-module if -i option is given.', function () {
+  it('should create the sample light-module if -i option is given', function () {
     // WHEN
     shell.cd('test/destination')
     var lightModuleName = 'my-module'
