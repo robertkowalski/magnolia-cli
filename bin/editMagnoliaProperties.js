@@ -18,11 +18,14 @@ var replaceProperties = function (obj, instance) {
 
     var regex = '(' + key.replace(/\./g, '\\.') + ')(\s*=\s*)(.+)'
     var replacement = '$1$2' + obj[key]
+    var pathToProps = path.join(pathToConfig, 'magnolia.properties')
 
     replace({
-      files: path.join(pathToConfig, 'magnolia.properties'),
-      replace: regex,
+      files: pathToProps,
+      replace: new RegExp(regex, 'g'),
       with: replacement
+    }, function (e) {
+      if (e) throw e
     })
   })
 }
