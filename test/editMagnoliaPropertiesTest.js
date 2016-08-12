@@ -18,8 +18,8 @@ describe('editMagnoliaProperties', function () {
     fs.readFile(magnoliaPropertiesPath, 'utf-8', function (err, data) {
       expect(err).to.be.null
       // here we expect only the properties found by default at mgnl-cli.json to be changed
-      expect(data).to.be.contain('magnolia.develop=true')
-      expect(data).to.be.contain('magnolia.auto.update=true')
+      expect(data).to.contain('magnolia.develop=true')
+      expect(data).to.contain('magnolia.auto.update=true')
     })
 
     shell.cd('../..')
