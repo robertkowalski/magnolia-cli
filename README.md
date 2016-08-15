@@ -2,10 +2,12 @@
 
 [![Build Status](https://jenkins.magnolia-cms.com/job/build_npm-cli/badge/icon)](https://jenkins.magnolia-cms.com/job/build_npm-cli/)
 
-An npm package providing a CLI tool to setup and facilitate light development with Magnolia
+An npm package providing a CLI tool to setup and facilitate [Light development with Magnolia](https://documentation.magnolia-cms.com/display/DOCS/Light+development+in+Magnolia).   
+For a complete reference of the npm-cli please have a look at [Magnolia npm-cli documentation](https://documentation.magnolia-cms.com/display/DOCS/Magnolia+npm-cli).
+
 
 ## Installation ##
-Before installation make sure you have [Node.js](https://nodejs.org) installed (recommended v 5.8.0+)
+Before installation make sure you have [Node.js](https://nodejs.org) installed (recommended v 4.4.7+)
 
 Install the package **globally**
 
@@ -16,29 +18,13 @@ or checkout the code, build it with `npm pack` and finally install it from local
 `npm install /path/to/source/magnolia-cli-1.0.0.tgz -g`
 
 
-## Usage ##
-A) To create light module:
-In your working directory do `mgnl create-light-module <light-module-name>`
-Navigate to just created folder for your new light module na and continue with commands e.g. `mgnl create-page <page-tempalte-name>`
-Or use `path` parameter `mgnl create-page <page-tempalte-name> -p <light-module-name>`
-
-B) To download and setup Magnolia + create light module:
-Start with `mgnl setup`, in your <workingDirectory> (recommend empty folder), which will expose you package.json file with basic configuration where you may change stuff like 'lightModuleName', folder structure of light module and much more.
-Then do `mgnl jumpstart` which will download and extract Magnolia and automatically does also mgln create-light-module.
-Then you can continue using commands for creating pages and components e.g. `mgnl create-page <page-tempalte-name>`
-
 
 ## Commands ##
-The Magnolia CLI uses a syntax similar to that of Git.
-To invoke a command you do `mgnl <command> [options]`
-
-To see what commands are available simply enter `mgnl` (or `mgnl -h`)
+To invoke a command, execute `mgnl <command> [options]` on your shell.      
+   
+To see what commands are available simply enter `mgnl` or `mgnl -h`   
 
 ```
-Usage: mgnl <command> [options]
-
-
-  Commands:
 
     add-availability      add component availability
     build                 scan a node_modules folder for Magnola light modules and extract them to a directory of choice
@@ -51,27 +37,25 @@ Usage: mgnl <command> [options]
 
 ```
 
-To get help for any of the subcommands, simply enter `mgnl help <subcommand>`. For instance, `mgnl help create-page` will output
-
+To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
+   
+E.g. `mgnl create-light-module -h` will output:   
+   
 ```
-Usage: mgnl create-page <templateName> [options]
+  Usage: mgnl-create-light-module <moduleName> [options]
 
-  Creates a page template in a light module.
+  Creates a light module. Light modules are created under a 'root' folder which is observed by Magnolia for changes. The path to such folder is the value of 'magnolia.resources.dir' property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.
 
   Options:
 
     -h, --help         output usage information
     -V, --version      output the version number
-    -p, --path <path>  The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.
+    -p, --path <path>  The path to the light modules root folder. If no path is provided, then the current directory is assumed to be the light modules root folder and the module will be created here.   
 ```
 
 
 ## Bash autocompletion ##
-The package also provides a basic autocompletion feature for Bash shells. To enable it, add this to your ```.profile ```
+The package provides a basic autocompletion feature for Bash shells. To enable it, add the followng line to your ```.profile ```:   
 ```
 source /usr/local/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
 ```
-
-
-## Example ##
-TODO

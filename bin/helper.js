@@ -53,7 +53,7 @@ util.inherits(MgnlCliError, Error)
 var ensureIsAValidLightModuleFolder = function (pathToModule) {
   var invalidLightModuleMsg = "Sorry, path '%s' does not seem to point at a valid existing light module folder." +
     '\nPath option should point at a valid light module (e.g. one created with mgnl create-light-module). ' +
-    'Please, ensure your light module complies with the expected structure.\nSee https://documentation.magnolia-cms.com/display/DOCS/Modules#Modules-Modulestructure'
+    'Please, ensure your light module complies with the expected structure.\nSee https://documentation.magnolia-cms.com/display/DOCS/Magnolia+npm-cli#Magnolianpm-cli-Lightmoduleminimalfolderstructure'
 
   if (!fs.existsSync(pathToModule)) {
     throw new MgnlCliError(util.format('Path %s does not exist. Please fix it or create it first', pathToModule))
