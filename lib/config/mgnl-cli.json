@@ -15,9 +15,6 @@
       "neat-resources-1.0.1": "https://nexus.magnolia-cms.com/service/local/repositories/magnolia.forge.releases/content/com/neatresults/mgnltweaks/neat-resources/1.0.1/neat-resources-1.0.1.jar"
     }
   },
-  "config": {
-    "outputPath": "light-modules"
-  },
   "lightModuleName": "sampleModule",
   "lightDevFoldersInModule": {
     "dialogs_components": "/dialogs/components",

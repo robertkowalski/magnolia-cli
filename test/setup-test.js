@@ -37,10 +37,10 @@ describe('setup', function () {
     invoke('setup', '-p test/destination')
 
     var customConfigJson = require('./destination/mgnl-cli.json')
-    customConfigJson.config.outputPath = 'foobar'
+    customConfigJson.lightModuleName = 'foobar'
 
     invoke('setup', '-p test/destination')
-    expect(customConfigJson.config.outputPath).to.be.equal('foobar')
+    expect(customConfigJson.lightModuleName).to.be.equal('foobar')
   })
 
   it('should fail if path is non existent', function () {

@@ -72,19 +72,19 @@ describe('helper', function () {
 
     it('should return default mgnl-cli.json if no mgnl-cli.json is found', function () {
       var configJson = require(helper.resolveMgnlCliJsonPath())
-      expect(configJson.config.outputPath).to.be.equal('light-modules')
+      expect(configJson.lightModuleName).to.be.equal('sampleModule')
     })
 
     it('should return custom mgnl-cli.json if mgnl-cli.json is found', function () {
       testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
 
       var customPackageJson = require(path.resolve('test/destination/mgnl-cli.json'))
-      customPackageJson.config.outputPath = 'foobar'
+      customPackageJson.lightModuleName = 'foobar'
 
       shell.cd('test/destination')
 
       var configJson = require(helper.resolveMgnlCliJsonPath())
-      expect(configJson.config.outputPath).to.be.equal('foobar')
+      expect(configJson.lightModuleName).to.be.equal('foobar')
 
       shell.cd('../../')
     })

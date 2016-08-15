@@ -1,6 +1,7 @@
 var packageJson = require('../package.json')
 var program = require('commander')
 var build = require('@magnolia/magnolia-build')
+var helper = require('./helper')
 
 program
   .version(packageJson.version)
@@ -10,6 +11,6 @@ program
   .parse(process.argv)
 
 var node_modules = program.nodeModules || 'node_modules'
-var lightModulesRoot = program.path || 'light-modules'
+var lightModulesRoot = program.path || helper.defaultLightModulesRootName
 
 build(node_modules, lightModulesRoot)

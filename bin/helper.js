@@ -133,3 +133,4 @@ exports.printImportant = printImportant
 exports.ensureIsAValidLightModuleFolder = ensureIsAValidLightModuleFolder
 exports.resolveMgnlCliJsonPath = resolveMgnlCliJsonPath
 exports.resolveMgnlCliPrototypesPath = resolveMgnlCliPrototypesPath
+exports.defaultLightModulesRootName = 'light-modules'
