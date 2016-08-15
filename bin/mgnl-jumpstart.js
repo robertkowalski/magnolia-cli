@@ -30,9 +30,8 @@ var prepareMagnolia = function (args) {
 }
 
 var validateAndResolveArgs = function (program) {
-  // defaults to package.json value
   if (typeof program.path === 'undefined') {
-    program.path = configJson.config.outputPath
+    program.path = helper.defaultLightModulesRootName
     helper.printInfo(util.format("No path option provided. Will use the default '%s' in the current directory", program.path))
   }
 
