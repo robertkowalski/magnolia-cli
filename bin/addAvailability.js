@@ -12,7 +12,7 @@ var validateAndResolveArgs = function (program) {
   }
   var arg = program.args[1]
   if (!helper.matchesDefinitionReferenceWithAreaPattern(arg) && !helper.matchesDefinitionReferenceWithoutAreaPattern(arg)) {
-    throw util.format('Expected a value in the form e.g. [myModule:pages/]myHome@someArea but was %s', arg)
+    throw util.format('Expected a value in the form e.g. <path-to-page@area> but was %s', arg)
   }
 
   var args = {}

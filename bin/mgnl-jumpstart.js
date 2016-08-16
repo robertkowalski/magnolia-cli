@@ -76,9 +76,9 @@ var validateAndResolveArgs = function (program) {
 program
   .version(require('../package.json').version)
   .description('Downloads and sets up an instance of Magnolia CE for light development in the current directory.')
-  .option('-p, --path <path>', "The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to 'light-modules' in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of 'magnolia.resources.dir' property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.")
+  .option('-p, --path <path>', 'The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to "light-modules" in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of "magnolia.resources.dir" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.')
   .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest magnolia-community-demo-bundle.')
-  .option('-i, --install-sample-module <name>', 'If provided will create a sample module under the light modules root folder with the given name.')
+  .option('-i, --install-sample-module <name>', 'If provided, a sample light module under the light modules root folder with the given name is created.')
   .parse(process.argv)
 
 var args = validateAndResolveArgs(program)
