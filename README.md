@@ -62,7 +62,13 @@ E.g. `mgnl create-light-module -h` will output:
 
 
 ## Bash autocompletion ##
-The package provides a basic autocompletion feature for Bash shells. To enable it, add the followng line to your ```.profile ```:   
+The package provides a basic autocompletion feature for Bash shells. To enable it, add the following line to your ```.profile ``` (this may vary according to your OS and Node.js settings):   
+
+Mac OS X
 ```
 source /usr/local/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
+```
+Ubuntu
+```
+source /usr/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
 ```
