@@ -11,17 +11,24 @@ Before installation make sure you have [Node.js](https://nodejs.org) installed (
 
 Install the package **globally**
 
+#### Magnolia CLI is currently BETA ####
+To install it, you need to specify the `@beta` tag like in the following snippet
+
+`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli@beta -g`
+
+Omitting the `@beta` tag will install the *latest* version which, as long as `Magnolia cli` is not released as final, corresponds to the latest development snapshot.
+
 `npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli -g`
 
-or checkout the code, build it with `npm pack` and finally install it from locale source e.g.
+Alternatively you can checkout the latest code, build it with `npm pack` and finally install it from locale source e.g.
 
-`npm install /path/to/source/magnolia-cli-1.0.0.tgz -g`
+`npm install /path/to/source/magnolia-cli-0.0.1.tgz -g`
 
 
 
 ## Commands ##
 To invoke a command, execute `mgnl <command> [options]` on your shell.      
-   
+
 To see what commands are available simply enter `mgnl` or `mgnl -h`   
 
 ```
@@ -38,9 +45,9 @@ To see what commands are available simply enter `mgnl` or `mgnl -h`
 ```
 
 To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
-   
+
 E.g. `mgnl create-light-module -h` will output:   
-   
+
 ```
   Usage: mgnl-create-light-module <moduleName> [options]
 
