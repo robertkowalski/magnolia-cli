@@ -29,19 +29,17 @@ Alternatively you can checkout the latest code, build it with `npm pack` and fin
 ## Commands ##
 To invoke a command, execute `mgnl <command> [options]` on your shell.      
 
-To see what commands are available simply enter `mgnl` or `mgnl -h`   
+To see what commands are available simply enter  `mgnl -h` (or `mgnl --help`)
 
 ```
-
-    add-availability      add component availability
-    build                 scan a node_modules folder for Magnola light modules and extract them to a directory of choice
-    create-component      create a component and optionally add availability for it
-    create-light-module   create a light module
-    create-page           create a page template
-    jumpstart             prepare Magnolia CMS for light dev
-    setup                 extract prototypes and package.json of CLI tools so that they can be customized
-    help [cmd]            display help for [cmd]
-
+add-availability      add component availability.
+build                 scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.
+create-component      create a component and optionally add availability for it.
+create-light-module   create a light module.
+create-page           create a page template.
+jumpstart             download and prepare Magnolia CMS for light dev.
+setup                 extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration.
+help [cmd]            display help for [cmd]
 ```
 
 To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
