@@ -11,6 +11,16 @@ var configJson = require(helper.resolveMgnlCliJsonPath())
 var program = require('commander')
 var util = require('util')
 
+var checkMagnoliaVersion = function (version) {
+  var tokens = version.split('.')
+  var major = parseInt(tokens[0])
+  var minor = parseInt(tokens[1])
+  if (major < 5 || (major === 5 && minor < 4)) {
+    helper.printError(util.format('Invalid Magnolia version %s, light development is available only for Magnolia 5.4 and greater', version))
+    process.exit(1)
+  }
+}
+
 var prepareMagnolia = function (args) {
   extractMagnolia.extract(process.cwd(), magnoliaZip)
 
@@ -43,6 +53,7 @@ var validateAndResolveArgs = function (program) {
   }
 
   if (program.magnoliaVersion) {
+    checkMagnoliaVersion(program.magnoliaVersion)
     configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, program.magnoliaVersion)
   } else {
     // get the latest release.
