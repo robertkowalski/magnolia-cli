@@ -22,10 +22,8 @@ var replaceProperties = function (obj, instance) {
 
     replace({
       files: pathToProps,
-      replace: new RegExp(regex, 'g'),
+      replace: new RegExp(regex),
       with: replacement
-    }, function (e) {
-      if (e) throw e
     })
   })
 }
