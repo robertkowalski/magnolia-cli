@@ -1,8 +1,10 @@
 'use strict'
 var yamlJs = require('yaml-js')
+var jsdiff = require('diff')
 
 function create (yamlStream) {
   this.rootYamlNode = yamlJs.compose(yamlStream)
+  this.originalYaml = yamlStream
 
   this.hasNode = function (path) {
     return this.getYamlNodeByPath(path) != null
@@ -42,10 +44,20 @@ function create (yamlStream) {
   }
 
   this.dumpYamlNode = function (node) {
-    return yamlJs.serialize(node, null, null, {
+    var yaml = yamlJs.serialize(node, null, null, {
       default_style: false,
       default_flow_style: false
     })
+
+    var diff = jsdiff.createPatch('yaml', this.originalYaml, yaml, 'old', 'new')
+    // Put back comments (beginning with #)
+    // See the bloody little whitespace, before the capture groups? Well, do NOT remove it or patch won't work!
+    diff = diff.replace(/(-)(\s*#)/gm, ' $2')
+    // and empty lines erased by yaml parser
+    diff = diff.replace(/(-)(\s*\n|\r)/gm, ' $2')
+    var merge = jsdiff.applyPatch(this.originalYaml, diff)
+
+    return merge
   }
 
   this.injectSnippetAt = function (data, path) {
