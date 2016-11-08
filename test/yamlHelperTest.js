@@ -34,18 +34,20 @@ describe('yamlHelper', function () {
   })
 
   it('should not remove YAML comments and empty lines', function () {
-    var pageWithAreas =
+    var data =
     '#some comment\n' +
     '\n' + // and some new empty lines
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
     '  \n' +
-    '# another lidl comment because we like it\n' +
+    '# another lidl comment because we can\n' +
       'templateScript: /foo/templates/pages/baz.ftl\n' +
       'areas:\n' +
       '  fooArea:\n' +
+      '    # indented multiline comment which \n' +
+      '    # spans at least two lines\n' +
       '    templateScript: /foo/templates/pages/baz.ftl'
 
-    yamlHelper.create(pageWithAreas)
+    yamlHelper.create(data)
     var componentAvailability = {}
     componentAvailability['comp'] = {id: 'quux:components/comp'}
     yamlHelper.injectSnippetAt(componentAvailability, '/areas/fooArea/availableComponents')
@@ -55,10 +57,12 @@ describe('yamlHelper', function () {
         '\n' +
         'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
         '  \n' +
-        '# another lidl comment because we like it\n' +
+        '# another lidl comment because we can\n' +
           'templateScript: /foo/templates/pages/baz.ftl\n' +
           'areas:\n' +
           '  fooArea:\n' +
+          '    # indented multiline comment which \n' +
+          '    # spans at least two lines\n' +
           '    templateScript: /foo/templates/pages/baz.ftl\n' +
           '    availableComponents:\n' +
           '      comp:\n' +
