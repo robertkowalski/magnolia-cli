@@ -4,7 +4,7 @@ describe('editMagnoliaProperties', function () {
   var shell = require('shelljs')
   var expect = require('chai').expect
 
-  var editMagnoliaProperties = require('../bin/editMagnoliaProperties')
+  var editMagnoliaProperties = require('../lib/editMagnoliaProperties')
 
   it('should edit magnolia.properties', function (done) {
     fs.mkdirsSync('test/destination/')

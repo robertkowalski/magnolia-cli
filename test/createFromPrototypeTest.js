@@ -3,7 +3,7 @@ describe('createFromPrototype', function () {
   var fs = require('fs-extra')
 
   var testHelper = require('./testHelper')
-  var createFromPrototype = require('../bin/createFromPrototype')
+  var createFromPrototype = require('../lib/createFromPrototype')
 
   var expect = require('chai').expect
 

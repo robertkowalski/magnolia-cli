@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 describe('helper', function () {
-  var helper = require('../bin/helper')
+  var helper = require('../lib/helper')
   var expect = require('chai').expect
   var fs = require('fs-extra')
   var path = require('path')

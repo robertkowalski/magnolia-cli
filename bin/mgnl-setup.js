@@ -1,7 +1,7 @@
 var packageJson = require('../package.json')
 var fse = require('fs-extra')
 var path = require('path')
-var helper = require('./helper.js')
+var helper = require('../lib/helper.js')
 var program = require('commander')
 
 var extract = function (location) {

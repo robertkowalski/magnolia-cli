@@ -1,7 +1,7 @@
 var packageJson = require('../package.json')
 var program = require('commander')
 var build = require('@magnolia/magnolia-build')
-var helper = require('./helper')
+var helper = require('../lib/helper')
 
 // TODO: change the usage text!!!
 program

@@ -1,6 +1,6 @@
 var program = require('commander')
-var addAvailability = require('./addAvailability.js')
-var helper = require('./helper')
+var addAvailability = require('../lib/addAvailability.js')
+var helper = require('../lib/helper')
 
 var packageJson = require('../package.json')
 

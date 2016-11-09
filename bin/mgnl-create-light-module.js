@@ -1,6 +1,6 @@
 var program = require('commander')
-var helper = require('./helper')
-var createLightModule = require('./createLightModule.js')
+var helper = require('../lib/helper')
+var createLightModule = require('../lib/createLightModule.js')
 
 var packageJson = require('../package.json')
 

@@ -2,7 +2,7 @@
 
 var packageJson = require('../package.json')
 var program = require('commander')
-var helper = require('./helper')
+var helper = require('../lib/helper')
 
 /**
  * This is the entry point for the Magnolia CLI npm package. It uses https://www.npmjs.com/package/commander

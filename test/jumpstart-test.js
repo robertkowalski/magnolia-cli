@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 describe('jumpstart', function () {
-  var downloadMagnolia = require('../bin/downloadMagnolia.js')
-  var extractMagnolia = require('../bin/extractMagnolia.js')
+  var downloadMagnolia = require('../lib/downloadMagnolia.js')
+  var extractMagnolia = require('../lib/extractMagnolia.js')
   var testHelper = require('./testHelper')
 
   var fs = require('fs-extra')

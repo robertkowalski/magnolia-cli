@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 describe('yamlHelper', function () {
-  var yamlHelper = require('../bin/yamlHelper')
+  var yamlHelper = require('../lib/yamlHelper')
 
   var expect = require('chai').expect
 

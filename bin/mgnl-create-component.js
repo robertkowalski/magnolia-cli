@@ -1,6 +1,6 @@
 var program = require('commander')
-var createComponent = require('./createComponent.js')
-var helper = require('./helper')
+var createComponent = require('../lib/createComponent.js')
+var helper = require('../lib/helper')
 
 var packageJson = require('../package.json')
 

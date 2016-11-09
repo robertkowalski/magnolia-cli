@@ -1,7 +1,7 @@
 var program = require('commander')
 
-var helper = require('./helper')
-var createPage = require('./createPage.js')
+var helper = require('../lib/helper')
+var createPage = require('../lib/createPage.js')
 var packageJson = require('../package.json')
 
 program
