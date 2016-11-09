@@ -6,6 +6,9 @@
   "bin": {
     "mgnl": "bin/mgnl.js"
   },
+  "scripts": {
+    "test": "standard && mocha"
+  },
   "repository": {
     "type": "git",
     "url": "ssh://git@git.magnolia-cms.com/build/npm-cli.git"
@@ -15,6 +18,14 @@
   "bugs": {
     "url": "https://jira.magnolia-cms.com/browse/NPMCLI"
   },
+  "homepage" : "https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI",
+  "keywords": [
+    "magnolia",
+    "cms",
+    "cli",
+    "command line",
+    "console"
+  ],
   "dependencies": {
     "@magnolia/magnolia-build": "^0.5.1-snapshot-34",
     "adm-zip": "^0.4.7",
@@ -39,8 +50,5 @@
     "shelljs": "^0.7.2",
     "should": "^8.4.0",
     "standard": "^6.0.8"
-  },
-  "scripts": {
-    "test": "standard && mocha"
   }
 }
