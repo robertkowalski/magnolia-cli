@@ -93,7 +93,7 @@ var validateAndResolveArgs = function (program) {
     }
   } else {
     // defaults to current dir
-    helper.printInfo(util.format('No path option provided, component will be created relative to the current folder.'))
+    helper.printInfo('No path option provided, component will be created relative to the current folder.')
     args.path = path.resolve('..')
     // token after last slash is assumed to be module name
     moduleName = path.basename(process.cwd())

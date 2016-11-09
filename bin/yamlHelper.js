@@ -55,9 +55,8 @@ function create (yamlStream) {
     diff = diff.replace(/(-)(\s*#)/gm, ' $2')
     // and empty lines erased by yaml parser
     diff = diff.replace(/(-)(\s*\n|\r)/gm, ' $2')
-    var merge = jsdiff.applyPatch(this.originalYaml, diff)
 
-    return merge
+    return jsdiff.applyPatch(this.originalYaml, diff)
   }
 
   this.injectSnippetAt = function (data, path) {

@@ -70,7 +70,7 @@ var validateAndResolveArgs = function (program) {
     }
   } else {
     // assume the current dir is a light module.
-    helper.printInfo(util.format('No path option provided, page template will be created in the current folder.'))
+    helper.printInfo('No path option provided, page template will be created in the current folder.')
     moduleName = path.basename(process.cwd())
   }
   var pathToModule = program.path || process.cwd()
