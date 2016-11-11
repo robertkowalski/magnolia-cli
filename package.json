@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://jira.magnolia-cms.com/browse/NPMCLI"
   },
-  "homepage" : "https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI",
+  "homepage": "https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI",
   "keywords": [
     "magnolia",
     "cms",
@@ -37,6 +37,7 @@
     "fs": "0.0.2",
     "fs-extra": "^0.30.0",
     "http": "0.0.0",
+    "inquirer": "^1.2.2",
     "json2yaml": "^1.1.0",
     "progress": "^1.1.8",
     "replace-in-file": "^1.1.3",
