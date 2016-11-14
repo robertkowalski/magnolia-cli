@@ -1,6 +1,6 @@
 {
   "name": "@magnolia/cli",
-  "version": "1.0.1",
+  "version": "1.0.2-snapshot",
   "description": "A tool to setup and facilitate light development with Magnolia CMS. For an introduction to light development, see https://documentation.magnolia-cms.com/display/DOCS/Light+development+in+Magnolia",
   "preferGlobal": true,
   "bin": {
