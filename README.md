@@ -12,14 +12,10 @@ Before installation make sure you have [Node.js](https://nodejs.org) installed (
 
 Install the package **globally**
 
-#### Magnolia CLI (ver. 0.0.2) is currently BETA ####
-To install it, you need to specify the `@beta` tag like in the following snippet
+#### Magnolia CLI 1.0 is out and available on npm public repository ####
 
-`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli@beta -g`
+`npm install @magnolia/cli -g`
 
-Omitting the `@beta` tag will install the *latest* version which, as long as `Magnolia cli` is not released as final, corresponds to the latest development snapshot.
-
-`npm --registry=https://npm.magnolia-cms.com/repository/npm install @magnolia/cli -g`
 
 Alternatively you can checkout the latest code and simply install it from source with
 
