@@ -30,7 +30,7 @@ _mgnl_complete ()   #  By convention, the function name starts with an underscor
       setup)
       COMPREPLY=( $( compgen -W '--path --help' -- $cur ) );;
       jumpstart)
-      COMPREPLY=( $( compgen -W '--path --magnolia-version --install-sample-module --help' -- $cur ) );;
+      COMPREPLY=( $( compgen -W '--path --enterprise-edition --magnolia-version --install-sample-module --help' -- $cur ) );;
       build)
       COMPREPLY=( $( compgen -W '--path --node-modules --help' -- $cur ) );;
       *)
