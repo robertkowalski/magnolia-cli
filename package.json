@@ -1,7 +1,7 @@
 {
   "name": "@magnolia/cli",
-  "version": "1.0.2-snapshot",
-  "description": "A tool to setup and facilitate light development with Magnolia CMS. For an introduction to light development, see https://documentation.magnolia-cms.com/display/DOCS/Light+development+in+Magnolia",
+  "version": "1.0.2",
+  "description": "A tool to setup and facilitate light development with Magnolia CMS.",
   "preferGlobal": true,
   "bin": {
     "mgnl": "bin/mgnl.js"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@git.magnolia-cms.com/build/npm-cli.git"
+    "url": "https://git.magnolia-cms.com/projects/BUILD/repos/npm-cli/"
   },
   "author": "Magnolia International Ltd.",
   "license": "GPL-3.0",
