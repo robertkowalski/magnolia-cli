@@ -2,6 +2,7 @@
 describe('jumpstart', function () {
   var downloadMagnolia = require('../lib/downloadMagnolia.js')
   var extractMagnolia = require('../lib/extractMagnolia.js')
+  var jumpstart = require('../lib/jumpstart.js')
   var testHelper = require('./testHelper')
 
   var fs = require('fs-extra')
@@ -58,5 +59,47 @@ describe('jumpstart', function () {
     expect(lightModulesSubDirs.toString() === lightModuleName).to.be.true
 
     shell.cd('../../')
+  })
+
+  it('should fail if no credentials are provided to download an EE bundle', function () {
+    // GIVEN
+    var dummyProgram = {
+      enterpriseEdition: [],
+      outputHelp: function () {}
+    }
+
+    // WHEN THEN
+    expect(function () {
+      jumpstart.validateAndResolveArgs(dummyProgram)
+    }).to.throw(Error)
+  })
+
+  it('should not fail if credentials are provided to download an EE bundle', function () {
+    // GIVEN
+    var dummyProgram = {
+      enterpriseEdition: []
+    }
+
+    var dummyCredentials = {
+      username: 'foo',
+      password: 'bar',
+      type: 'Baz'
+    }
+
+    // WHEN THEN
+    expect(function () {
+      jumpstart.validateAndResolveArgs(dummyProgram, dummyCredentials)
+    }).to.not.throw(Error)
+  })
+
+  it('should not require credentials to download a CE bundle', function () {
+    // GIVEN
+    var dummyProgram = {
+    }
+
+    // WHEN THEN
+    expect(function () {
+      jumpstart.validateAndResolveArgs(dummyProgram)
+    }).to.not.throw(Error)
   })
 })

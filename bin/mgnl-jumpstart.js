@@ -1,126 +1,64 @@
-var fs = require('fs-extra')
-var path = require('path')
-var async = require('async')
-var downloadMagnolia = require('../lib/downloadMagnolia.js')
-var downloadJars = require('../lib/downloadJars.js')
-var extractMagnolia = require('../lib/extractMagnolia.js')
-var createLightModule = require('../lib/createLightModule.js')
-var editMagnoliaProperties = require('../lib/editMagnoliaProperties.js')
-var helper = require('../lib/helper.js')
-var configJson = require(helper.resolveMgnlCliJsonPath())
+var jumpstart = require('../lib/jumpstart')
+var helper = require('../lib/helper')
+
 var program = require('commander')
-var util = require('util')
+var inquirer = require('inquirer')
+var async = require('async')
 
-var checkMagnoliaVersion = function (version) {
-  var tokens = version.split('.')
-  var major = parseInt(tokens[0])
-  var minor = parseInt(tokens[1])
-  if (major < 5 || (major === 5 && minor < 4)) {
-    helper.printError(util.format('Invalid Magnolia version %s, light development is available only for Magnolia 5.4 and greater', version))
-    process.exit(1)
-  }
-}
-
-var prepareMagnolia = function (args) {
-  extractMagnolia.extract(process.cwd(), magnoliaZip)
-
-  if (args.moduleName) {
-    createLightModule.create(args)
-  }
-
-  editMagnoliaProperties.editProperties()
-  downloadJars.download(function () {
-    var successMessage = 'Magnolia has been successfully setup for light development!\n' +
-      "You can now go to 'apache-tomcat/bin' and start up Magnolia by entering './magnolia_control.sh start' " +
-      'Magnolia will be ready after a few seconds at localhost:8080/magnoliaAuthor. Username and password is superuser\n' +
-      "To stop Magnolia enter './magnolia_control.sh stop'. On Windows use magnolia_control.bat\n"
-
-    helper.printSuccess(successMessage)
-  })
-}
-
-var validateAndResolveArgs = function (program) {
-  if (typeof program.path === 'undefined') {
-    program.path = helper.defaultLightModulesRootName
-    helper.printInfo(util.format("No path option provided. Will use the default '%s' in the current directory", program.path))
-  }
-
-  if (program.path === '-i' || program.path === '--install-sample-module' ||
-    program.path === '-m' || program.path === '--magnolia-version') {
-    helper.printError('--path[-p] argument is invalid')
-    program.outputHelp()
-    process.exit(1)
-  }
-
-  if (program.magnoliaVersion) {
-    checkMagnoliaVersion(program.magnoliaVersion)
-    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, program.magnoliaVersion)
-  } else {
-    // get the latest release.
-    configJson.setupMagnolia.downloadUrl = configJson.setupMagnolia.downloadUrl.replace(/\${magnoliaVersion}/g, 'LATEST')
-    helper.printInfo('No magnolia-version option provided. Will use the latest Community Edition')
-  }
-  /*
-   * This absolute path will end up in magnolia.properties as the value of magnolia.resources.dir
-   * If we're on Windows we need to replace the backslash, else it will cause Magnolia start up to fail.
-   * See also top comment in magnolia.properties
-   */
-  var lightModulesRoot = process.platform === 'win32' ? path.resolve(program.path).replace(/\\/g, '/') : path.resolve(program.path)
-
-  if (!fs.existsSync(lightModulesRoot)) {
-    helper.printInfo(util.format("'%s' does not seem to exist. Path will be created automatically.", lightModulesRoot))
-    fs.mkdirpSync(lightModulesRoot)
-  }
-  configJson.setupMagnolia.webapps.magnoliaAuthor['magnolia.resources.dir'] = lightModulesRoot
-
-  var moduleName = null
-  if (program.installSampleModule) {
-    moduleName = program.installSampleModule
-  }
-
-  return {
-    'lightModulesRoot': lightModulesRoot,
-    'moduleName': moduleName
+var setup = function (program, credentials) {
+  try {
+    jumpstart.setupMagnolia(program, credentials)
+  } catch (e) {
+    helper.printError(e)
+    if (e.displayHelp) {
+      program.outputHelp()
+    }
   }
 }
 
 program
   .version(require('../package.json').version)
-  .description('Downloads and sets up an instance of Magnolia CE for light development in the current directory.')
+  .description('Downloads and sets up an instance of Magnolia CE or EE for light development in the current directory.')
   .option('-p, --path <path>', 'The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to "light-modules" in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of "magnolia.resources.dir" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.')
-  .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest magnolia-community-demo-bundle.')
+  .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest stable version.')
   .option('-i, --install-sample-module <name>', 'If provided, a sample light module under the light modules root folder with the given name is created.')
+  .option('-e, --enterprise-edition', 'Will download a magnolia-enterprise-pro-demo-bundle. Requires credentials to Magnolia Nexus.')
   .parse(process.argv)
 
-var args = validateAndResolveArgs(program)
+if (program.enterpriseEdition) {
+  var credentials
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'username',
+      message: 'Username'
+    },
+    {
+      type: 'password',
+      message: 'Password',
+      name: 'password'
+    }
+  ]
+).then(function (answers) {
+  credentials = answers
+  // for the time being only EE pro-demo bundle is available
+  // A NOW bundle should come soon
+  credentials.type = 'EE Pro'
+})
 
-var magnoliaZip = 'magnolia.zip'
-// start downloading Magnolia, it'll take a while and since Node.js is async
-downloadMagnolia.download(process.cwd(), magnoliaZip)
-// we need to wait until the zip file is actually there before proceeding
-async.until(
-  // test function which will be repeated until true
-  function () {
-    return fs.existsSync(magnoliaZip)
-  },
-  // Once the condition is true, that is Magnolia has been fully downloaded,
-  // the callback function can be invoked
-  function (callback) {
-    setTimeout(function () {
-      callback(null)
-    }, 100)
-  },
-  // callback function handling all operations subsequent to Magnolia download
-  function (err) {
-    if (err) {
-      helper.printError(err.message)
-      process.exit(1)
+  async.until(
+    function () {
+      return typeof credentials !== 'undefined'
+    },
+    function (callback) {
+      setTimeout(function () {
+        callback(null)
+      }, 500)
+    },
+    function () {
+      setup(program, credentials)
     }
-    try {
-      prepareMagnolia(args)
-    } catch (e) {
-      helper.printError(e)
-      process.exit(1)
-    }
-  }
-)
+  )
+} else {
+  setup(program, credentials)
+}
