@@ -37,10 +37,10 @@ describe('setup', function () {
     invoke('setup', '-p test/destination')
 
     var customConfigJson = require('./destination/mgnl-cli.json')
-    customConfigJson.lightModuleName = 'foobar'
+    customConfigJson.setupMagnolia.tomcatFolder = 'foobar'
 
     invoke('setup', '-p test/destination')
-    expect(customConfigJson.lightModuleName).to.be.equal('foobar')
+    expect(customConfigJson.setupMagnolia.tomcatFolder).to.be.equal('foobar')
   })
 
   it('should fail if path is non existent', function () {
