@@ -1,6 +1,6 @@
 {
   "name": "@magnolia/cli",
-  "version": "1.0.6-snapshot",
+  "version": "1.0.6",
   "description": "A tool to setup and facilitate light development with Magnolia CMS",
   "preferGlobal": true,
   "bin": {
@@ -27,7 +27,7 @@
     "console"
   ],
   "dependencies": {
-    "@magnolia/magnolia-build": "^0.5.2-snapshot",
+    "@magnolia/magnolia-build": "^0.5.2",
     "adm-zip": "^0.4.7",
     "async": "^2.0.1",
     "chalk": "^1.1.3",
