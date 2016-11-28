@@ -27,7 +27,7 @@
     "console"
   ],
   "dependencies": {
-    "@magnolia/magnolia-build": "^0.5.1",
+    "@magnolia/magnolia-build": "^0.5.2-snapshot",
     "adm-zip": "^0.4.7",
     "async": "^2.0.1",
     "chalk": "^1.1.3",
