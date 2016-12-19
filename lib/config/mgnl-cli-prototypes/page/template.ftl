@@ -22,8 +22,8 @@
       [#-- [#list theme.jsFiles as jsFile] --]
       [#--   <script src="${jsFile.link}"></script> --]
       [#-- [/#list] --]
-    [#-- or use neat-resources/hcmcfn to load all css which match patern automatically (uncomment next line) or via theme --]
-      [#-- ${hcmcfn.css(["__lightDevModuleFolder__/.*.css"])!} --]
+    [#-- or use resfn to load all css which match patern automatically (uncomment next line) or via theme --]
+      [#-- ${resfn.css(["__lightDevModuleFolder__/.*.css"])!} --]
 
   </head>
   <body class="__name__ ${cmsfn.language()}">
@@ -32,7 +32,7 @@
       <h1>__name__ works!</h1>
     </div>
 
-    [#-- use neat-resources (hcmcfn) to load all js which match patern or link resources manually or via theme --]
-    [#-- ${hcmcfn.js(["__lightDevModuleFolder__/.*.js"])!} --]
+    [#-- use resfn to load all js which match patern or link resources manually or via theme --]
+    [#-- ${resfn.js(["__lightDevModuleFolder__/.*.js"])!} --]
   </body>
 </html>
