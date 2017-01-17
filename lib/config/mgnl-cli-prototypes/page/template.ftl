@@ -8,7 +8,7 @@
     <meta name="description" content="${content.description!""}" />
     <meta name="keywords" content="${content.keywords!""}" />
 
-    [#-- For loading resources you can link them manualy (e.g. line bellow) --]
+    [#-- To load resources you can link them manually (e.g. line below) --]
       [#-- <link rel="stylesheet" type="text/css" href="${ctx.contextPath}/.resources/__lightDevModuleFolder__/webresources/css/bootstrap.css" media="all" /> --]
       [#-- <script src="${ctx.contextPath}/.resources/__lightDevModuleFolder__/webresources/js/jquery.js"></script> --]
     [#-- or via theme --]
@@ -22,7 +22,7 @@
       [#-- [#list theme.jsFiles as jsFile] --]
       [#--   <script src="${jsFile.link}"></script> --]
       [#-- [/#list] --]
-    [#-- or use resfn to load all css which match patern automatically (uncomment next line) or via theme --]
+    [#-- or use resfn templating functions to load all css which automatically match a pattern (uncomment next line) --]
       [#-- ${resfn.css(["/__lightDevModuleFolder__/.*.css"])!} --]
 
   </head>
