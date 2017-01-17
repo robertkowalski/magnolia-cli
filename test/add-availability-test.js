@@ -212,6 +212,17 @@ describe('add-availability', function () {
     )
   })
 
+  it('should default to [main] area if none was specified', function (done) {
+    invokeAndVerify('add-availability',
+      'text emptyPage -p test/light-modules/foo',
+      '/foo/templates/pages/baz.ftl',
+      function (data) {
+        expect(data).to.contain('[@cms.area name="main"/]')
+        done()
+      }
+    )
+  })
+
   it('should fail with less than two args', function () {
     var result = testHelper.invokeMgnlSubcommand('add-availability', 'text')
     expect(result.stderr.toString()).not.to.be.empty
@@ -223,7 +234,7 @@ describe('add-availability', function () {
   })
 
   it('should fail if area argument is malformed', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage -p test/light-modules/foo')
+    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage@ -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
