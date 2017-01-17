@@ -3,10 +3,11 @@ var path = require('path')
 var fs = require('fs-extra')
 var expect = require('chai').expect
 
-var invokeMgnlSubcommand = function (subcommand, argv) {
+function invokeMgnlSubcommand (subcommand, argv, opts) {
   var split = argv.split(/(\s+)/).filter(function (el) { return el.trim() && el.length !== 0 })
   var args = [path.join(__dirname, '../bin/mgnl.js'), subcommand].concat(split)
-  var obj = spawnSync('node', args)
+  var obj = spawnSync('node', args, opts)
+
   return obj
 }
 
