@@ -57,6 +57,29 @@ describe('create-page', function () {
     )
   })
 
+  it('should build path to resources correctly without double slash', function (done) {
+    invokeAndVerify('create-page',
+      'myPage -p test/light-modules/foo',
+      '/foo/templates/pages/myPage.ftl',
+      function (data) {
+        expect(data).not.to.contain('${ctx.contextPath}/.resources//foo/')
+        done()
+      }
+    )
+  })
+
+  it('should build path for resfn correctly with module name prepended with slash', function (done) {
+    invokeAndVerify('create-page',
+      'myPage -p test/light-modules/foo',
+      '/foo/templates/pages/myPage.ftl',
+      function (data) {
+        expect(data).to.contain('resfn.css(["/foo/.*.css"])')
+        expect(data).to.contain('resfn.js(["/foo/.*.js"])')
+        done()
+      }
+    )
+  })
+
   it('should fail if no arg is passed', function () {
     var result = testHelper.invokeMgnlSubcommand('create-page', '')
     expect(result.stderr.toString()).not.to.be.empty

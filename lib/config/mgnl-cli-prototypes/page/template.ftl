@@ -23,7 +23,7 @@
       [#--   <script src="${jsFile.link}"></script> --]
       [#-- [/#list] --]
     [#-- or use resfn to load all css which match patern automatically (uncomment next line) or via theme --]
-      [#-- ${resfn.css(["__lightDevModuleFolder__/.*.css"])!} --]
+      [#-- ${resfn.css(["/__lightDevModuleFolder__/.*.css"])!} --]
 
   </head>
   <body class="__name__ ${cmsfn.language()}">
@@ -33,6 +33,6 @@
     </div>
 
     [#-- use resfn to load all js which match patern or link resources manually or via theme --]
-    [#-- ${resfn.js(["__lightDevModuleFolder__/.*.js"])!} --]
+    [#-- ${resfn.js(["/__lightDevModuleFolder__/.*.js"])!} --]
   </body>
 </html>
