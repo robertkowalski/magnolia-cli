@@ -16,12 +16,12 @@ program
   .version(packageJson.version)
   .usage('<command> [options]')
   .description(packageJson.description)
+  .command('jumpstart', 'download and setup a Magnolia CMS instance for development.')
   .command('add-availability', 'add component availability.')
   .command('build', 'scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.')
   .command('create-component', 'create a component and optionally add availability for it.')
   .command('create-light-module', 'create a light module.')
   .command('create-page', 'create a page template.')
-  .command('jumpstart', 'download and prepare Magnolia CMS for light dev.')
   .command('setup', 'extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration.')
   .parse(process.argv)
 
