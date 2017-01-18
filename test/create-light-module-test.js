@@ -51,6 +51,13 @@ describe('create-light-module', function () {
     expect(result.stderr.toString()).not.to.be.empty
   })
 
+  it('prints help how to continue', function () {
+    var result = testHelper.invokeMgnlSubcommand('create-light-module', 'apple -p test/light-modules')
+
+    expect(result.stdout.toString())
+      .to.contain('In order to add a page, run mgnl create-page $YOUR_PAGE_NAME -p')
+  })
+
   function checkExpectations (lightModulesbasedir) {
     ['/foo/templates/pages', '/foo/templates/components', '/foo/dialogs/pages', '/foo/dialogs/components', '/foo/decorations', '/foo/i18n/foo-messages_en.properties'].forEach(function (item) {
       // console.log("Checking %s", lightModulesbasedir + item)
