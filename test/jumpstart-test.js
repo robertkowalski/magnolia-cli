@@ -8,6 +8,7 @@ describe('jumpstart', function () {
   var fs = require('fs-extra')
   var expect = require('chai').expect
   var shell = require('shelljs')
+  var path = require('path')
 
   beforeEach(function () {
     fs.mkdir('test/destination')
@@ -42,6 +43,21 @@ describe('jumpstart', function () {
     expect(fs.existsSync('light-modules')).to.be.true
     expect(fs.readdirSync('light-modules').length === 0).to.be.true
 
+    shell.cd('../../')
+  })
+
+  it('should print the next steps, even with no additional jars for download.', function () {
+    var config = require('../lib/config/mgnl-cli.json')
+    expect(Object.keys(config.setupMagnolia.downloadJars).length).to.equal(0)
+
+    // WHEN
+    var wd = path.join(process.cwd(), 'test/destination')
+    shell.cd(wd)
+
+    var result = testHelper.invokeMgnlSubcommand('jumpstart', 'test/destination')
+
+    // THEN
+    expect(result.stdout.toString()).to.contain('Magnolia will be ready after')
     shell.cd('../../')
   })
 
