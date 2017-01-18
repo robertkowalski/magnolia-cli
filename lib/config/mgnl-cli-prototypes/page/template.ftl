@@ -23,7 +23,7 @@
       [#--   <script src="${jsFile.link}"></script> --]
       [#-- [/#list] --]
     [#-- uncomment next line to use resfn templating functions to load all css which matches a globbing pattern --]
-      [#-- ${resfn.css(["/__lightDevModuleFolder__/.*.css"])!} --]
+      [#-- ${resfn.css(["/__lightDevModuleFolder__/.*css"])!} --]
   </head>
   <body class="__name__ ${cmsfn.language()}">
 
@@ -32,6 +32,6 @@
     </div>
 
     [#-- use resfn to load all js which matches the globbing pattern or link resources manually or via theme --]
-    [#-- ${resfn.js(["/__lightDevModuleFolder__/.*.js"])!} --]
+    [#-- ${resfn.js(["/__lightDevModuleFolder__/.*js"])!} --]
   </body>
 </html>

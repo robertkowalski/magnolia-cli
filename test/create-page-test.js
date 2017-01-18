@@ -73,8 +73,8 @@ describe('create-page', function () {
       'myPage -p test/light-modules/foo',
       '/foo/templates/pages/myPage.ftl',
       function (data) {
-        expect(data).to.contain('resfn.css(["/foo/.*.css"])')
-        expect(data).to.contain('resfn.js(["/foo/.*.js"])')
+        expect(data).to.contain('resfn.css(["/foo/.*css"])')
+        expect(data).to.contain('resfn.js(["/foo/.*js"])')
         done()
       }
     )
