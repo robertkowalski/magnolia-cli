@@ -153,6 +153,17 @@ describe('create-component', function () {
     )
   })
 
+  it('should default to [main] area if none was specified', function (done) {
+    invokeAndVerify('create-component',
+      'text -a emptyPage -p test/light-modules/foo',
+      '/foo/templates/pages/baz.ftl',
+      function (data) {
+        expect(data).to.contain('[@cms.area name="main"/]')
+        done()
+      }
+    )
+  })
+
   it('should create missing YAML entries and add availability from inside a light module without passing a path option', function (done) {
     shell.cd('test/light-modules/foo')
     invokeAndVerify('create-component',
@@ -202,7 +213,7 @@ describe('create-component', function () {
   })
 
   it('should fail if area argument is malformed', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage -p test/light-modules/foo')
+    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@ -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
