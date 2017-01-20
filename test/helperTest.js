@@ -90,6 +90,18 @@ describe('helper', function () {
     })
   })
 
+  describe('#MgnlCliError', function () {
+    var MgnlCliError = helper.MgnlCliError
+
+    it('allows usage without new keyword', function () {
+      try {
+        throw MgnlCliError('foo', 'bar')
+      } catch (e) {
+        expect(e.displayHelp).to.be.equal('bar')
+      }
+    })
+  })
+
   describe('#resolveMgnlCliPrototypesPath()', function () {
     beforeEach(function () {
       fs.mkdirsSync('test/destination')
