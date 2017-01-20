@@ -11,14 +11,17 @@ function invokeMgnlSubcommand (subcommand, argv, opts) {
   return obj
 }
 
-var checkFileContains = function (file, values) {
+function checkFileContains (file, values, cb) {
   fs.readFile(file, 'utf-8', function (err, data) {
     expect(err).to.be.null
     values.forEach(function (value) {
       expect(data).to.contain(value)
     })
+
+    cb(null)
   })
 }
+
 var invokeAndVerify = function (subcommand, argv, pathToFile, callback, pathToModule) {
   // pathToModule is usually defined when the calling test has 'cd' to a different dir.
   var basedir = invoke(subcommand, argv, pathToModule)

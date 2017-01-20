@@ -23,15 +23,17 @@ describe('create-page', function () {
     fs.removeSync('test/light-modules')
   })
 
-  it('should create a page template', function () {
+  it('should create a page template', function (done) {
     var basedir = invoke('create-page', 'myPage -p test/light-modules/foo')
-    checkExpectations(path.join(basedir, 'foo'))
+
+    checkExpectations(path.join(basedir, 'foo'), done)
   })
 
-  it('should create a page template from inside a light module without passing a path option', function () {
+  it('should create a page template from inside a light module without passing a path option', function (done) {
     shell.cd('test/light-modules/foo')
     var basedir = invoke('create-page', 'myPage', process.cwd())
-    checkExpectations(basedir)
+
+    checkExpectations(basedir, done)
     shell.cd('../../../')
   })
 
@@ -109,12 +111,20 @@ describe('create-page', function () {
     expect(result.stderr.toString()).not.to.be.empty
   })
 
-  function checkExpectations (ligthModulesbasedir) {
-    ['/templates/pages/myPage.yaml', '/templates/pages/myPage.ftl', '/dialogs/pages/myPage.yaml'].forEach(function (item) {
-      // console.log("Checking %s", ligthModulesbasedir + item)
+  function checkExpectations (ligthModulesbasedir, cb) {
+    [
+      '/templates/pages/myPage.yaml',
+      '/templates/pages/myPage.ftl',
+      '/dialogs/pages/myPage.yaml'
+    ].forEach(function (item) {
+      // console.log('Checking %s', ligthModulesbasedir + item)
       expect(fs.existsSync(ligthModulesbasedir + item)).to.be.true
     })
-    testHelper.checkFileContains(ligthModulesbasedir + '/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
-    testHelper.checkFileContains(ligthModulesbasedir + '/templates/pages/myPage.yaml', ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'])
+
+    testHelper.checkFileContains(
+      ligthModulesbasedir + '/templates/pages/myPage.yaml',
+      ['dialog: foo:pages/myPage', 'templateScript: /foo/templates/pages/myPage.ftl'],
+      cb
+    )
   }
 })
