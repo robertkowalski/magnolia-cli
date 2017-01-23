@@ -10,7 +10,7 @@ describe('add-availability', function () {
   var expect = require('chai').expect
 
   beforeEach(function () {
-    var emptyPage =
+    var noAreaPage =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       'templateScript: /foo/templates/pages/baz.ftl'
 
@@ -21,15 +21,16 @@ describe('add-availability', function () {
       '  fooArea:\n' +
       '    templateScript: /foo/templates/pages/baz.ftl'
 
-    var emptyPageWithTaggedElement =
+    var noAreaPageWithTaggedElement =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       "includedFile: !include 'foo/bar'\n" +
       'templateScript: /foo/templates/pages/baz.ftl'
 
-    fs.outputFileSync('test/light-modules/quux/templates/pages/emptyPage.yaml', emptyPage)
-    fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPage.yaml', emptyPage)
+    fs.outputFileSync('test/light-modules/quux/templates/pages/emptyPage.yaml', '')
+    fs.outputFileSync('test/light-modules/quux/templates/pages/noAreaPage.yaml', noAreaPage)
+    fs.outputFileSync('test/light-modules/foo/templates/pages/noAreaPage.yaml', noAreaPage)
     fs.outputFileSync('test/light-modules/foo/templates/pages/baz.ftl', '<h1>Hello</h1>')
-    fs.outputFileSync('test/light-modules/foo/templates/pages/emptyPageWithTaggedElement.yaml', emptyPageWithTaggedElement)
+    fs.outputFileSync('test/light-modules/foo/templates/pages/noAreaPageWithTaggedElement.yaml', noAreaPageWithTaggedElement)
     fs.outputFileSync('test/light-modules/foo/templates/pages/pageWithAreas.yaml', pageWithAreas)
     // also make dirs expected when validating module structure
     fs.mkdirsSync('test/light-modules/foo/templates/components')
@@ -44,8 +45,8 @@ describe('add-availability', function () {
 
   it('should create missing YAML entries and add availability', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPage@fooArea -p  test/light-modules/foo',
-      '/foo/templates/pages/emptyPage.yaml',
+      'text noAreaPage@fooArea -p  test/light-modules/foo',
+      '/foo/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -61,8 +62,8 @@ describe('add-availability', function () {
 
   it('should create missing YAML entries and add availability for a component with an id containing the dash character', function (done) {
     invokeAndVerify('add-availability',
-      'qux-bar:components/text emptyPage@fooArea -p  test/light-modules/foo',
-      '/foo/templates/pages/emptyPage.yaml',
+      'qux-bar:components/text noAreaPage@fooArea -p  test/light-modules/foo',
+      '/foo/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -78,8 +79,8 @@ describe('add-availability', function () {
 
   it('should create missing YAML entries and add availability for a default light module', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPage@fooArea -p test/light-modules/quux',
-      '/quux/templates/pages/emptyPage.yaml',
+      'text noAreaPage@fooArea -p test/light-modules/quux',
+      '/quux/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -95,8 +96,8 @@ describe('add-availability', function () {
 
   it('should create missing YAML entries and add availability despite custom tags', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPageWithTaggedElement@fooArea -p test/light-modules/foo',
-      '/foo/templates/pages/emptyPageWithTaggedElement.yaml',
+      'text noAreaPageWithTaggedElement@fooArea -p test/light-modules/foo',
+      '/foo/templates/pages/noAreaPageWithTaggedElement.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -133,8 +134,8 @@ describe('add-availability', function () {
 
   it('should create missing YAML entries and add autogeneration', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPage@main -p test/light-modules/foo -g',
-      '/foo/templates/pages/emptyPage.yaml',
+      'text noAreaPage@main -p test/light-modules/foo -g',
+      '/foo/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -155,8 +156,8 @@ describe('add-availability', function () {
   it('should create missing YAML entries and add availability from inside a light module without passing a path option', function (done) {
     shell.cd('test/light-modules/foo')
     invokeAndVerify('add-availability',
-      'text emptyPage@fooArea',
-      '/templates/pages/emptyPage.yaml',
+      'text noAreaPage@fooArea',
+      '/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -174,8 +175,8 @@ describe('add-availability', function () {
   it('should create missing YAML entries and add availability when run from parent folder of light module', function (done) {
     shell.cd('test/light-modules/')
     invokeAndVerify('add-availability',
-      'text emptyPage@fooArea -p foo/',
-      '/templates/pages/emptyPage.yaml',
+      'text noAreaPage@fooArea -p foo/',
+      '/templates/pages/noAreaPage.yaml',
       function (data) {
         expect(data).to.be.equal(
           'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -192,7 +193,7 @@ describe('add-availability', function () {
 
   it('should add area to template script if not yet added', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPage@fooArea -p test/light-modules/foo',
+      'text noAreaPage@fooArea -p test/light-modules/foo',
       '/foo/templates/pages/baz.ftl',
       function (data) {
         expect(data).to.contain('[@cms.area name="fooArea"/]')
@@ -214,7 +215,7 @@ describe('add-availability', function () {
 
   it('should default to [main] area if none was specified', function (done) {
     invokeAndVerify('add-availability',
-      'text emptyPage -p test/light-modules/foo',
+      'text noAreaPage -p test/light-modules/foo',
       '/foo/templates/pages/baz.ftl',
       function (data) {
         expect(data).to.contain('[@cms.area name="main"/]')
@@ -229,18 +230,23 @@ describe('add-availability', function () {
   })
 
   it('should fail if path is non existent', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'components/text emptyPage@main -p baz/bar')
+    var result = testHelper.invokeMgnlSubcommand('add-availability', 'components/text noAreaPage@main -p baz/bar')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if area argument is malformed', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage@ -p test/light-modules/foo')
+    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@ -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if light module is not a valid one', function () {
     fs.mkdirsSync('test/light-modules/bogus/meh')
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage@main -p test/light-modules/bogus')
+    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@main -p test/light-modules/bogus')
     expect(result.stderr.toString()).not.to.be.empty
+  })
+
+  it('should fail gracefully if page is empty', function () {
+    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage -p test/light-modules/quux')
+    expect(result.stderr.toString()).to.contain('page definition seems to be empty')
   })
 })
