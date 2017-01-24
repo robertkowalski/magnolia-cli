@@ -1,3 +1,5 @@
+require('../lib/handleErrors.js')
+
 var program = require('commander')
 var createComponent = require('../lib/createComponent.js')
 var helper = require('../lib/helper')
@@ -21,12 +23,5 @@ program
   .option('-p, --path <path>', 'The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the component will be tentatively created there.')
   .parse(process.argv)
 
-try {
-  var args = createComponent.validateAndResolveArgs(program)
-  createComponent.create(args)
-} catch (e) {
-  helper.printError(e)
-  if (e.displayHelp) {
-    program.outputHelp()
-  }
-}
+var args = createComponent.validateAndResolveArgs(program)
+createComponent.create(args)

@@ -1,21 +1,15 @@
+require('../lib/handleErrors.js')
+
 var jumpstart = require('../lib/jumpstart')
-var helper = require('../lib/helper')
 
 var program = require('commander')
 var inquirer = require('inquirer')
 var async = require('async')
 
-var setup = function (program, credentials) {
-  try {
-    jumpstart.setupMagnolia(program, credentials, function (err) {
-      if (err) throw err
-    })
-  } catch (e) {
-    helper.printError(e)
-    if (e.displayHelp) {
-      program.outputHelp()
-    }
-  }
+function setup (program, credentials) {
+  jumpstart.setupMagnolia(program, credentials, function (err) {
+    if (err) throw err
+  })
 }
 
 program

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('../lib/handleErrors.js')
+
 var packageJson = require('../package.json')
 var program = require('commander')
 var helper = require('../lib/helper')
