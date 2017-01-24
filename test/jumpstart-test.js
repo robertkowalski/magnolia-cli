@@ -20,8 +20,11 @@ describe('jumpstart', function () {
   })
 
   it('should not download if magnolia-test.zip already exists', function () {
-    downloadMagnolia.download('test/resources/', 'magnolia-test.zip')
-    expect(fs.existsSync('test/resources/magnolia-test.zip')).to.be.true
+    var creds = {username: '', password: ''}
+
+    downloadMagnolia.download('test/resources/', 'magnolia-test.zip', creds, function () {
+      expect(fs.existsSync('test/resources/magnolia-test.zip')).to.be.true
+    })
   })
 
   it('should unzip to apache-tomcat', function () {
@@ -69,6 +72,7 @@ describe('jumpstart', function () {
 
     // THEN
     var lightModulesSubDirs = fs.readdirSync('light-modules')
+    console.error(lightModulesSubDirs)
     expect(fs.existsSync('apache-tomcat')).to.be.true
     expect(fs.existsSync('light-modules')).to.be.true
     expect(lightModulesSubDirs.length === 1).to.be.true

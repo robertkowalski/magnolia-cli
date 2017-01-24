@@ -13,7 +13,9 @@ program
 
 try {
   var args = createLightModule.validateAndResolveArgs(program)
-  createLightModule.create(args)
+  createLightModule.create(args, function (err) {
+    if (err) throw err
+  })
 } catch (e) {
   helper.printError(e)
   if (e.displayHelp) {

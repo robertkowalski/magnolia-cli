@@ -7,7 +7,9 @@ var async = require('async')
 
 var setup = function (program, credentials) {
   try {
-    jumpstart.setupMagnolia(program, credentials)
+    jumpstart.setupMagnolia(program, credentials, function (err) {
+      if (err) throw err
+    })
   } catch (e) {
     helper.printError(e)
     if (e.displayHelp) {
