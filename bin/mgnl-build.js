@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('../lib/handleErrors.js')
 
 var packageJson = require('../package.json')
