@@ -72,7 +72,6 @@ describe('jumpstart', function () {
 
     // THEN
     var lightModulesSubDirs = fs.readdirSync('light-modules')
-    console.error(lightModulesSubDirs)
     expect(fs.existsSync('apache-tomcat')).to.be.true
     expect(fs.existsSync('light-modules')).to.be.true
     expect(lightModulesSubDirs.length === 1).to.be.true
