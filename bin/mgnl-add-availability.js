@@ -1,6 +1,9 @@
+#!/usr/bin/env node
+
+require('../lib/handleErrors.js')
+
 var program = require('commander')
 var addAvailability = require('../lib/addAvailability.js')
-var helper = require('../lib/helper')
 
 var packageJson = require('../package.json')
 
@@ -12,12 +15,5 @@ program
   .option('-p, --path <path>', 'The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the availability will be tentatively added there.')
   .parse(process.argv)
 
-try {
-  var args = addAvailability.validateAndResolveArgs(program)
-  addAvailability.add(args)
-} catch (e) {
-  helper.printError(e)
-  if (e.displayHelp) {
-    program.outputHelp()
-  }
-}
+var args = addAvailability.validateAndResolveArgs(program)
+addAvailability.add(args)
