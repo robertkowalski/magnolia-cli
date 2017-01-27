@@ -19,6 +19,7 @@ program
   .usage('<command> [options]')
   .description(packageJson.description)
   .command('jumpstart', 'download and setup a Magnolia CMS instance for development.')
+  .command('start', 'starts up a Magnolia CMS instance previously created with jumpstart.')
   .command('add-availability', 'add component availability.')
   .command('build', 'scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.')
   .command('create-component', 'create a component and optionally add availability for it.')
@@ -28,7 +29,7 @@ program
   .parse(process.argv)
 
 var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', 'create-component']
-var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability'])
+var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start'])
 
 if (availableCommands.indexOf(program.args[0]) === -1) {
   helper.printError(program.args[0] + ' is not a valid command')
