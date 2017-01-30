@@ -2,7 +2,7 @@
 
 require('../lib/handleErrors.js')
 
-var program = require('commander')
+var program = require('../lib/commander_shimmed.js')
 var createComponent = require('../lib/createComponent.js')
 var helper = require('../lib/helper')
 
@@ -18,6 +18,7 @@ var matchesPattern = function (val) {
 
 program
   .version(packageJson.version)
+  .name('mgnl create-component')
   .usage('<name> [options]')
   .description('Creates a component. Optionally makes it available (or autogenerate) to a given area of a page of the current module (or the module defined by the -p option). E.g. mgnl create-component foo --available myHome@main -p /path/to/module')
   .option('-a, --available <path-to-page[@area]>', 'The target page and area to make the component available. If no area is specified it defaults to "main"', matchesPattern)

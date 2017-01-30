@@ -4,7 +4,7 @@ require('../lib/handleErrors.js')
 
 var jumpstart = require('../lib/jumpstart')
 
-var program = require('commander')
+var program = require('../lib/commander_shimmed.js')
 var inquirer = require('inquirer')
 var async = require('async')
 
@@ -16,6 +16,7 @@ function setup (program, credentials) {
 
 program
   .version(require('../package.json').version)
+  .name('mgnl jumpstart')
   .description('Downloads and sets up an instance of Magnolia CE or EE for light development in the current directory.')
   .option('-p, --path <path>', 'The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to "light-modules" in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of "magnolia.resources.dir" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.')
   .option('-m, --magnolia-version <version>', 'If not provided defaults to the latest stable version.')
