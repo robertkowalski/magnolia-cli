@@ -39,7 +39,7 @@ describe('jumpstart', function () {
   it('should not create a sample light-module if -i option is omitted.', function () {
     // WHEN
     shell.cd('test/destination')
-    testHelper.invoke('jumpstart', '', 'test/destination')
+    testHelper.invokeMgnlSubcommand('jumpstart', '')
 
     // THEN
     expect(fs.existsSync('apache-tomcat')).to.be.true
@@ -68,7 +68,7 @@ describe('jumpstart', function () {
     // WHEN
     shell.cd('test/destination')
     var lightModuleName = 'my-module'
-    testHelper.invoke('jumpstart', '-i ' + lightModuleName, 'test/destination')
+    testHelper.invokeMgnlSubcommand('jumpstart', '-i ' + lightModuleName)
 
     // THEN
     var lightModulesSubDirs = fs.readdirSync('light-modules')
