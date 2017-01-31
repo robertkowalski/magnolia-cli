@@ -19,7 +19,7 @@ program
   .usage('<command> [options]')
   .description(packageJson.description)
   .command('jumpstart', 'download and setup a Magnolia CMS instance for development.')
-  .command('start', 'starts up a Magnolia CMS instance previously created with jumpstart.')
+  .command('start', 'start up a Magnolia CMS instance. To stop it, enter CTRL+C')
   .command('add-availability', 'add component availability.')
   .command('build', 'scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.')
   .command('create-component', 'create a component and optionally add availability for it.')
