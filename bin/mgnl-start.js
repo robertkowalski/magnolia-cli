@@ -6,7 +6,7 @@ var packageJson = require('../package.json')
 var path = require('path')
 var helper = require('../lib/helper.js')
 var MgnlCliError = helper.MgnlCliError
-var program = require('commander')
+var program = require('../lib/commander_shimmed.js')
 var findup = require('findup-sync')
 var spawn = require('child_process').spawn
 var log = require('npmlog')
@@ -16,6 +16,7 @@ var until = require('async').until
 
 program
   .version(packageJson.version)
+  .name('mgnl start')
   .description('Start up Magnolia and display the logs. Magnolia CLI looks in the current working directory or parent directories for the nearest folder starting with "apache-tomcat". To stop Magnolia, simply enter CTRL+C')
   .option('-p, --path <path>', 'The path to the apache-tomcat folder. If no path is provided, Magnolia CLI will look in the current working directory or parent directories for the nearest folder starting with "apache-tomcat"')
   .option('-d, --dont-ignore-open-files-check', 'Does not ignore the open files limit check (it is ignored by default). For more information, see https://documentation.magnolia-cms.com/display/DOCS/Known+issues#Knownissues-Toomanyopenfiles')
