@@ -6,7 +6,7 @@ var packageJson = require('../package.json')
 var fse = require('fs-extra')
 var path = require('path')
 var helper = require('../lib/helper.js')
-var program = require('commander')
+var program = require('../lib/commander_shimmed.js')
 
 var extract = function (location) {
   if (!fse.existsSync(location)) {
@@ -40,6 +40,7 @@ var extract = function (location) {
 
 program
   .version(packageJson.version)
+  .name('mgnl version')
   .description('Extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration. Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
   .option('-p, --path <path>', 'The path to the destination folder. If no path is provided extraction will happen in the current directory. Existing files won"t be overwritten.')
   .parse(process.argv)
