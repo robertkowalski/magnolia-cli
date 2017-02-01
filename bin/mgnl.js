@@ -13,9 +13,11 @@ if (!semver.satisfies(version, requiredVersion)) {
 }
 
 require('../lib/handleErrors.js')
+
 var program = require('commander')
 var helper = require('../lib/helper')
 var log = helper.logger
+const commands = require('../lib/commands')
 
 /**
  * This is the entry point for the Magnolia CLI npm package. It uses https://www.npmjs.com/package/commander
@@ -29,15 +31,14 @@ program
   .version(packageJson.version)
   .usage('<command> [options]')
   .description(packageJson.description)
-  .command('jumpstart', 'download and setup a Magnolia CMS instance for development.')
-  .command('start', 'start up a Magnolia CMS instance. To stop it, enter CTRL+C')
-  .command('add-availability', 'add component availability.')
-  .command('build', 'scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.')
-  .command('create-component', 'create a component and optionally add availability for it.')
-  .command('create-light-module', 'create a light module.')
-  .command('create-page', 'create a page template.')
-  .command('setup', 'extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration.')
-  .parse(process.argv)
+for (let i in commands) {
+  if (commands[i].implicit) {
+    continue
+  }
+
+  program.command(i, commands[i].description)
+}
+program.parse(process.argv)
 
 var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', 'create-component']
 var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start'])
