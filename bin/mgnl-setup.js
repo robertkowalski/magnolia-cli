@@ -5,15 +5,15 @@ require('../lib/handleErrors.js')
 var packageJson = require('../package.json')
 var fse = require('fs-extra')
 var path = require('path')
-var helper = require('../lib/helper.js')
 var program = require('../lib/commander_shimmed.js')
+var log = require('../lib/helper').logger
 
 var extract = function (location) {
   if (!fse.existsSync(location)) {
-    helper.printError(location + ' path does not exist. Please fix it or create it.')
+    log.error(location + ' path does not exist. Please fix it or create it.')
     process.exit(1)
   }
-  console.log("Extracting Magnolia's CLI mgnl-cli-prototypes and mgnl-cli.json to %s...", location)
+  log.info("Extracting Magnolia's CLI mgnl-cli-prototypes and mgnl-cli.json to %s...", location)
   var prototypesFolder = path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
   var pathToExtractedPrototypes = path.join(location, 'mgnl-cli-prototypes')
   var configJsonPath = path.resolve(__dirname, '../lib/config/mgnl-cli.json')
@@ -23,18 +23,18 @@ var extract = function (location) {
   var options = {clobber: false}
   fse.copy(prototypesFolder, pathToExtractedPrototypes, options, function (err) {
     if (err) {
-      helper.printError(err)
+      log.error(err)
       process.exit(1)
     }
   })
 
   fse.copy(configJsonPath, pathToExtractedJson, options, function (err) {
     if (err) {
-      helper.printError(err)
+      log.error(err)
       process.exit(1)
     }
-    helper.printSuccess('Extraction completed.')
-    helper.printImportant('Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
+    log.info('Extraction completed.')
+    log.important('Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
   })
 }
 

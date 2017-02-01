@@ -5,6 +5,7 @@ require('../lib/handleErrors.js')
 var program = require('../lib/commander_shimmed.js')
 var createComponent = require('../lib/createComponent.js')
 var helper = require('../lib/helper')
+var log = helper.logger
 
 var packageJson = require('../package.json')
 
@@ -12,7 +13,7 @@ var matchesPattern = function (val) {
   if (helper.matchesDefinitionReferenceWithAreaPattern(val) || helper.matchesDefinitionReferenceWithoutAreaPattern(val)) {
     return val
   }
-  console.error('Expected a value in the form e.g. <path-to-page[@area]> but was %s', val)
+  log.error('Expected a value in the form e.g. <path-to-page[@area]> but was %s', val)
   return false
 }
 

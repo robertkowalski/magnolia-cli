@@ -5,6 +5,7 @@ require('../lib/handleErrors.js')
 var packageJson = require('../package.json')
 var program = require('commander')
 var helper = require('../lib/helper')
+var log = helper.logger
 
 /**
  * This is the entry point for the Magnolia CLI npm package. It uses https://www.npmjs.com/package/commander
@@ -32,12 +33,12 @@ var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', '
 var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start'])
 
 if (availableCommands.indexOf(program.args[0]) === -1) {
-  helper.printError(program.args[0] + ' is not a valid command')
+  log.error(program.args[0] + ' is not a valid command')
   program.outputHelp()
   process.exit(1)
 }
 
 if (customizableCommands.indexOf(program.args[0]) !== -1) {
-  helper.printInfo('Using configuration at ' + helper.resolveMgnlCliJsonPath())
-  helper.printInfo('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
+  log.info('Using configuration at ' + helper.resolveMgnlCliJsonPath())
+  log.info('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
 }

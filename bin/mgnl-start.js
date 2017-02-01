@@ -9,7 +9,7 @@ var MgnlCliError = helper.MgnlCliError
 var program = require('../lib/commander_shimmed.js')
 var findup = require('findup-sync')
 var spawn = require('child_process').spawn
-var log = require('npmlog')
+var log = helper.logger
 var os = require('os')
 var fs = require('fs')
 var until = require('async').until
@@ -44,7 +44,7 @@ function startUpMagnolia (apacheTomcatFolder) {
   var ignoreOpenFilesLimit = program.dontIgnoreOpenFilesCheck ? '' : '--ignore-open-files-limit'
   // on Windows we need to change the cwd of the spawned process or the Tomcat scripts won't be able to resolve CATALINA_HOME env variable
   spawn(magnoliaControl, ['start', ignoreOpenFilesLimit], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
-  log.info('Starting Tomcat instance at ' + apacheTomcatFolder + '. To stop it, enter CTRL+C ')
+  log.important('Starting Tomcat instance at ' + apacheTomcatFolder + '. To stop it, enter CTRL+C ')
 
   if (os.platform() !== 'win32') {
     var tail
@@ -83,7 +83,7 @@ function startUpMagnolia (apacheTomcatFolder) {
 
 function gracefulShutdown (magnoliaControl, tailProcess) {
   spawn(magnoliaControl, ['stop'], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
-  log.info('Magnolia is stopping...')
+  log.important('Magnolia is stopping...')
 
   if (tailProcess) {
     tailProcess.kill()
