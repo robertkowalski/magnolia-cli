@@ -41,7 +41,7 @@ for (let i in commands) {
 program.parse(process.argv)
 
 var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', 'create-component']
-var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start'])
+var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start', 'tab-completion'])
 
 if (availableCommands.indexOf(program.args[0]) === -1) {
   log.error(program.args[0] + ' is not a valid command')

@@ -40,7 +40,7 @@ var extract = function (location) {
 
 program
   .version(packageJson.version)
-  .name('mgnl version')
+  .name('mgnl setup')
   .description('Extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration. Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
   .option('-p, --path <path>', 'The path to the destination folder. If no path is provided extraction will happen in the current directory. Existing files won"t be overwritten.')
   .parse(process.argv)
