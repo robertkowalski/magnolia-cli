@@ -2,11 +2,50 @@
 describe('helper', function () {
   var helper = require('../lib/helper')
   var expect = require('chai').expect
-  var fs = require('fs-extra')
+  const fs = require('fs-extra')
   var path = require('path')
   var shell = require('shelljs')
 
-  var testHelper = require('./testHelper')
+  const testHelper = require('./testHelper')
+  const os = require('os')
+  const getMagnoliaPropertiesLocation = helper.getMagnoliaPropertiesLocation
+  const getLightModulesFolderFromTomcatLocation = helper.getLightModulesFolderFromTomcatLocation
+  describe('getLightModulesFolderFromTomcatLocation', () => {
+    const propertyFile = getMagnoliaPropertiesLocation(
+      'test/fixtures/apache-tomcat',
+      'magnoliaAuthor'
+    )
+
+    beforeEach(() => {
+      fs.mkdirsSync(propertyFile.replace('magnolia.properties', ''))
+      fs.writeFileSync(propertyFile, 'magnolia.resources.dir=/foo/bar/baz', 'utf-8')
+    })
+
+    afterEach(() => {
+      fs.removeSync('test/fixtures')
+    })
+
+    it('gets the light module folder from the properties file', () => {
+      expect(getLightModulesFolderFromTomcatLocation('test/fixtures')).to.equal('/foo/bar/baz')
+    })
+
+    it('works when no tomcat folder is specified, returns false', () => {
+      expect(() => {
+        getLightModulesFolderFromTomcatLocation(os.tmpDir())
+      }).to.not.throw()
+
+      expect(getLightModulesFolderFromTomcatLocation(os.tmpDir())).to.equal(false)
+    })
+
+    it('works with relative paths', () => {
+      fs.writeFileSync(propertyFile, 'magnolia.resources.dir=../../../../../../foo', 'utf-8')
+      expect(
+        getLightModulesFolderFromTomcatLocation('test/fixtures')
+      ).to.equal(
+        path.join(__dirname, '/fixtures/apache-tomcat/foo')
+      )
+    })
+  })
 
   describe('#parseDefinitionReference()', function () {
     it("should add default 'components/' part to component path if not specified", function () {

@@ -4,13 +4,13 @@ require('../lib/handleErrors.js')
 
 var packageJson = require('../package.json')
 var path = require('path')
-var helper = require('../lib/helper.js')
+const helper = require('../lib/helper.js')
 var MgnlCliError = helper.MgnlCliError
 var program = require('../lib/commander_shimmed.js')
-var findup = require('findup-sync')
 var spawn = require('child_process').spawn
 const execFile = require('child_process').execFile
-var log = helper.logger
+const log = helper.logger
+const findTomcat = helper.findTomcat
 var os = require('os')
 var fs = require('fs')
 var until = require('async').until
@@ -24,13 +24,7 @@ program
   .option('-d, --dont-ignore-open-files-check', i18next.t('mgnl-start--cmd-option-dont-ignore-open-files-check'))
   .parse(process.argv)
 
-var apacheTomcatFolder
-
-if (program.path) {
-  apacheTomcatFolder = findup('apache-tomcat*', {cwd: program.path})
-} else {
-  apacheTomcatFolder = findup('apache-tomcat*')
-}
+const apacheTomcatFolder = findTomcat(program.path)
 if (apacheTomcatFolder) {
   startUpMagnolia(apacheTomcatFolder)
 } else {

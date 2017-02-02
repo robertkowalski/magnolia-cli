@@ -163,7 +163,14 @@
   ],
   "helper--create-folders--info-folder-created": "Resource folder {{folder}} created.",
   "helper--parse-definition-reference--error-no-match-id": "{id} doesn't match definitionId pattern",
-  "helper--create-definition-template-path--error-no-args": "Expected args not to be empty"
+  "helper--create-definition-template-path--error-no-args": "Expected args not to be empty",
 
+  "mgnl-install--cmd-description": "Download and install a light module from npm to the resources directory, (typically “light-modules”) of the local Magnolia instance.",
+  "mgnl-install--cmd-option-path": "The path to the light modules folder",
+  "mgnl-install--error-not-found": "Could not find the package {{moduleName}}. Did you spell it wrong?",
+  "mgnl-install--info-downloading": "Downloading {{url}}.",
+  "mgnl-install--info-installed": "Extracted light module to: {{lightModulesFolder}}.",
+  "mgnl-install--error-no-folder-found": "No light modules folder found. Use --path to specify it.",
+  "mgnl-install--error-no-argument-given": "Please provide at least one light module name."
 
 }

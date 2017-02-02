@@ -47,7 +47,7 @@ describe('jumpstart', function () {
     expect(fs.readdirSync('light-modules').length === 0).to.be.true
 
     shell.cd('../../')
-  })
+  }).timeout(10000)
 
   it('should print the next steps, even with no additional jars for download.', function () {
     var config = require('../lib/config/mgnl-cli.json')
