@@ -102,6 +102,59 @@ describe('helper', function () {
     })
   })
 
+  describe('#getModuleName', function () {
+    var getModuleName = helper.getModuleName
+    var ret = null
+
+    if (process.platform === 'win32') {
+      it('should get the name on win', function () {
+        ret = getModuleName('C:\\foo\\bar\\')
+        expect(ret).to.be.equal('bar')
+
+        ret = getModuleName('C:\\foo')
+        expect(ret).to.be.equal('foo')
+      })
+    }
+    it('should get the name on posix', function () {
+      ret = getModuleName('/foo/bar/')
+      expect(ret).to.be.equal('bar')
+
+      ret = getModuleName('/foo')
+      expect(ret).to.be.equal('foo')
+    })
+  })
+
+  describe('#stripLastSep', function () {
+    var stripLastSep = helper.stripLastSep
+    var ret = null
+
+    if (process.platform === 'win32') {
+      it('should strip last separator on win', function () {
+        ret = stripLastSep('C:\\foo\\bar\\')
+        expect(ret).to.be.equal('C:\\foo\\bar')
+
+        ret = stripLastSep('C:\\foo\\bar')
+        expect(ret).to.be.equal('C:\\foo\\bar')
+      })
+    }
+    it('should strip last separator on posix', function () {
+      ret = stripLastSep('/foo/bar/')
+      expect(ret).to.be.equal('/foo/bar')
+      ret = stripLastSep('/foo/bar')
+      expect(ret).to.be.equal('/foo/bar')
+    })
+  })
+
+  describe('#createDefinitionTemplatePath', function () {
+    var createDefinitionTemplatePath = helper.createDefinitionTemplatePath
+    var ret = null
+
+    it('should create template path for definition', function () {
+      ret = createDefinitionTemplatePath('foo/', '///bar', 'baz')
+      expect(ret).to.be.equal('/foo/bar/baz.ftl')
+    })
+  })
+
   describe('#resolveMgnlCliPrototypesPath()', function () {
     beforeEach(function () {
       fs.mkdirsSync('test/destination')
