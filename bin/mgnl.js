@@ -1,8 +1,18 @@
 #!/usr/bin/env node
 
-require('../lib/handleErrors.js')
-
+// ES5 to run on older Node versions
+var semver = require('semver')
+var version = process.version.replace(/^v/, '')
 var packageJson = require('../package.json')
+
+var requiredVersion = packageJson.engines.node
+if (!semver.satisfies(version, requiredVersion)) {
+  console.error('[Error]', 'mgnl requires Node version', requiredVersion, '.')
+  console.error('Please install the latest Node LTS from https://nodejs.org')
+  process.exit(1)
+}
+
+require('../lib/handleErrors.js')
 var program = require('commander')
 var helper = require('../lib/helper')
 var log = helper.logger
