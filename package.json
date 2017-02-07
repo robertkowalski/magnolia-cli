@@ -7,9 +7,7 @@
     "mgnl": "bin/mgnl.js"
   },
   "scripts": {
-    "test": "standard && mocha",
-    "postinstall": "mgnl install-tab-completion",
-    "preuninstall": "mgnl install-tab-completion uninstall"
+    "test": "standard && mocha"
   },
   "repository": {
     "type": "git",
