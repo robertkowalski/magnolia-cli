@@ -8,14 +8,15 @@ For a complete reference of the npm-cli, please have a look at [Magnolia npm-cli
 
 
 ## Installation ##
-Before installation make sure you have [Node.js](https://nodejs.org) installed (recommended v 4.4.7+)
+Before installation make sure you have [Node.js](https://nodejs.org) installed (>= 6.0, recommended latest LTS version)
 
 Install the package **globally**
 
-#### Magnolia CLI 1.0 is out and available on npm public repository ####
+#### Magnolia CLI 2.0 is out and available on npm public repository ####
 
-`npm install @magnolia/cli -g`
+`npm install @magnolia/cli -g` or
 
+`npm update @magnolia/cli -g`
 
 Alternatively you can checkout the latest code and simply install it from source with
 
