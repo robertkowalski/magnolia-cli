@@ -58,14 +58,18 @@ E.g. `mgnl create-light-module -h` will output:
 ```
 
 
-## Bash autocompletion ##
-The package provides a basic autocompletion feature for Bash shells. To enable it, add the following line to your ```.profile ``` (this may vary according to your OS and Node.js settings):   
+## Shell autocompletion ##
+This package provides a basic tab autocompletion feature for Bash, Z-Shell (zsh) and PowerShell.
+To enable it, simply run:
 
-Mac OS X
 ```
-source /usr/local/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
+mgnl tab-completion install
 ```
-Ubuntu
+
+This will scan your system for shell initialization hooks (like `.bashrc` or `.profile`) and install it accordingly.
+
+Tab autocompletion can be disabled again by running (while mgnl cli is still installed):
+
 ```
-source /usr/lib/node_modules/@magnolia/cli/extra/mgnl-autocompletion.sh
+mgnl tab-completion uninstall
 ```
