@@ -50,6 +50,6 @@ if (availableCommands.indexOf(program.args[0]) === -1) {
 }
 
 if (customizableCommands.indexOf(program.args[0]) !== -1) {
-  log.info('Using configuration at ' + helper.resolveMgnlCliJsonPath())
-  log.info('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
+  log.important('Using configuration at ' + helper.resolveMgnlCliJsonPath())
+  log.important('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
 }

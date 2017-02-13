@@ -5,8 +5,8 @@ require('../lib/handleErrors.js')
 var jumpstart = require('../lib/jumpstart')
 
 var program = require('../lib/commander_shimmed.js')
-var inquirer = require('inquirer')
-var async = require('async')
+var prompt = require('inquirer').prompt
+var until = require('async').until
 
 function setup (program, credentials) {
   jumpstart.setupMagnolia(program, credentials, function (err) {
@@ -26,7 +26,7 @@ program
 
 if (program.enterpriseEdition) {
   var credentials
-  inquirer.prompt([
+  prompt([
     {
       type: 'input',
       name: 'username',
@@ -45,7 +45,7 @@ if (program.enterpriseEdition) {
   credentials.type = 'EE Pro'
 })
 
-  async.until(
+  until(
     function () {
       return typeof credentials !== 'undefined'
     },

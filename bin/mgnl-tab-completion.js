@@ -26,10 +26,9 @@ program.parse(process.argv)
 
 function checkSuccess (success, uninstall) {
   if (success) {
-    console.log(`Tab autocompletion has been ${uninstall ? 'un' : ''}installed.
-  You may need to re-open your shell for changes to take effect.`)
+    log.important(`Tab autocompletion has been ${uninstall ? 'un' : ''}installed. You may need to re-open your shell for changes to take effect.`)
   } else {
-    console.warn(`Tab autocompletion could not be ${uninstall ? 'un' : ''}installed, since none of typical related directories or files were found and accesible.`)
+    log.error(`Tab autocompletion could not be ${uninstall ? 'un' : ''}installed, since none of typical related directories or files were found and accesible.`)
   }
 }
 
