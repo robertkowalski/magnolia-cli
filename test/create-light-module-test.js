@@ -11,12 +11,16 @@ describe('create-light-module', function () {
 
   var createLightModule = require('../lib/createLightModule.js')
 
+  const mockFs = require('mock-fs')
+
   describe('unit', function () {
-    beforeEach(function () {
+    beforeEach(() => {
+      mockFs({ 'test/light-modules/footestcase/blerg': {} })
       fs.mkdirsSync('test/light-modules/footestcase/blerg')
     })
 
-    afterEach(function () {
+    afterEach(() => {
+      mockFs.restore()
       fs.removeSync('test/light-modules/footestcase/blerg')
     })
 
@@ -41,6 +45,34 @@ describe('create-light-module', function () {
         .then(function (res) {
           expect(res).to.contain('# Please, see https')
         })
+    })
+
+    it('resolvepath: path and no module name', () => {
+      const res = createLightModule.resolvePath({args: [], path: '/foo/bar/baz'})
+
+      expect(res.lightModulesRoot).to.equal('/foo/bar')
+      expect(res.moduleName).to.equal('baz')
+    })
+
+    it('resolvepath: path and module name', () => {
+      const res = createLightModule.resolvePath({args: ['furbie'], path: '/foo/bar/baz'})
+
+      expect(res.lightModulesRoot).to.equal('/foo/bar/baz')
+      expect(res.moduleName).to.equal('furbie')
+    })
+
+    it('resolvepath: no path and module name', () => {
+      const res = createLightModule.resolvePath({args: ['furbie']})
+
+      expect(res.lightModulesRoot).to.equal(process.cwd())
+      expect(res.moduleName).to.equal('furbie')
+    })
+
+    it('resolvepath: no path and no module name', () => {
+      const res = createLightModule.resolvePath({args: []})
+
+      expect(res.lightModulesRoot).to.equal(path.dirname(process.cwd()))
+      expect(res.moduleName).to.equal(path.basename(process.cwd()))
     })
   })
 
@@ -70,9 +102,11 @@ describe('create-light-module', function () {
       shell.cd('../../')
     })
 
-    it('should fail if no arg is passed', function () {
-      var result = testHelper.invokeMgnlSubcommand('create-light-module', '')
-      expect(result.stderr.toString()).not.to.be.empty
+    it('should create a light module in the same folder if no arg is passed', function () {
+      shell.cd('test/light-modules')
+      testHelper.invoke('create-light-module', '', 'test/light-modules')
+      expect(fs.existsSync(path.join(__dirname, 'light-modules', 'README.md'))).to.be.true
+      shell.cd('../../')
     })
 
     it('should fail if path is non existent', function () {
@@ -82,8 +116,8 @@ describe('create-light-module', function () {
 
     it('should fail if module already exists', function () {
       fs.mkdirsSync('test/light-modules/foo')
-      var result = testHelper.invokeMgnlSubcommand('create-light-module', 'foo -p test/light-modules')
-      expect(result.stderr.toString()).not.to.be.empty
+      testHelper.invokeMgnlSubcommand('create-light-module', 'foo -p test/light-modules')
+      expect(fs.existsSync(path.join(__dirname, 'light-modules', 'foo', 'README.md'))).to.be.true
     })
 
     it('prints help how to continue', function () {
