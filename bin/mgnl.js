@@ -17,7 +17,9 @@ require('../lib/handleErrors.js')
 var program = require('commander')
 var helper = require('../lib/helper')
 var log = helper.logger
-const commands = require('../lib/commands')
+var commands = require('../lib/commands').commands
+const customizableCommandNames = require('../lib/commands').getCustomizableCommandNames()
+const allCommandNames = require('../lib/commands').getAllCommandNames()
 
 /**
  * This is the entry point for the Magnolia CLI npm package. It uses https://www.npmjs.com/package/commander
@@ -35,21 +37,18 @@ for (let i in commands) {
   if (commands[i].implicit) {
     continue
   }
-
-  program.command(i, commands[i].description)
+// noHelp will register the command but won't show it when doing 'mgnl [--help]'
+  program.command(i, commands[i].description, {noHelp: commands[i].noHelp})
 }
 program.parse(process.argv)
 
-var customizableCommands = ['jumpstart', 'create-light-module', 'create-page', 'create-component']
-var availableCommands = customizableCommands.concat(['help', 'setup', 'build', 'add-availability', 'start', 'tab-completion'])
-
-if (availableCommands.indexOf(program.args[0]) === -1) {
+if (!allCommandNames.includes(program.args[0])) {
   log.error(program.args[0] + ' is not a valid command')
   program.outputHelp()
   process.exit(1)
 }
 
-if (customizableCommands.indexOf(program.args[0]) !== -1) {
+if (customizableCommandNames.includes(program.args[0])) {
   log.important('Using configuration at ' + helper.resolveMgnlCliJsonPath())
   log.important('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
 }
