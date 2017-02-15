@@ -9,6 +9,7 @@ var MgnlCliError = helper.MgnlCliError
 var program = require('../lib/commander_shimmed.js')
 var findup = require('findup-sync')
 var spawn = require('child_process').spawn
+const execFile = require('child_process').execFile
 var log = helper.logger
 var os = require('os')
 var fs = require('fs')
@@ -43,7 +44,7 @@ function startUpMagnolia (apacheTomcatFolder) {
   }
   var ignoreOpenFilesLimit = program.dontIgnoreOpenFilesCheck ? '' : '--ignore-open-files-limit'
   // on Windows we need to change the cwd of the spawned process or the Tomcat scripts won't be able to resolve CATALINA_HOME env variable
-  spawn(magnoliaControl, ['start', ignoreOpenFilesLimit], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
+  execFile(magnoliaControl, ['start', ignoreOpenFilesLimit], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
   log.important('Starting Tomcat instance at ' + apacheTomcatFolder + '. To stop it, enter CTRL+C ')
 
   if (os.platform() !== 'win32') {
@@ -64,7 +65,7 @@ function startUpMagnolia (apacheTomcatFolder) {
         }
       )
   }
-  // on Windows process.on('SIGINT', ..) apparently doesn't work, so here's a workaround
+  // on Windows process.on('SIGINT', ..) apparently doesn't work (in all cases), so here's a workaround
   if (os.platform() === 'win32') {
     var rl = require('readline').createInterface({
       input: process.stdin,
@@ -82,10 +83,27 @@ function startUpMagnolia (apacheTomcatFolder) {
 }
 
 function gracefulShutdown (magnoliaControl, tailProcess) {
-  spawn(magnoliaControl, ['stop'], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
+  execFile(magnoliaControl, ['stop'], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')}, (error, stdout, stderr) => {
+    if (error || stderr && (stderr.indexOf('SEVERE:') > 0)) {
+      log.error('Failed to gracefully shut down magnolia instance. You may need to stop it manually by ' +
+        `"${magnoliaControl} stop"`)
+      log.error(stderr)
+
+      exit(1, tailProcess)
+    }
+
+    exit(0, tailProcess)
+  })
   log.important('Magnolia is stopping...')
 
+  // on windows, the script doesn't terminate automatically, so we exit manually after a while
+  setTimeout(() => exit(0, tailProcess), 3000)
+}
+
+function exit (code, tailProcess) {
   if (tailProcess) {
     tailProcess.kill()
   }
+
+  process.exit(code)
 }
