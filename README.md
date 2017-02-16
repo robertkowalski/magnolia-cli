@@ -30,16 +30,19 @@ To invoke a command, execute `mgnl <command> [options]` on your shell.
 To see what commands are available simply enter  `mgnl -h` (or `mgnl --help`)
 
 ```
-jumpstart             download and prepare Magnolia CMS for light dev.
-start                 start up a Magnolia CMS instance. To stop it, enter CTRL+C.
-add-availability      add component availability.
-build                 scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.
-create-component      create a component and optionally add availability for it.
-create-light-module   create a light module.
-create-page           create a page template.
-setup                 extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to have a custom configuration.
-help [cmd]            display help for [cmd]
+jumpstart                download and setup a Magnolia CMS instance for development.
+start                    start up a Magnolia CMS instance. To stop it, enter CTRL+C
+add-availability         add component availability.
+build                    scan a node_modules folder for npm packages with the keyword "magnolia-light-module" (in package.json) and extract them to a directory of choice.
+create-component         create a component and optionally add availability for it.
+create-light-module      create a light module.
+create-page              create a page template.
+customize-local-config   extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to customize CLI configuration.
+tab-completion           install tab autocomplete feature for Bash, zsh or PowerShell
+help [cmd]               display help for [cmd]
 ```
+#### IMPORTANT ####
+As of **version 2.0** the `setup` command has been replaced with `customize-local-config` (or its alias `customise-local-config`, yes with an **s** instead of **z**) because we thought it was a better name :smile:
 
 To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
 

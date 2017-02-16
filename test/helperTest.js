@@ -76,7 +76,7 @@ describe('helper', function () {
     })
 
     it('should return custom mgnl-cli.json if mgnl-cli.json is found', function () {
-      testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
+      testHelper.invokeMgnlSubcommand('customize-local-config', '-p test/destination')
 
       var customPackageJson = require(path.resolve('test/destination/mgnl-cli.json'))
       customPackageJson.setupMagnolia.tomcatFolder = 'foobar'
@@ -173,7 +173,7 @@ describe('helper', function () {
     })
 
     it('should return custom mgnl-cli-prototypes if mgnl-cli-prototypes is found', function () {
-      testHelper.invokeMgnlSubcommand('setup', '-p test/destination')
+      testHelper.invokeMgnlSubcommand('customize-local-config', '-p test/destination')
       shell.cd('test/destination')
 
       fs.writeFileSync('mgnl-cli-prototypes/page/definition.yaml', 'hello there!', 'utf-8')
