@@ -28,7 +28,7 @@ function checkSuccess (success, uninstall) {
   if (success) {
     log.important(`Tab autocompletion has been ${uninstall ? 'un' : ''}installed. You may need to re-open your shell for changes to take effect.`)
   } else {
-    log.error(`Tab autocompletion could not be ${uninstall ? 'un' : ''}installed, since none of typical related directories or files were found and accesible.`)
+    log.error(`Tab autocompletion could not be ${uninstall ? 'un' : ''}installed, since none of typical related directories or files were found and accessible.`)
   }
 }
 
