@@ -79,6 +79,12 @@ describe('tabCompletion', () => {
         expect(fs.existsSync(PS_PROFILE_POSIX)).not.to.be.true
       })
 
+      it('should report success', () => {
+        const success = require('../lib/tabCompletionPowerShell').install()
+
+        expect(success).to.be.true
+      })
+
       it('should create a profile.ps1', () => {
         tabCompletion.install()
 
