@@ -8,7 +8,7 @@ const fs = require('fs')
 
 const mockFs = require('mock-fs')
 const mockRequire = require('mock-require')
-const originalCommandExistsSync = require('cmd-exists-sync')
+const originalCommandExistsSync = require('command-exists').sync
 
 const ENCODING = 'utf8'
 
@@ -42,9 +42,10 @@ noSudoMockDirs[BASH_GLOBAL_DIR] = mockFs.directory({
 })
 
 var powershellInstalled = true
-mockRequire('cmd-exists-sync', (command) =>
+mockRequire('command-exists', {
+  sync: (command) =>
   command === 'powershell' ? powershellInstalled : originalCommandExistsSync(command)
-)
+})
 
 const tabCompletion = require('../lib/tabCompletion')
 
@@ -76,6 +77,12 @@ describe('tabCompletion', () => {
 
         expect(fs.existsSync(PS_PROFILE)).not.to.be.true
         expect(fs.existsSync(PS_PROFILE_POSIX)).not.to.be.true
+      })
+
+      it('should report success', () => {
+        const success = require('../lib/tabCompletionPowerShell').install()
+
+        expect(success).to.be.true
       })
 
       it('should create a profile.ps1', () => {
