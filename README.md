@@ -42,7 +42,7 @@ tab-completion           install tab autocomplete feature for Bash, zsh or Power
 help [cmd]               display help for [cmd]
 ```
 #### IMPORTANT ####
-As of **version 2.0** the `setup` command has been replaced with `customize-local-config` (or its alias `customise-local-config`, yes with an **s** instead of **z**) because we thought it was a better name :smile:
+As of **version 2.0** the `setup` command has been replaced with `customize-local-config` (or its alias `customise-local-config`, yes with an **s** instead of **z**) because we thought it was a better name :)
 
 To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
 
