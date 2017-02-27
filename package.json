@@ -1,6 +1,6 @@
 {
   "name": "@magnolia/cli",
-  "version": "2.0.0-snapshot",
+  "version": "2.0.0",
   "description": "A tool to setup and facilitate light development with Magnolia CMS",
   "preferGlobal": true,
   "bin": {
