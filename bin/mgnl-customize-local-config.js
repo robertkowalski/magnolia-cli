@@ -7,12 +7,13 @@ var program = require('../lib/commander_shimmed.js')
 var log = require('../lib/helper').logger
 var fs = require('fs-extra')
 var path = require('path')
+const i18next = require('../lib/bootstrap.js')()
 
 program
   .version(packageJson.version)
   .name('mgnl customize-local-config')
-  .description('Extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to customize CLI configuration. Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
-  .option('-p, --path <path>', 'The path to the destination folder. If no path is provided extraction will happen in the current directory. Existing files won"t be overwritten.')
+  .description(i18next.t('mgnl-customize-local-config--cmd-option-description'))
+  .option('-p, --path <path>', i18next.t('mgnl-customize-local-config--cmd-option-path'))
   .parse(process.argv)
 
 if (program.path) {
@@ -23,10 +24,22 @@ if (program.path) {
 
 function extractCLIConfig (location) {
   if (!fs.existsSync(location)) {
-    log.error(location + ' path does not exist. Please fix it or create it.')
+    log.error(
+      i18next.t(
+        'mgnl-customize-local-config--cmd-error-path-not-exists',
+        { location: location, interpolation: { escapeValue: false } }
+      )
+    )
     process.exit(1)
   }
-  log.info("Extracting Magnolia's CLI mgnl-cli-prototypes and mgnl-cli.json to %s...", location)
+
+  log.info(
+    i18next.t(
+      'mgnl-customize-local-config--cmd-info-extracting-to',
+      { location: location, interpolation: { escapeValue: false } }
+    )
+  )
+
   var prototypesFolder = path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
   var pathToExtractedPrototypes = path.join(location, 'mgnl-cli-prototypes')
   var configJsonPath = path.resolve(__dirname, '../lib/config/mgnl-cli.json')
@@ -46,7 +59,9 @@ function extractCLIConfig (location) {
       log.error(err)
       process.exit(1)
     }
-    log.info('Extraction completed.')
-    log.important('Magnolia CLI looks in the current working directory or parent directories for the nearest "mgnl-cli.json" file and "mgnl-cli-prototypes" folder. If none are found, it defaults to their global values.')
+
+    log.info(i18next.t('mgnl-customize-local-config--cmd-info-extraction-completed'))
+
+    log.important(i18next.t('mgnl-customize-local-config--cmd-important-general-info-lookup'))
   })
 }

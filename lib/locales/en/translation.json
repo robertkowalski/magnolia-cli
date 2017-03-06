@@ -1,0 +1,169 @@
+{
+  "mgnl--cmd-description": "A tool to setup and facilitate light development with Magnolia CMS",
+  "mgnl--not-a-valid-cmd": "{{cmd}} is not a valid command",
+  "mgnl--using-prototype-at": "Using prototypes at {{path}}",
+  "mgnl--using-config-at": "Using configuration at {{path}}",
+
+
+  "mgnl-add-availability--cmd-description": "Makes a component available to a given area of some module. E.g. \"mgnl add-availability html myHome@main -p /path/to/my-module\" makes component \"html\" available in my-module at \"myHome\" page in the \"main\" area. If no area is specified it defaults to \"main\"",
+  "mgnl-add-availability--cmd-option-autogenerate": "Add this option to provide autogeneration instead of plain availability for a component.",
+  "mgnl-add-availability--cmd-option-path": "The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the availability will be tentatively added there.",
+  "mgnl-add-availability--error-expected-two-args": "Expected two arguments",
+  "mgnl-add-availability--error-unexpected-page-format": "Expected a value in the form e.g. path-to-page[@area] but was {{page}}",
+  "mgnl-add-availability--info-no-target-defined": "No target area specified, will default to 'main'",
+  "mgnl-add-availability--error-page-definition-doesnt-exist": "{{file}} page definition doesn't exist",
+  "mgnl-add-availability--error-empty-definition": "{{filename}} page definition seems to be empty. Please provide a non empty definition.",
+  "mgnl-add-availability--info-created-area": "Created new area {{targetArea}} at the end of {{templateScript}}",
+  "mgnl-add-availability--info-availability-added-into": "Availability for {{refId}} added into {{file}}",
+  "mgnl-add-availability--info-component-already-available": "Component {{refId}} is already available at {{file}}",
+  "mgnl-add-availability--info-autogeneration-added": "Autogeneration for {{refId}} added into {{file}}",
+  "mgnl-add-availability--info-component-already-configured-for-autogeneration": "Component {{refId}} is already configured for autogeneration at {{file}}",
+
+
+  "mgnl-build--cmd-description": "Scan a node_modules folder for npm packages with the keyword \"magnolia-light-module\" (in package.json) and extract them to a directory of choice. This way you can point your Magnolia instance's resource dir to that particular folder.",
+  "mgnl-build--cmd-option-node-modules-path": "The path to the node_modules folder to scan. If no path is provided, then the current directory is assumed to contain a folder \"node_modules\" which will be scanned for the modules with \"magnolia-light-module\" keyword.",
+  "mgnl-build--cmd-option-path": "The path to the light modules root folder. If no path is provided, then the current directory is assumed to contain a \"light-modules\" root folder and the extraction will happen here.",
+
+
+  "mgnl-create-component--cmd-option-description": "Creates a component. Optionally makes it available (or autogenerate) to a given area of a page of the current module (or the module defined by the -p option). E.g. mgnl create-component foo --available myHome@main -p /path/to/module",
+  "mgnl-create-component--cmd-option-available": "The target page and area to make the component available. If no area is specified it defaults to \"main\"",
+  "mgnl-create-component--cmd-option-autogenerate": "The target page and area to have the autogenerate component. If no area is specified it defaults to \"main\"",
+  "mgnl-create-component--cmd-option-path": "The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the component will be tentatively created there.",
+  "mgnl-create-component--error-component-already-exists": "{{componentName}} component template already exists at {{file}}",
+  "mgnl-create-component--info-template-script-already-exists": "{{componentName}} template script already exists at [{{file}}]",
+  "mgnl-create-component--info-dialog-already-exists": "{{dialogFile}} dialog already exists",
+  "mgnl-create-component--info-component-created": "Component created",
+  "mgnl-create-component--error-just-available-or-autogenerate": "Only one of --available or --autogenerate option can be specified",
+  "mgnl-create-component--info-no-path-provided": "No path option provided, component will be created relative to the current folder.",
+  "mgnl-create-component--info-no-target-area": "No target area specified, will default to 'main'",
+  "mgnl-create-component--error-page-definition-not-exist": "{{file}} page definition doesn't exist",
+
+
+  "mgnl-create-light-module--cmd-option-description": "Creates a light module. Light modules are created under a \"root\" folder which is observed by Magnolia for changes. If no moduleName is given, use the directory name as name. The path to such folder is the value of \"magnolia.resources.dir\" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.",
+  "mgnl-create-light-module--cmd-option-path": "The path to the light modules root folder. If no path is provided, then the current directory is assumed to be the light modules root folder and the module will be created here.",
+  "mgnl-create-light-module--error-invalid-path": "Path {{path}} does not exist. Please fix it or create it first",
+  "mgnl-create-light-module--info-no-path": "'No path option provided, light module will be created in the current folder.'",
+  "mgnl-create-light-module--i18n-fileheader": "# Please, see https://documentation.magnolia-cms.com/display/DOCS/Internationalization",
+  "mgnl-create-light-module--info-module-created": "Module {{name}} created at {{path}}",
+  "mgnl-create-light-module--info-success": "Success! In order to add a page, run {{cmd}}",
+
+
+  "mgnl-create-page--cmd-option-description": "Creates a page template in a light module.",
+  "mgnl-create-page--cmd-option-path": "The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.",
+  "mgnl-create-page--error-page-already-exists": "{{name}} page template already exists at {{file}}",
+  "mgnl-create-page--info-template-script-already-exists": "{{file}} templateScript already exists",
+  "mgnl-create-page--info-dialog-already-exists": "{{file}} dialog already exists",
+  "mgnl-create-page--info-page-template-created": "Page template created",
+  "mgnl-create-page--error-expected-one-arg": "Expected one argument",
+  "mgnl-create-page--error-invalid-page-name": "{{name}} is not valid page name. It should contain no slash character",
+  "mgnl-create-page--info-page-no-path": "No path option provided, page template will be created in the current folder.",
+
+
+
+  "mgnl-customize-local-config--cmd-option-description": "Extract \"mgnl-cli-prototypes\" folder and \"mgnl-cli.json\" file to customize CLI configuration. Magnolia CLI looks in the current working directory or parent directories for the nearest \"mgnl-cli.json\" file and \"mgnl-cli-prototypes\" folder. If none are found, it defaults to their global values.",
+  "mgnl-customize-local-config--cmd-option-path": "The path to the destination folder. If no path is provided extraction will happen in the current directory. Existing files won't be overwritten.",
+  "mgnl-customize-local-config--cmd-error-path-not-exists": "{{location}} path does not exist. Please fix it or create it.",
+  "mgnl-customize-local-config--cmd-info-extracting-to": "Extracting Magnolia's CLI mgnl-cli-prototypes and mgnl-cli.json to {{location}}...",
+  "mgnl-customize-local-config--cmd-info-extraction-completed": "Extraction completed.",
+  "mgnl-customize-local-config--cmd-important-general-info-lookup": "Magnolia CLI looks in the current working directory or parent directories for the nearest \"mgnl-cli.json\" file and \"mgnl-cli-prototypes\" folder. If none are found, it defaults to their global values.",
+
+
+  "mgnl-jumpstart--cmd-option-description": "Downloads and sets up an instance of Magnolia CE or EE for light development in the current directory.",
+  "mgnl-jumpstart--cmd-option-path": "The path to the light modules root folder which will be observed for changes. If no path is provided, defaults to \"light-modules\" in the current folder. Light modules are created under this folder which is observed by Magnolia for changes. The path to such folder is the value of \"magnolia.resources.dir\" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.'",
+  "mgnl-jumpstart--cmd-option-version": "If not provided defaults to the latest stable version.",
+  "mgnl-jumpstart--cmd-option-install-sample-module": "If provided, a sample light module under the light modules root folder with the given name is created.",
+  "mgnl-jumpstart--cmd-option-install-ee": "Will download a magnolia-enterprise-pro-demo-bundle. Requires credentials to Magnolia Nexus.",
+  "mgnl-jumpstart--error-invalid-magnolia-version": "Invalid Magnolia version {{version}}, light development is available only for Magnolia 5.4 and greater",
+  "mgnl-jumpstart--error-invalid-credentials": "You need to provide your username/password to Magnolia Nexus, in order to download an Enterprise edition",
+  "mgnl-jumpstart--important-successful-set-up":  "Magnolia has been successfully setup for light development!",
+  "mgnl-jumpstart--important-success-open-terminal": "You can now open a new terminal tab or window and start it up with the CLI command 'mgnl start'",
+  "mgnl-jumpstart--important-success-magnolia-will-be-avail-at": "Magnolia will be ready after a few seconds at localhost:8080/magnoliaAuthor. Username and password is superuser",
+  "mgnl-jumpstart--info-no-path-provided": "No path option provided. Will use the default {{path}} in the current directory",
+  "mgnl-jumpstart--info-no-magnolia-option-provided": "No magnolia-version option provided. Will use the latest stable version.",
+  "mgnl-jumpstart--info-light-modules-root-not-exist": "{{path}} does not seem to exist. Path will be created automatically.",
+
+
+
+  "mgnl-setup--cmd-option-description-replaced": "This command was replaced, please use \"customize-local-config\" instead",
+
+
+  "mgnl-start--cmd-option-description": "Start up Magnolia and display the logs. Magnolia CLI looks in the current working directory or parent directories for the nearest folder starting with \"apache-tomcat\". To stop Magnolia, simply enter CTRL+C",
+  "mgnl-start--cmd-option-path": "The path to the apache-tomcat folder. If no path is provided, Magnolia CLI will look in the current working directory or parent directories for the nearest folder starting with \"apache-tomcat\"",
+  "mgnl-start--cmd-option-dont-ignore-open-files-check": "Does not ignore the open files limit check (it is ignored by default). For more information, see https://documentation.magnolia-cms.com/display/DOCS/Known+issues#Knownissues-Toomanyopenfiles",
+  "mgnl-start--cmd-error-tomcat-notfound": "Could not find any apache-tomcat folder. Can't start up Magnolia. Have you run 'mgnl jumpstart'?",
+  "mgnl-start--cmd-error-magnolia-control-not-exists": "{{file}} does not exist. Can't start up Magnolia.",
+  "mgnl-start--cmd-important-starting-tomcat": "Starting Tomcat instance at {{apacheTomcatFolder}} To stop it, enter CTRL+C",
+  "mgnl-start--cmd-error-shutdown-failed": "Failed to gracefully shut down magnolia instance. You may need to stop it manually by {{file}} stop",
+  "mgnl-start--cmd-important-stopping": "Magnolia is stopping...",
+
+
+  "mgnl-tab-completion--cmd-option-description": "Enable or disable shell tab autocompletion for mgnl subcommands. This will install relevant shell initialization scripts, or remove them.",
+  "mgnl-tab-completion--cmd-install-option-description": "enable tab autocompletion",
+  "mgnl-tab-completion--cmd-uninstall-option-description": "disable tab autocompletion",
+  "mgnl-tab-completion--cmd-important-success": "Tab autocompletion has been {{installUninstalled}}. You may need to re-open your shell for changes to take effect.",
+  "mgnl-tab-completion--cmd-error-installation-error": "Tab autocompletion could not be {{installUninstalled}}, since none of typical related directories or files were found and accessible.",
+  "mgnl-tab-completion--cmd-error-invalid-action": "Invalid action {{action}}",
+  "mgnl-tab-completion--bash--permission-error": [
+    "Failed to set up tab completion due to missing write permissions in:",
+    "",
+    "  - {{GLOBAL_FILE_DIR_PATH}}",
+    "  - {{USER_FILE_DIR_PATH}}",
+    "",
+    "Did you run installation as root? If so, you'd need to add the flag --unsafe-perm, but that's not recommended for security reasons."
+  ],
+
+  "create-from-prototype--error-doesnt-exist": "{{file}}  doesn't exist. Please ensure that your mgnl-cli-prototypes folder contains this file.",
+  "create-from-prototype--info-created": "{{file}} created",
+
+
+  "download-jars--downloading": "Downloading {{fileName}} [:bar] :percent :etas",
+  "download-jars--copied": "{{fileName}} copied to WEB-INF/lib/ of Magnolia webapps",
+
+
+  "download-magnolia--info-bundle-exists": "{{file}} exists. We won't download it again.",
+  "download-magnolia--error-no-bundle-to-download": [
+    "No Magnolia Tomcat bundle to download.",
+    "Please add it to mgnl-cli.json"
+  ],
+  "download-magnolia--error-http-error": [
+    "Error while trying to get {{url}}.",
+    "",
+    "Are the URL and/or your credentials to Nexus correct?"
+  ],
+  "download-magnolia--info-starting-download-from": "Starting download from: {{url}}",
+  "download-magnolia--downloading": "Downloading Magnolia [:bar] :percent :etas",
+
+
+  "edit-properties--info-no-properties-config-found": "No properties configuration found",
+  "edit-properties--info-replacing-properties": "Replacing Magnolia properties to prepare it for light development...",
+  "edit-properties--info-file-not-found-skipping": "{{file}} not found. Skipping it...",
+  "edit-properties--info-changing-properties-at": "Changing magnolia.properties at {{file}}",
+
+
+  "extract-magnolia--info-tomcat-already-exists": "{{tomcatFolder}} already exists. We won't extract it again.",
+  "extract-magnolia--error-extract-error": "An error occurred: {{error}}. Is the zip file perhaps corrupted? Try to remove it and download it again.",
+  "extract-magnolia--info-extract-complete": "Extraction completed",
+  "extract-magnolia--info-extract-from-to": "{{entry}} to {{folder}}",
+  "extract-magnolia--info-extracting": "Extracting...",
+
+
+  "file-snippet-manager--info-appended-to": "Appended tab-completion script to {{path}}",
+  "file-snippet-manager--info-removed-from": "Removed tab-completion script from {{file}}",
+
+
+  "handle-errors--bugtracker-advice": "please open an issue including this log on {{bugtracker}}",
+
+
+  "helper--is-valid-light-module-folder--error-invalid-path": "Path {{path}} does not exist. Please fix it or create it first",
+  "helper--is-valid-light-module-folder--error-invalid-light-module-folder": [
+    "Sorry, path {{path}} does not seem to point at a valid existing light module folder.",
+    "Path option should point at a valid light module (e.g. one created with mgnl create-light-module).",
+    "Please, ensure your light module complies with the expected structure.",
+    "See https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI#MagnoliaCLI-Lightmoduleminimalfolderstructure"
+  ],
+  "helper--create-folders--info-folder-created": "Resource folder {{folder}} created.",
+  "helper--parse-definition-reference--error-no-match-id": "{id} doesn't match definitionId pattern",
+  "helper--create-definition-template-path--error-no-args": "Expected args not to be empty"
+
+
+}

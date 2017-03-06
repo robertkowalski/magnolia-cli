@@ -41,6 +41,8 @@
     "findup-sync": "^0.4.2",
     "fs-extra": "^0.30.0",
     "http": "0.0.0",
+    "i18next": "^7.1.1",
+    "i18next-sync-fs-backend": "^0.1.0",
     "inquirer": "^1.2.2",
     "json2yaml": "^1.1.0",
     "npmlog": "^4.0.2",

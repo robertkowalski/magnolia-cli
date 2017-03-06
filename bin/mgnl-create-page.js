@@ -6,13 +6,14 @@ var program = require('../lib/commander_shimmed.js')
 
 var createPage = require('../lib/createPage.js')
 var packageJson = require('../package.json')
+const i18next = require('../lib/bootstrap.js')()
 
 program
   .version(packageJson.version)
   .name('mgnl create-page')
   .usage('<templateName> [options]')
-  .description('Creates a page template in a light module.')
-  .option('-p, --path <path>', 'The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.')
+  .description(i18next.t('mgnl-create-page--cmd-option-description'))
+  .option('-p, --path <path>', i18next.t('mgnl-create-page--cmd-option-path'))
   .parse(process.argv)
 
 var args = createPage.validateAndResolveArgs(program)

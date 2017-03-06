@@ -7,35 +7,50 @@ const packageJson = require('../package.json')
 const log = require('../lib/helper').logger
 
 const tabCompletion = require('../lib/tabCompletion')
+const i18next = require('../lib/bootstrap.js')()
 
 program
   .version(packageJson.version)
   .name('mgnl tab-completion')
   .usage('<command>')
-  .description('Enable or disable shell tab autocompletion for mgnl subcommands.' +
-    ' This will install relevant shell initialization scripts, or remove them.')
+  .description(i18next.t('mgnl-tab-completion--cmd-option-description'))
 
 program.command('install')
-  .description('enable tab autocompletion')
+  .description(i18next.t('mgnl-tab-completion--cmd-install-option-description'))
   .action(() => checkSuccess(tabCompletion.install(), false))
 program.command('uninstall')
-  .description('disable tab autocompletion')
+  .description(i18next.t('mgnl-tab-completion--cmd-uninstall-option-description'))
   .action(() => checkSuccess(tabCompletion.uninstall(), true))
 
 program.parse(process.argv)
 
 function checkSuccess (success, uninstall) {
   if (success) {
-    log.important(`Tab autocompletion has been ${uninstall ? 'un' : ''}installed. You may need to re-open your shell for changes to take effect.`)
-  } else {
-    log.error(`Tab autocompletion could not be ${uninstall ? 'un' : ''}installed, since none of typical related directories or files were found and accessible.`)
+    log.important(
+      i18next.t(
+        'mgnl-tab-completion--cmd-important-success',
+        { installUninstalled: uninstall ? 'uninstalled' : 'installed' }
+      )
+    )
+    return
   }
+  log.error(
+    i18next.t(
+      'mgnl-tab-completion--cmd-error-installation-error',
+      { installUninstalled: uninstall ? 'uninstalled' : 'installed' }
+    )
+  )
 }
 
 const action = program.args[0]
 if (!(action instanceof program.Command)) {
   if (action) {
-    log.error(`Invalid action "${action}"`)
+    log.error(
+      i18next.t(
+        'mgnl-tab-completion--cmd-error-invalid-action',
+        { action: action, interpolation: { escapeValue: false } }
+      )
+    )
   }
   program.help()
 }

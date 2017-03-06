@@ -9,6 +9,8 @@ var log = helper.logger
 
 var packageJson = require('../package.json')
 
+const i18next = require('../lib/bootstrap.js')()
+
 var matchesPattern = function (val) {
   if (helper.matchesDefinitionReferenceWithAreaPattern(val) || helper.matchesDefinitionReferenceWithoutAreaPattern(val)) {
     return val
@@ -21,10 +23,10 @@ program
   .version(packageJson.version)
   .name('mgnl create-component')
   .usage('<name> [options]')
-  .description('Creates a component. Optionally makes it available (or autogenerate) to a given area of a page of the current module (or the module defined by the -p option). E.g. mgnl create-component foo --available myHome@main -p /path/to/module')
-  .option('-a, --available <path-to-page[@area]>', 'The target page and area to make the component available. If no area is specified it defaults to "main"', matchesPattern)
-  .option('-g, --autogenerate <path-to-page[@area]>', 'The target page and area to have the autogenerate component. If no area is specified it defaults to "main"', matchesPattern)
-  .option('-p, --path <path>', 'The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the component will be tentatively created there.')
+  .description(i18next.t('mgnl-create-component--cmd-option-description'))
+  .option('-a, --available <path-to-page[@area]>', i18next.t('mgnl-create-component--cmd-option-available'), matchesPattern)
+  .option('-g, --autogenerate <path-to-page[@area]>', i18next.t('mgnl-create-component--cmd-option-autogenerate'), matchesPattern)
+  .option('-p, --path <path>', i18next.t('mgnl-create-component--cmd-option-path'))
   .parse(process.argv)
 
 var args = createComponent.validateAndResolveArgs(program)

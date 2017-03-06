@@ -20,6 +20,7 @@ var log = helper.logger
 var commands = require('../lib/commands').commands
 const customizableCommandNames = require('../lib/commands').getCustomizableCommandNames()
 const allCommandNames = require('../lib/commands').getAllCommandNames()
+const i18next = require('../lib/bootstrap.js')()
 
 /**
  * This is the entry point for the Magnolia CLI npm package. It uses https://www.npmjs.com/package/commander
@@ -32,7 +33,8 @@ const allCommandNames = require('../lib/commands').getAllCommandNames()
 program
   .version(packageJson.version)
   .usage('<command> [options]')
-  .description(packageJson.description)
+  .description(i18next.t('mgnl--cmd-description'))
+
 for (let i in commands) {
   if (commands[i].implicit) {
     continue
@@ -43,12 +45,12 @@ for (let i in commands) {
 program.parse(process.argv)
 
 if (!allCommandNames.includes(program.args[0])) {
-  log.error(program.args[0] + ' is not a valid command')
+  log.error(i18next.t('mgnl--not-a-valid-cmd', { cmd: program.args[0], interpolation: {escapeValue: false} }))
   program.outputHelp()
   process.exit(1)
 }
 
 if (customizableCommandNames.includes(program.args[0])) {
-  log.important('Using configuration at ' + helper.resolveMgnlCliJsonPath())
-  log.important('Using prototypes at ' + helper.resolveMgnlCliPrototypesPath())
+  log.important(i18next.t('mgnl--using-config-at', { path: helper.resolveMgnlCliJsonPath(), interpolation: { escapeValue: false } }))
+  log.important(i18next.t('mgnl--using-prototype-at', { path: helper.resolveMgnlCliPrototypesPath(), interpolation: { escapeValue: false } }))
 }
