@@ -1,4 +1,4 @@
-# __module_name__
+# __lightDevModuleFolder__
 
 <!--
 Provide a one sentence description of what your light module
