@@ -28,7 +28,8 @@ describe('commands', function () {
         'customise-local-config',
         'setup',
         'tab-completion',
-        'help')
+        'help',
+        'search')
     })
   })
 })
