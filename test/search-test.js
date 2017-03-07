@@ -1,16 +1,8 @@
 /* eslint-env mocha */
 
 var expect = require('chai').expect
-var testHelper = require('./testHelper')
 var searchFunction = require('../lib/searchLightModule.js')
 var nock = require('nock')
-
-describe('search function integration test', function () {
-  it('should find 0 result', function () {
-    var result = testHelper.invokeMgnlSubcommand('search', '')
-    expect(result.stdout.toString()).to.contain('0 result found')
-  })
-})
 
 describe('search function unit test', function () {
   it('should find 1 result', function (done) {
