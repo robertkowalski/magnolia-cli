@@ -48,6 +48,7 @@ mockRequire('command-exists', {
 })
 
 const tabCompletion = require('../lib/tabCompletion')
+const tabCompletionPowerShell = require('../lib/tabCompletionPowerShell')
 
 describe('tabCompletion', () => {
   beforeEach(() => {
@@ -80,7 +81,7 @@ describe('tabCompletion', () => {
       })
 
       it('should report success', () => {
-        const success = require('../lib/tabCompletionPowerShell').install()
+        const success = tabCompletionPowerShell.install()
 
         expect(success).to.be.true
       })
