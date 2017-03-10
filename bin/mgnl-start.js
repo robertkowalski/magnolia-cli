@@ -14,13 +14,14 @@ var log = helper.logger
 var os = require('os')
 var fs = require('fs')
 var until = require('async').until
+const i18next = require('../lib/bootstrap.js')()
 
 program
   .version(packageJson.version)
   .name('mgnl start')
-  .description('Start up Magnolia and display the logs. Magnolia CLI looks in the current working directory or parent directories for the nearest folder starting with "apache-tomcat". To stop Magnolia, simply enter CTRL+C')
-  .option('-p, --path <path>', 'The path to the apache-tomcat folder. If no path is provided, Magnolia CLI will look in the current working directory or parent directories for the nearest folder starting with "apache-tomcat"')
-  .option('-d, --dont-ignore-open-files-check', 'Does not ignore the open files limit check (it is ignored by default). For more information, see https://documentation.magnolia-cms.com/display/DOCS/Known+issues#Knownissues-Toomanyopenfiles')
+  .description(i18next.t('mgnl-start--cmd-option-description'))
+  .option('-p, --path <path>', i18next.t('mgnl-start--cmd-option-path'))
+  .option('-d, --dont-ignore-open-files-check', i18next.t('mgnl-start--cmd-option-dont-ignore-open-files-check'))
   .parse(process.argv)
 
 var apacheTomcatFolder
@@ -33,19 +34,34 @@ if (program.path) {
 if (apacheTomcatFolder) {
   startUpMagnolia(apacheTomcatFolder)
 } else {
-  throw new MgnlCliError("Could not find any apache-tomcat folder. Can't start up Magnolia. Have you run 'mgnl jumpstart'?", true)
+  throw new MgnlCliError(
+    i18next.t('mgnl-start--cmd-error-tomcat-notfound'),
+    true
+  )
 }
 
 function startUpMagnolia (apacheTomcatFolder) {
   var magnoliaControl = path.join(apacheTomcatFolder, 'bin', os.platform() === 'win32' ? 'magnolia_control.bat' : 'magnolia_control.sh')
 
   if (!fs.existsSync(magnoliaControl)) {
-    throw new MgnlCliError(magnoliaControl + " does not exist. Can't start up Magnolia.", true)
+    throw new MgnlCliError(
+      i18next.t(
+        'mgnl-start--cmd-error-magnolia-control-not-exists',
+        { file: magnoliaControl, interpolation: { escapeValue: false } }
+      ),
+      true
+    )
   }
   var ignoreOpenFilesLimit = program.dontIgnoreOpenFilesCheck ? '' : '--ignore-open-files-limit'
   // on Windows we need to change the cwd of the spawned process or the Tomcat scripts won't be able to resolve CATALINA_HOME env variable
   execFile(magnoliaControl, ['start', ignoreOpenFilesLimit], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
-  log.important('Starting Tomcat instance at ' + apacheTomcatFolder + '. To stop it, enter CTRL+C ')
+
+  log.important(
+    i18next.t(
+      'mgnl-start--cmd-important-starting-tomcat',
+      { apacheTomcatFolder: apacheTomcatFolder, interpolation: { escapeValue: false } }
+    )
+  )
 
   if (os.platform() !== 'win32') {
     var tail
@@ -85,8 +101,12 @@ function startUpMagnolia (apacheTomcatFolder) {
 function gracefulShutdown (magnoliaControl, tailProcess) {
   execFile(magnoliaControl, ['stop'], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')}, (error, stdout, stderr) => {
     if (error || stderr && (stderr.indexOf('SEVERE:') > 0)) {
-      log.error('Failed to gracefully shut down magnolia instance. You may need to stop it manually by ' +
-        `"${magnoliaControl} stop"`)
+      log.error(
+        i18next.t(
+          'mgnl-start--cmd-error-shutdown-failed',
+          { file: magnoliaControl, interpolation: { escapeValue: false } }
+        )
+      )
       log.error(stderr)
 
       exit(1, tailProcess)
@@ -94,7 +114,7 @@ function gracefulShutdown (magnoliaControl, tailProcess) {
 
     exit(0, tailProcess)
   })
-  log.important('Magnolia is stopping...')
+  log.important(i18next.t('mgnl-start--cmd-important-stopping'))
 
   // on windows, the script doesn't terminate automatically, so we exit manually after a while
   setTimeout(() => exit(0, tailProcess), 3000)
