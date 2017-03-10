@@ -25,7 +25,7 @@ const DOT_MGNL = path.join(os.homedir(), '.mgnl')
 
 const MARKER = '# test comment'
 
-var mockDirs = {}
+const mockDirs = {}
 mockDirs[PS_DIR] = {}
 mockDirs[PS_DIR_POSIX] = {}
 mockDirs[BASHRC] = MARKER
@@ -34,7 +34,7 @@ mockDirs[PROFILE] = MARKER
 mockDirs[ZSHRC] = MARKER
 mockDirs[BASH_GLOBAL_DIR] = {}
 
-var noSudoMockDirs = {}
+const noSudoMockDirs = {}
 Object.assign(noSudoMockDirs, mockDirs)
 noSudoMockDirs[BASH_GLOBAL_DIR] = mockFs.directory({
   mode: 292, // same as 0444 (readonly) - StandardJS just won't let us write numbers in hex
@@ -48,6 +48,7 @@ mockRequire('command-exists', {
 })
 
 const tabCompletion = require('../lib/tabCompletion')
+const tabCompletionPowerShell = require('../lib/tabCompletionPowerShell')
 
 describe('tabCompletion', () => {
   beforeEach(() => {
@@ -80,7 +81,7 @@ describe('tabCompletion', () => {
       })
 
       it('should report success', () => {
-        const success = require('../lib/tabCompletionPowerShell').install()
+        const success = tabCompletionPowerShell.install()
 
         expect(success).to.be.true
       })
