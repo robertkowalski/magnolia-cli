@@ -1,10 +1,12 @@
 #!/usr/bin/env node
+require('../lib/handleErrors.js')
+
 var program = require('../lib/commander_shimmed.js')
 var searchLightModule = require('../lib/searchLightModule.js')
 var packageJson = require('../package.json')
 var helper = require('../lib/helper')
 var log = helper.logger
-require('../lib/handleErrors.js')
+const i18next = require('../lib/bootstrap.js')()
 
 var queryValue = ''
 
@@ -13,7 +15,7 @@ program
     .name('mgnl search')
     .usage('<query>')
     .arguments('<query>')
-    .description('Searches light modules with given query.')
+    .description(i18next.t('mgnl-search--cmd-description'))
     .action(function (query) {
       queryValue = query
     })
