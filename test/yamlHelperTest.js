@@ -1,8 +1,7 @@
 /* eslint-env mocha */
 describe('yamlHelper', function () {
-  var yamlHelper = require('../lib/yamlHelper')
-
-  var expect = require('chai').expect
+  const yamlHelper = require('../lib/yamlHelper')
+  const expect = require('chai').expect
 
   it('should support Magnolia-specific !include directive', function () {
     var data =
@@ -34,7 +33,7 @@ describe('yamlHelper', function () {
   })
 
   it('should not remove YAML comments and empty lines', function () {
-    var data =
+    const data =
     '#some comment\n' +
     '\n' + // and some new empty lines
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
@@ -67,5 +66,46 @@ describe('yamlHelper', function () {
           '    availableComponents:\n' +
           '      comp:\n' +
           '        id: quux:components/comp\n')
+  })
+
+  it('should append components correctly when having spaces or comments and more than one area', function () {
+    const data =
+      'title: hello\n' +
+      'templateScript: /foo/templates/pages/baz.ftl\n' +
+      '  \n' +
+      'areas:\n' +
+      '  fooArea:\n' +
+      '    availableComponents:\n' +
+      '      baz:\n' +
+      '        id: foo:components/baz\n' +
+      '      meh:\n' +
+      '        id: foo:components/meh\n' +
+      '  bazArea:\n' +
+      '    availableComponents:\n' +
+      '      qux:\n' +
+      '        id: foo:components/qux\n'
+
+    yamlHelper.create(data)
+    var componentAvailability = {}
+    componentAvailability['comp'] = {id: 'foo:components/comp'}
+    yamlHelper.injectSnippetAt(componentAvailability, '/areas/bazArea/availableComponents')
+
+    expect(yamlHelper.dump()).to.be.equal(
+      'title: hello\n' +
+      'templateScript: /foo/templates/pages/baz.ftl\n' +
+      '  \n' +
+      'areas:\n' +
+      '  fooArea:\n' +
+      '    availableComponents:\n' +
+      '      baz:\n' +
+      '        id: foo:components/baz\n' +
+      '      meh:\n' +
+      '        id: foo:components/meh\n' +
+      '  bazArea:\n' +
+      '    availableComponents:\n' +
+      '      qux:\n' +
+      '        id: foo:components/qux\n' +
+      '      comp:\n' +
+      '        id: foo:components/comp\n')
   })
 })
