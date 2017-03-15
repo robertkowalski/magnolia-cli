@@ -171,6 +171,23 @@
   "mgnl-install--info-downloading": "Downloading {{url}}.",
   "mgnl-install--info-installed": "Extracted light module to: {{lightModulesFolder}}.",
   "mgnl-install--error-no-folder-found": "No light modules folder found. Use --path to specify it.",
-  "mgnl-install--error-no-argument-given": "Please provide at least one light module name."
+  "mgnl-install--error-no-argument-given": "Please provide at least one light module name.",
 
+  "mgnl-search--cmd-description": "Searches light modules with given query.",
+  "mgnl-search--info-results-found": "{{count}} result found",
+  "mgnl-search--info-results-found_plural": "{{count}} results found",
+
+  "commands-jumpstart-description": "download and setup a Magnolia CMS instance for development.",
+  "commands-start-description": "start up a Magnolia CMS instance. To stop it, enter CTRL+C",
+  "commands-add-availability-description": "add component availability.",
+  "commands-build-description": "scan a node_modules folder for npm packages with the keyword \"magnolia-light-module\" (in package.json) and extract them to a directory of choice.",
+  "commands-create-component-description": "create a component and optionally add availability for it.",
+  "commands-create-light-module-description": "create a light module.",
+  "commands-create-page-description": "create a page template.",
+  "customize-local-config": "extract \"mgnl-cli-prototypes\" folder and \"mgnl-cli.json\" file to customize CLI configuration.",
+  "customise-local-config": "alias to customize-local-config",
+  "commands-install-description": "install a light module from npm to the local Magnolia instance.",
+  "commands-search-description": "search a light module.",
+  "commands-setup-description": "replaced by customize-local-config",
+  "commands-tab-completion-description": "install tab autocomplete feature for Bash, zsh or PowerShell"
 }
