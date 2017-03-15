@@ -23,7 +23,7 @@
   "mgnl-build--cmd-description": "Scan a node_modules folder for npm packages with the keyword \"magnolia-light-module\" (in package.json) and extract them to a directory of choice. This way you can point your Magnolia instance's resource dir to that particular folder.",
   "mgnl-build--cmd-option-node-modules-path": "The path to the node_modules folder to scan. If no path is provided, then the current directory is assumed to contain a folder \"node_modules\" which will be scanned for the modules with \"magnolia-light-module\" keyword.",
   "mgnl-build--cmd-option-path": "The path to the light modules root folder. If no path is provided, then the current directory is assumed to contain a \"light-modules\" root folder and the extraction will happen here.",
-
+  "mgnl-build--error-no-node-modules-dir": "Could not find node_modules folder. You can provide the path to a node_modules folder with --node-modules",
 
   "mgnl-create-component--cmd-option-description": "Creates a component. Optionally makes it available (or autogenerate) to a given area of a page of the current module (or the module defined by the -p option). E.g. mgnl create-component foo --available myHome@main -p /path/to/module",
   "mgnl-create-component--cmd-option-available": "The target page and area to make the component available. If no area is specified it defaults to \"main\"",
