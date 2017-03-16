@@ -9,7 +9,7 @@
     <img
       src='${imageLink!}'
       class='img-responsive'
-      alt='${image.caption!"image"}'>
+      alt='${content.caption!"image"}'>
   [/#if]
 
   [#if content.desc?has_content]
