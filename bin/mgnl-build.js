@@ -8,8 +8,8 @@ var build = require('@magnolia/magnolia-build')
 var helper = require('../lib/helper')
 
 const i18next = require('../lib/bootstrap.js')()
+const MgnlCliError = helper.MgnlCliError
 
-// TODO: change the usage text!!!
 program
   .version(packageJson.version)
   .name('mgnl build')
@@ -21,4 +21,15 @@ program
 var node_modules = program.nodeModules || 'node_modules'
 var lightModulesRoot = program.path || helper.defaultLightModulesRootName
 
-build(node_modules, lightModulesRoot)
+try {
+  build(node_modules, lightModulesRoot)
+} catch (e) {
+  if (e.code === 'ENOENT') {
+    throw new MgnlCliError(
+      i18next.t('mgnl-build--error-no-node-modules-dir'),
+      true
+    )
+  }
+
+  throw e
+}
