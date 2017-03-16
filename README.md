@@ -1,4 +1,4 @@
-# Magnolia Light Development CLI tool #
+# Magnolia Light Development CLI tool
 
 [![license](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 [![Build Status](https://jenkins.magnolia-cms.com/job/build_npm-cli/badge/icon)](https://jenkins.magnolia-cms.com/job/build_npm-cli/)
@@ -7,12 +7,12 @@ An npm package providing a CLI tool to setup and facilitate [Light development w
 For a complete reference of the npm-cli, please have a look at [Magnolia npm-cli documentation](https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI).
 
 
-## Installation ##
+## Installation
 Before installation make sure you have [Node.js](https://nodejs.org) installed (>= 6.0, recommended latest LTS version)
 
 Install the package **globally**
 
-#### Magnolia CLI 2.1.0 is out and available on npm public repository ####
+#### Magnolia CLI 2.1.0 is out and available on npm public repository
 
 `npm install @magnolia/cli -g` or
 
@@ -24,7 +24,7 @@ Alternatively you can checkout the latest code and simply install it from source
 
 
 
-## Commands ##
+## Commands
 To invoke a command, execute `mgnl <command> [options]` on your shell.
 
 To see what commands are available simply enter  `mgnl -h` (or `mgnl --help`)
@@ -43,7 +43,7 @@ search                   search a light module.
 tab-completion           install tab autocomplete feature for Bash, zsh or PowerShell
 help [cmd]               display help for [cmd]
 ```
-#### IMPORTANT ####
+#### IMPORTANT
 As of **version 2.1.0** two new commands have been added:
 
  - `search` which helps you to discover light modules on npm
@@ -68,7 +68,7 @@ E.g. `mgnl create-light-module -h` will output:
 ```
 
 
-## Shell autocompletion ##
+## Shell autocompletion
 This package provides a basic tab autocompletion feature for Bash, Z-Shell (zsh) and PowerShell.
 To enable it, simply run:
 
