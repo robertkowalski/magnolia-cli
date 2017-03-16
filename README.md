@@ -1,18 +1,18 @@
-# Magnolia Light Development CLI tool #
+# Magnolia Light Development CLI tool
 
 [![license](https://img.shields.io/badge/license-GPL%203.0-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 [![Build Status](https://jenkins.magnolia-cms.com/job/build_npm-cli/badge/icon)](https://jenkins.magnolia-cms.com/job/build_npm-cli/)
 
-An npm package providing a CLI tool to setup and facilitate [Light development with Magnolia](https://documentation.magnolia-cms.com/display/DOCS/Light+development+in+Magnolia).   
+An npm package providing a CLI tool to setup and facilitate [Light development with Magnolia](https://documentation.magnolia-cms.com/display/DOCS/Light+development+in+Magnolia).
 For a complete reference of the npm-cli, please have a look at [Magnolia npm-cli documentation](https://documentation.magnolia-cms.com/display/DOCS/Magnolia+CLI).
 
 
-## Installation ##
+## Installation
 Before installation make sure you have [Node.js](https://nodejs.org) installed (>= 6.0, recommended latest LTS version)
 
 Install the package **globally**
 
-#### Magnolia CLI 2.0 is out and available on npm public repository ####
+#### Magnolia CLI 2.1.0 is out and available on npm public repository
 
 `npm install @magnolia/cli -g` or
 
@@ -24,8 +24,8 @@ Alternatively you can checkout the latest code and simply install it from source
 
 
 
-## Commands ##
-To invoke a command, execute `mgnl <command> [options]` on your shell.      
+## Commands
+To invoke a command, execute `mgnl <command> [options]` on your shell.
 
 To see what commands are available simply enter  `mgnl -h` (or `mgnl --help`)
 
@@ -38,15 +38,22 @@ create-component         create a component and optionally add availability for 
 create-light-module      create a light module.
 create-page              create a page template.
 customize-local-config   extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to customize CLI configuration.
+install                  install a light module from npm to the local Magnolia instance.
+search                   search a light module.
 tab-completion           install tab autocomplete feature for Bash, zsh or PowerShell
 help [cmd]               display help for [cmd]
 ```
-#### IMPORTANT ####
+#### IMPORTANT
+As of **version 2.1.0** two new commands have been added:
+
+ - `search` which helps you to discover light modules on npm
+ - `install` to easily install a light module from the registry into your light modules folder
+
 As of **version 2.0** the `setup` command has been replaced with `customize-local-config` (or its alias `customise-local-config`, yes with an **s** instead of **z**) because we thought it was a better name :)
 
-To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.   
+To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.
 
-E.g. `mgnl create-light-module -h` will output:   
+E.g. `mgnl create-light-module -h` will output:
 
 ```
   Usage: mgnl-create-light-module <moduleName> [options]
@@ -57,11 +64,11 @@ E.g. `mgnl create-light-module -h` will output:
 
     -h, --help         output usage information
     -V, --version      output the version number
-    -p, --path <path>  The path to the light modules root folder. If no path is provided, then the current directory is assumed to be the light modules root folder and the module will be created here.   
+    -p, --path <path>  The path to the light modules root folder. If no path is provided, then the current directory is assumed to be the light modules root folder and the module will be created here.
 ```
 
 
-## Shell autocompletion ##
+## Shell autocompletion
 This package provides a basic tab autocompletion feature for Bash, Z-Shell (zsh) and PowerShell.
 To enable it, simply run:
 
