@@ -12,7 +12,7 @@ Before installation make sure you have [Node.js](https://nodejs.org) installed (
 
 Install the package **globally**
 
-#### Magnolia CLI 2.0 is out and available on npm public repository ####
+#### Magnolia CLI 2.1.0 is out and available on npm public repository ####
 
 `npm install @magnolia/cli -g` or
 
@@ -38,10 +38,17 @@ create-component         create a component and optionally add availability for 
 create-light-module      create a light module.
 create-page              create a page template.
 customize-local-config   extract "mgnl-cli-prototypes" folder and "mgnl-cli.json" file to customize CLI configuration.
+install                  install a light module from npm to the local Magnolia instance.
+search                   search a light module.
 tab-completion           install tab autocomplete feature for Bash, zsh or PowerShell
 help [cmd]               display help for [cmd]
 ```
 #### IMPORTANT ####
+As of **version 2.1.0** two new commands have been added:
+
+ - `search` which helps you to discover light modules on npm
+ - `install` to easily install a light module from the registry into your light modules folder
+
 As of **version 2.0** the `setup` command has been replaced with `customize-local-config` (or its alias `customise-local-config`, yes with an **s** instead of **z**) because we thought it was a better name :)
 
 To get help for any of the subcommands, simply enter `mgnl <subcommand> -h`.
