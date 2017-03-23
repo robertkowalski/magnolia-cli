@@ -5,6 +5,8 @@ describe('create-component', function () {
 
   var testHelper = require('./testHelper')
   var invokeAndVerify = testHelper.invokeAndVerify
+  const invokeMgnlSubcommand = testHelper.invokeMgnlSubcommand
+
   var shell = require('shelljs')
 
   var expect = require('chai').expect
@@ -151,6 +153,32 @@ describe('create-component', function () {
         done()
       }
     )
+  })
+
+  it('should support custom prototype names', (done) => {
+    fs.mkdirsSync('test/light-modules/mgnl-cli-prototypes')
+    fs.copySync(
+      path.join(__dirname, '../lib/config/mgnl-cli.json'),
+      'test/light-modules/mgnl-cli.json'
+    )
+
+    fs.mkdirsSync('test/light-modules/foo/rabbit')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/template.ftl', 'hi, my name is __name__')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/definition.yaml', '')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/dialog.yaml', '')
+
+    invokeMgnlSubcommand(
+      'create-component',
+      'furbie --prototype rabbit -p foo',
+      { cwd: 'test/light-modules' }
+    )
+
+    const template = path.join(__dirname, 'light-modules/foo/templates/components/furbie.ftl')
+    fs.readFile(template, (err, data) => {
+      if (err) throw err
+      expect(data.toString()).to.contain('hi, my name is furbie')
+      done()
+    })
   })
 
   it('should default to [main] area if none was specified', function (done) {

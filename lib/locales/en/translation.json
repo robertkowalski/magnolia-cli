@@ -29,6 +29,7 @@
   "mgnl-create-component--cmd-option-available": "The target page and area to make the component available. If no area is specified it defaults to \"main\"",
   "mgnl-create-component--cmd-option-autogenerate": "The target page and area to have the autogenerate component. If no area is specified it defaults to \"main\"",
   "mgnl-create-component--cmd-option-path": "The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the component will be tentatively created there.",
+  "mgnl-create-component--cmd-option-prototype": "The name of a custom prototype",
   "mgnl-create-component--error-component-already-exists": "{{componentName}} component template already exists at {{file}}",
   "mgnl-create-component--info-template-script-already-exists": "{{componentName}} template script already exists at [{{file}}]",
   "mgnl-create-component--info-dialog-already-exists": "{{dialogFile}} dialog already exists",
@@ -50,6 +51,7 @@
 
   "mgnl-create-page--cmd-option-description": "Creates a page template in a light module.",
   "mgnl-create-page--cmd-option-path": "The path to a light module. If no path is provided, then the current folder is assumed to be a light module and the page will be tentatively created there.",
+  "mgnl-create-page--cmd-option-prototype": "The name of a custom prototype",
   "mgnl-create-page--error-page-already-exists": "{{name}} page template already exists at {{file}}",
   "mgnl-create-page--info-template-script-already-exists": "{{file}} templateScript already exists",
   "mgnl-create-page--info-dialog-already-exists": "{{file}} dialog already exists",
