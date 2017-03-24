@@ -14,7 +14,7 @@ program
   .usage('<templateName> [options]')
   .description(i18next.t('mgnl-create-page--cmd-option-description'))
   .option('-p, --path <path>', i18next.t('mgnl-create-page--cmd-option-path'))
-  .option('-proto, --prototype <name>', i18next.t('mgnl-create-page--cmd-option-prototype'))
+  .option('-P, --prototype <name>', i18next.t('mgnl-create-page--cmd-option-prototype'))
   .parse(process.argv)
 
 var args = createPage.validateAndResolveArgs(program)

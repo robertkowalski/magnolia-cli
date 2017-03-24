@@ -27,7 +27,7 @@ program
   .option('-a, --available <path-to-page[@area]>', i18next.t('mgnl-create-component--cmd-option-available'), matchesPattern)
   .option('-g, --autogenerate <path-to-page[@area]>', i18next.t('mgnl-create-component--cmd-option-autogenerate'), matchesPattern)
   .option('-p, --path <path>', i18next.t('mgnl-create-component--cmd-option-path'))
-  .option('-proto, --prototype <name>', i18next.t('mgnl-create-component--cmd-option-prototype'))
+  .option('-P, --prototype <name>', i18next.t('mgnl-create-component--cmd-option-prototype'))
   .parse(process.argv)
 
 var args = createComponent.validateAndResolveArgs(program)
