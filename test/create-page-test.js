@@ -6,6 +6,7 @@ describe('create-page', function () {
   var testHelper = require('./testHelper')
   var invoke = testHelper.invoke
   var invokeAndVerify = testHelper.invokeAndVerify
+  const invokeMgnlSubcommand = testHelper.invokeMgnlSubcommand
 
   var shell = require('shelljs')
 
@@ -68,6 +69,32 @@ describe('create-page', function () {
         done()
       }
     )
+  })
+
+  it('create-page supports custom prototype names', (done) => {
+    fs.mkdirsSync('test/light-modules/mgnl-cli-prototypes')
+    fs.copySync(
+      path.join(__dirname, '../lib/config/mgnl-cli.json'),
+      'test/light-modules/mgnl-cli.json'
+    )
+
+    fs.mkdirsSync('test/light-modules/foo/rabbit')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/template.ftl', 'hola soy __name__')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/definition.yaml', '')
+    fs.outputFileSync('test/light-modules/mgnl-cli-prototypes/rabbit/dialog.yaml', '')
+
+    invokeMgnlSubcommand(
+      'create-page',
+      'furbie123 --prototype rabbit -p foo',
+      { cwd: 'test/light-modules' }
+    )
+
+    const template = path.join(__dirname, 'light-modules/foo/templates/pages/furbie123.ftl')
+    fs.readFile(template, (err, data) => {
+      if (err) throw err
+      expect(data.toString()).to.contain('hola soy furbie123')
+      done()
+    })
   })
 
   it('should build path for resfn correctly with module name prepended with slash', function (done) {
