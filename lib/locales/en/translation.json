@@ -175,7 +175,7 @@
   "mgnl-install--error-no-folder-found": "No light modules folder found. Use --path to specify it.",
   "mgnl-install--error-no-argument-given": "Please provide at least one light module name.",
 
-  "mgnl-search--cmd-description": "Searches light modules with given query.",
+  "mgnl-search--cmd-description": "Search for light modules on the npm repository with the provided query. Query can contain multiple terms separated with commas and no spaces. When no query is provided, returns a list of all light modules.",
   "mgnl-search--info-results-found": "{{count}} result found",
   "mgnl-search--info-results-found_plural": "{{count}} results found",
 
@@ -189,7 +189,7 @@
   "customize-local-config": "extract \"mgnl-cli-prototypes\" folder and \"mgnl-cli.json\" file to customize CLI configuration.",
   "customise-local-config": "alias to customize-local-config",
   "commands-install-description": "install a light module from npm to the local Magnolia instance.",
-  "commands-search-description": "search a light module.",
+  "commands-search-description": "search for a light module on npm.",
   "commands-setup-description": "replaced by customize-local-config",
   "commands-tab-completion-description": "install tab autocomplete feature for Bash, zsh or PowerShell"
 }
