@@ -15,7 +15,7 @@ if (!semver.satisfies(version, requiredVersion)) {
 require('../lib/handleErrors.js')
 
 var program = require('commander')
-var helper = require('../lib/helper')
+const helper = require('../lib/helper')
 var log = helper.logger
 var commands = require('../lib/commands').commands
 const customizableCommandNames = require('../lib/commands').getCustomizableCommandNames()
