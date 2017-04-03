@@ -18,8 +18,7 @@
     "dialogs_pages": "/dialogs/pages",
     "templates_components": "/templates/components",
     "templates_pages": "/templates/pages",
-    "css": "/webresources/css",
-    "js": "/webresources/js",
+    "webresources": "webresources",
     "decorations": "decorations",
     "i18n": "i18n"
   }
