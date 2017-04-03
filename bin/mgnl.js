@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict'
+
 // ES5 to run on older Node versions
 var semver = require('semver')
 var version = process.version.replace(/^v/, '')
