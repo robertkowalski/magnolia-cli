@@ -42,6 +42,12 @@ for (let i in commands) {
 // noHelp will register the command but won't show it when doing 'mgnl [--help]'
   program.command(i, commands[i].description, {noHelp: commands[i].noHelp})
 }
+
+program.on('--help', function () {
+  console.log(`  ${helper.getEnv()}`)
+  console.log()
+})
+
 program.parse(process.argv)
 
 if (!allCommandNames.includes(program.args[0])) {
