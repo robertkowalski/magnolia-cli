@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict'
+
 // ES5 to run on older Node versions
 var semver = require('semver')
 var version = process.version.replace(/^v/, '')
@@ -15,7 +17,7 @@ if (!semver.satisfies(version, requiredVersion)) {
 require('../lib/handleErrors.js')
 
 var program = require('commander')
-var helper = require('../lib/helper')
+const helper = require('../lib/helper')
 var log = helper.logger
 var commands = require('../lib/commands').commands
 const customizableCommandNames = require('../lib/commands').getCustomizableCommandNames()
@@ -42,6 +44,12 @@ for (let i in commands) {
 // noHelp will register the command but won't show it when doing 'mgnl [--help]'
   program.command(i, commands[i].description, {noHelp: commands[i].noHelp})
 }
+
+program.on('--help', function () {
+  console.log(`  ${helper.getEnv()}`)
+  console.log()
+})
+
 program.parse(process.argv)
 
 if (!allCommandNames.includes(program.args[0])) {
