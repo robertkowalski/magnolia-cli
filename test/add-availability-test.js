@@ -1,27 +1,27 @@
 /* eslint-env mocha */
 describe('add-availability', function () {
-  var fs = require('fs-extra')
-  var path = require('path')
+  const fs = require('fs-extra')
+  const path = require('path')
 
-  var testHelper = require('./testHelper')
-  var invokeAndVerify = testHelper.invokeAndVerify
-  var shell = require('shelljs')
+  const testHelper = require('./testHelper')
+  const invokeAndVerify = testHelper.invokeAndVerify
+  const shell = require('shelljs')
 
-  var expect = require('chai').expect
+  const expect = require('chai').expect
 
   beforeEach(function () {
-    var noAreaPage =
+    const noAreaPage =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       'templateScript: /foo/templates/pages/baz.ftl'
 
-    var pageWithAreas =
+    const pageWithAreas =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       'templateScript: /foo/templates/pages/baz.ftl\n' +
       'areas:\n' +
       '  fooArea:\n' +
       '    templateScript: /foo/templates/pages/baz.ftl'
 
-    var noAreaPageWithTaggedElement =
+    const noAreaPageWithTaggedElement =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       "includedFile: !include 'foo/bar'\n" +
       'templateScript: /foo/templates/pages/baz.ftl'
@@ -225,28 +225,28 @@ describe('add-availability', function () {
   })
 
   it('should fail with less than two args', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text')
+    const result = testHelper.invokeMgnlSubcommand('add-availability', 'text')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if path is non existent', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'components/text noAreaPage@main -p baz/bar')
+    const result = testHelper.invokeMgnlSubcommand('add-availability', 'components/text noAreaPage@main -p baz/bar')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if area argument is malformed', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@ -p test/light-modules/foo')
+    const result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@ -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if light module is not a valid one', function () {
     fs.mkdirsSync('test/light-modules/bogus/meh')
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@main -p test/light-modules/bogus')
+    const result = testHelper.invokeMgnlSubcommand('add-availability', 'text noAreaPage@main -p test/light-modules/bogus')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail gracefully if page is empty', function () {
-    var result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage -p test/light-modules/quux')
+    const result = testHelper.invokeMgnlSubcommand('add-availability', 'text emptyPage -p test/light-modules/quux')
     expect(result.stderr.toString()).to.contain('page definition seems to be empty')
   })
 })

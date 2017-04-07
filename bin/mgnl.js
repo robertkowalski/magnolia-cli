@@ -3,11 +3,11 @@
 'use strict'
 
 // ES5 to run on older Node versions
-var semver = require('semver')
-var version = process.version.replace(/^v/, '')
-var packageJson = require('../package.json')
+const semver = require('semver')
+const version = process.version.replace(/^v/, '')
+const packageJson = require('../package.json')
 
-var requiredVersion = packageJson.engines.node
+const requiredVersion = packageJson.engines.node
 if (!semver.satisfies(version, requiredVersion)) {
   console.error('[Error]', 'mgnl requires Node version', requiredVersion, '.')
   console.error('Please install the latest Node LTS from https://nodejs.org')
@@ -16,10 +16,10 @@ if (!semver.satisfies(version, requiredVersion)) {
 
 require('../lib/handleErrors.js')
 
-var program = require('commander')
+const program = require('commander')
 const helper = require('../lib/helper')
-var log = helper.logger
-var commands = require('../lib/commands').commands
+const log = helper.logger
+const commands = require('../lib/commands').commands
 const customizableCommandNames = require('../lib/commands').getCustomizableCommandNames()
 const allCommandNames = require('../lib/commands').getAllCommandNames()
 const i18next = require('../lib/bootstrap.js')()

@@ -1,18 +1,18 @@
 /* eslint-env mocha */
 
-var expect = require('chai').expect
-var path = require('path')
-var fs = require('fs')
-var fse = require('fs-extra')
+const expect = require('chai').expect
+const path = require('path')
+const fs = require('fs')
+const fse = require('fs-extra')
 
-var templates = require('../lib/templates.js')
+const templates = require('../lib/templates.js')
 
 describe('templates', function () {
   describe('renderTemplate', function () {
     it('should replace multiple, equal tokens', function () {
-      var template = '__a__ __b__ foo __a__ _b __b__'
+      const template = '__a__ __b__ foo __a__ _b __b__'
 
-      var result = templates.renderTemplate(template, {
+      const result = templates.renderTemplate(template, {
         '__a__': 'cheese',
         '__b__': 'burrito'
       })
@@ -22,7 +22,7 @@ describe('templates', function () {
   })
 
   describe('writeTemplate', function () {
-    var fixturesDir = path.join(__dirname, 'tmp')
+    const fixturesDir = path.join(__dirname, 'tmp')
 
     beforeEach(function () {
       fse.mkdir(fixturesDir)
@@ -33,13 +33,13 @@ describe('templates', function () {
     })
 
     it('should write rendered templates', function (done) {
-      var template = path.join(__dirname, 'resources', 'README.md.tpl')
-      var tokens = {
+      const template = path.join(__dirname, 'resources', 'README.md.tpl')
+      const tokens = {
         '__food__': 'cheese',
         '__fruit__': 'apple'
       }
 
-      var target = path.join(fixturesDir, 'README.md')
+      const target = path.join(fixturesDir, 'README.md')
 
       templates.writeTemplate(template, target, tokens, function (err) {
         if (err) return done(err)

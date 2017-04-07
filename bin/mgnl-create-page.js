@@ -2,10 +2,10 @@
 
 require('../lib/handleErrors.js')
 
-var program = require('../lib/commander_shimmed.js')
+const program = require('../lib/commander_shimmed.js')
 
-var createPage = require('../lib/createPage.js')
-var packageJson = require('../package.json')
+const createPage = require('../lib/createPage.js')
+const packageJson = require('../package.json')
 const i18next = require('../lib/bootstrap.js')()
 
 program
@@ -17,5 +17,5 @@ program
   .option('-P, --prototype <name>', i18next.t('mgnl-create-page--cmd-option-prototype'))
   .parse(process.argv)
 
-var args = createPage.validateAndResolveArgs(program)
+const args = createPage.validateAndResolveArgs(program)
 createPage.create(args)

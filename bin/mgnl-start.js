@@ -2,18 +2,18 @@
 
 require('../lib/handleErrors.js')
 
-var packageJson = require('../package.json')
-var path = require('path')
+const packageJson = require('../package.json')
+const path = require('path')
 const helper = require('../lib/helper.js')
-var MgnlCliError = helper.MgnlCliError
-var program = require('../lib/commander_shimmed.js')
-var spawn = require('child_process').spawn
+const MgnlCliError = helper.MgnlCliError
+const program = require('../lib/commander_shimmed.js')
+const spawn = require('child_process').spawn
 const execFile = require('child_process').execFile
 const log = helper.logger
 const findTomcat = helper.findTomcat
-var os = require('os')
-var fs = require('fs')
-var until = require('async').until
+const os = require('os')
+const fs = require('fs')
+const until = require('async').until
 const i18next = require('../lib/bootstrap.js')()
 
 program
@@ -35,7 +35,7 @@ if (apacheTomcatFolder) {
 }
 
 function startUpMagnolia (apacheTomcatFolder) {
-  var magnoliaControl = path.join(apacheTomcatFolder, 'bin', os.platform() === 'win32' ? 'magnolia_control.bat' : 'magnolia_control.sh')
+  const magnoliaControl = path.join(apacheTomcatFolder, 'bin', os.platform() === 'win32' ? 'magnolia_control.bat' : 'magnolia_control.sh')
 
   if (!fs.existsSync(magnoliaControl)) {
     throw new MgnlCliError(
@@ -46,7 +46,7 @@ function startUpMagnolia (apacheTomcatFolder) {
       true
     )
   }
-  var ignoreOpenFilesLimit = program.dontIgnoreOpenFilesCheck ? '' : '--ignore-open-files-limit'
+  const ignoreOpenFilesLimit = program.dontIgnoreOpenFilesCheck ? '' : '--ignore-open-files-limit'
   // on Windows we need to change the cwd of the spawned process or the Tomcat scripts won't be able to resolve CATALINA_HOME env variable
   execFile(magnoliaControl, ['start', ignoreOpenFilesLimit], {stdio: 'inherit', cwd: path.join(apacheTomcatFolder, 'bin')})
 
@@ -59,7 +59,7 @@ function startUpMagnolia (apacheTomcatFolder) {
 
   if (os.platform() !== 'win32') {
     var tail
-    var catalinaOut = path.join(apacheTomcatFolder, 'logs', 'catalina.out')
+    const catalinaOut = path.join(apacheTomcatFolder, 'logs', 'catalina.out')
     // catalina.out may not have been created yet
     until(
         function () {
@@ -77,7 +77,7 @@ function startUpMagnolia (apacheTomcatFolder) {
   }
   // on Windows process.on('SIGINT', ..) apparently doesn't work (in all cases), so here's a workaround
   if (os.platform() === 'win32') {
-    var rl = require('readline').createInterface({
+    const rl = require('readline').createInterface({
       input: process.stdin,
       output: process.stdout
     })

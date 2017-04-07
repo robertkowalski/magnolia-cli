@@ -1,12 +1,12 @@
 /* eslint-env mocha */
 
-var expect = require('chai').expect
-var commands = require('../lib/commands.js')
+const expect = require('chai').expect
+const commands = require('../lib/commands.js')
 
 describe('commands', function () {
   describe('getCustomizableCommandNames', function () {
     it('should return customizable command names only', function () {
-      var result = commands.getCustomizableCommandNames()
+      const result = commands.getCustomizableCommandNames()
 
       expect(result).to.contain('jumpstart', 'create-page', 'create-component', 'create-light-module')
     })
@@ -14,7 +14,7 @@ describe('commands', function () {
 
   describe('getAllCommandNames', function () {
     it('should return all command names', function () {
-      var result = commands.getAllCommandNames()
+      const result = commands.getAllCommandNames()
 
       expect(result).to.contain(
         'jumpstart',

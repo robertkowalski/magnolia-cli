@@ -1,8 +1,8 @@
 /* eslint-env mocha */
 
-var expect = require('chai').expect
-var searchFunction = require('../lib/searchLightModule.js')
-var nock = require('nock')
+const expect = require('chai').expect
+const searchFunction = require('../lib/searchLightModule.js')
+const nock = require('nock')
 
 describe('search function unit test', function () {
   it('should find 1 result', function (done) {
