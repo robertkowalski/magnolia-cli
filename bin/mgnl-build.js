@@ -18,11 +18,11 @@ program
   .option('-p, --path <path>', i18next.t('mgnl-build--cmd-option-path'))
   .parse(process.argv)
 
-var node_modules = program.nodeModules || 'node_modules'
+var nodeModules = program.nodeModules || 'node_modules'
 var lightModulesRoot = program.path || helper.defaultLightModulesRootName
 
 try {
-  build(node_modules, lightModulesRoot)
+  build(nodeModules, lightModulesRoot)
 } catch (e) {
   if (e.code === 'ENOENT') {
     throw new MgnlCliError(

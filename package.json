@@ -63,6 +63,6 @@
     "npm-registry-mock": "^1.1.0",
     "shelljs": "^0.7.2",
     "should": "^8.4.0",
-    "standard": "^6.0.8"
+    "standard": "^7.0.0"
   }
 }
