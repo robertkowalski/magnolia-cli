@@ -124,7 +124,7 @@ describe('create-light-module', function () {
       const result = testHelper.invokeMgnlSubcommand('create-light-module', 'apple -p test/light-modules')
 
       expect(result.stdout.toString())
-        .to.contain('In order to add a page, run mgnl create-page $YOUR_PAGE_NAME -p')
+        .to.contain('In order to add a page template, run mgnl create-page $YOUR_PAGE_NAME -p')
     })
 
     function checkExpectations (lightModulesbasedir) {
