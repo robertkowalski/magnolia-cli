@@ -46,7 +46,7 @@
   "mgnl-create-light-module--info-no-path": "'No path option provided, light module will be created in the current folder.'",
   "mgnl-create-light-module--i18n-fileheader": "# Please, see https://documentation.magnolia-cms.com/display/DOCS/Internationalization",
   "mgnl-create-light-module--info-module-created": "Module {{name}} created at {{path}}",
-  "mgnl-create-light-module--info-success": "Success! In order to add a page, run {{cmd}}",
+  "mgnl-create-light-module--info-success": "Success! In order to add a page template, run {{cmd}}",
 
 
   "mgnl-create-page--cmd-option-description": "Creates a page template in a light module.",
