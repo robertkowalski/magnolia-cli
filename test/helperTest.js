@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 describe('helper', function () {
-  var helper = require('../lib/helper')
-  var expect = require('chai').expect
+  const helper = require('../lib/helper')
+  const expect = require('chai').expect
   const fs = require('fs-extra')
-  var path = require('path')
-  var shell = require('shelljs')
+  const path = require('path')
+  const shell = require('shelljs')
 
   const testHelper = require('./testHelper')
   const os = require('os')
@@ -49,32 +49,32 @@ describe('helper', function () {
 
   describe('#parseDefinitionReference()', function () {
     it("should add default 'components/' part to component path if not specified", function () {
-      var res = helper.parseDefinitionReference('text', 'foo')
+      const res = helper.parseDefinitionReference('text', 'foo')
       expect(res.path).to.be.equal('components/text')
     })
 
     it('should keep component path if specified', function () {
-      var res = helper.parseDefinitionReference('meh/text', 'foo')
+      const res = helper.parseDefinitionReference('meh/text', 'foo')
       expect(res.path).to.be.equal('meh/text')
     })
 
     it("should add default 'pages/' part to target page path if not specified", function () {
-      var res = helper.parseDefinitionReference('hello@baz', 'foo')
+      const res = helper.parseDefinitionReference('hello@baz', 'foo')
       expect(res.path).to.be.equal('pages/hello')
     })
 
     it("should add default 'components/' and module name parts to component refId if not specified", function () {
-      var res = helper.parseDefinitionReference('baz:text', 'foo')
+      const res = helper.parseDefinitionReference('baz:text', 'foo')
       expect(res.refId).to.be.equal('baz:components/text')
     })
 
     it('should keep complete component refId as is', function () {
-      var res = helper.parseDefinitionReference('baz:meh/text', 'foo')
+      const res = helper.parseDefinitionReference('baz:meh/text', 'foo')
       expect(res.refId).to.be.equal('baz:meh/text')
     })
 
     it('should parse an id containing the dash character', function () {
-      var res = helper.parseDefinitionReference('qux-bar:components/text', 'foo')
+      let res = helper.parseDefinitionReference('qux-bar:components/text', 'foo')
       expect(res.refId).to.be.equal('qux-bar:components/text')
       expect(res.name).to.be.equal('text')
 
@@ -88,7 +88,7 @@ describe('helper', function () {
     })
 
     it('should match an id containing the dash character', function () {
-      var res = helper.matchesDefinitionReferenceWithAreaPattern('meh/baz-bar@some-area', 'foo')
+      let res = helper.matchesDefinitionReferenceWithAreaPattern('meh/baz-bar@some-area', 'foo')
       expect(res).not.to.be.null
 
       res = helper.matchesDefinitionReferenceWithoutAreaPattern('meh/baz-bar', 'foo')
@@ -110,19 +110,19 @@ describe('helper', function () {
     })
 
     it('should return default mgnl-cli.json if no mgnl-cli.json is found', function () {
-      var configJson = require(helper.resolveMgnlCliJsonPath())
+      const configJson = require(helper.resolveMgnlCliJsonPath())
       expect(configJson.setupMagnolia.tomcatFolder).to.be.equal('apache-tomcat')
     })
 
     it('should return custom mgnl-cli.json if mgnl-cli.json is found', function () {
       testHelper.invokeMgnlSubcommand('customize-local-config', '-p test/destination')
 
-      var customPackageJson = require(path.resolve('test/destination/mgnl-cli.json'))
+      const customPackageJson = require(path.resolve('test/destination/mgnl-cli.json'))
       customPackageJson.setupMagnolia.tomcatFolder = 'foobar'
 
       shell.cd('test/destination')
 
-      var configJson = require(helper.resolveMgnlCliJsonPath())
+      const configJson = require(helper.resolveMgnlCliJsonPath())
       expect(configJson.setupMagnolia.tomcatFolder).to.be.equal('foobar')
 
       shell.cd('../../')
@@ -130,7 +130,7 @@ describe('helper', function () {
   })
 
   describe('#MgnlCliError', function () {
-    var MgnlCliError = helper.MgnlCliError
+    const MgnlCliError = helper.MgnlCliError
 
     it('allows usage without new keyword', function () {
       try {
@@ -142,8 +142,8 @@ describe('helper', function () {
   })
 
   describe('#getModuleName', function () {
-    var getModuleName = helper.getModuleName
-    var ret = null
+    const getModuleName = helper.getModuleName
+    let ret = null
 
     if (process.platform === 'win32') {
       it('should get the name on win', function () {
@@ -164,8 +164,8 @@ describe('helper', function () {
   })
 
   describe('#stripLastSep', function () {
-    var stripLastSep = helper.stripLastSep
-    var ret = null
+    const stripLastSep = helper.stripLastSep
+    let ret = null
 
     if (process.platform === 'win32') {
       it('should strip last separator on win', function () {
@@ -185,8 +185,8 @@ describe('helper', function () {
   })
 
   describe('#createDefinitionTemplatePath', function () {
-    var createDefinitionTemplatePath = helper.createDefinitionTemplatePath
-    var ret = null
+    const createDefinitionTemplatePath = helper.createDefinitionTemplatePath
+    let ret = null
 
     it('should create template path for definition', function () {
       ret = createDefinitionTemplatePath('foo/', '///bar', 'baz')
@@ -204,7 +204,7 @@ describe('helper', function () {
     })
 
     it('should return default mgnl-cli-prototypes if no custom one is found', function () {
-      var prototypes = helper.resolveMgnlCliPrototypesPath()
+      const prototypes = helper.resolveMgnlCliPrototypesPath()
       fs.readFile(path.join(prototypes, '/page/definition.yaml'), 'utf-8', function (err, data) {
         if (err) throw err
         expect(data).not.to.contain('hello there!')
@@ -217,7 +217,7 @@ describe('helper', function () {
 
       fs.writeFileSync('mgnl-cli-prototypes/page/definition.yaml', 'hello there!', 'utf-8')
 
-      var prototypes = helper.resolveMgnlCliPrototypesPath()
+      const prototypes = helper.resolveMgnlCliPrototypesPath()
       fs.readFile(path.join(prototypes, '/page/definition.yaml'), 'utf-8', function (err, data) {
         if (err) throw err
         expect(data).to.contain('hello there!')

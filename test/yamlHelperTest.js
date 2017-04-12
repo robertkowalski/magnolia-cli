@@ -4,7 +4,7 @@ describe('yamlHelper', function () {
   const expect = require('chai').expect
 
   it('should support Magnolia-specific !include directive', function () {
-    var data =
+    let data =
     `form:
       label: Example page properties
       tabs:
@@ -47,7 +47,7 @@ describe('yamlHelper', function () {
       '    templateScript: /foo/templates/pages/baz.ftl'
 
     yamlHelper.create(data)
-    var componentAvailability = {}
+    const componentAvailability = {}
     componentAvailability['comp'] = {id: 'quux:components/comp'}
     yamlHelper.injectSnippetAt(componentAvailability, '/areas/fooArea/availableComponents')
 
@@ -86,7 +86,7 @@ describe('yamlHelper', function () {
       '        id: foo:components/qux\n'
 
     yamlHelper.create(data)
-    var componentAvailability = {}
+    const componentAvailability = {}
     componentAvailability['comp'] = {id: 'foo:components/comp'}
     yamlHelper.injectSnippetAt(componentAvailability, '/areas/bazArea/availableComponents')
 

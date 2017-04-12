@@ -1,14 +1,14 @@
 /* eslint-env mocha */
 describe('jumpstart', function () {
-  var downloadMagnolia = require('../lib/downloadMagnolia.js')
-  var extractMagnolia = require('../lib/extractMagnolia.js')
-  var jumpstart = require('../lib/jumpstart.js')
-  var testHelper = require('./testHelper')
+  const downloadMagnolia = require('../lib/downloadMagnolia.js')
+  const extractMagnolia = require('../lib/extractMagnolia.js')
+  const jumpstart = require('../lib/jumpstart.js')
+  const testHelper = require('./testHelper')
 
-  var fs = require('fs-extra')
-  var expect = require('chai').expect
-  var shell = require('shelljs')
-  var path = require('path')
+  const fs = require('fs-extra')
+  const expect = require('chai').expect
+  const shell = require('shelljs')
+  const path = require('path')
 
   beforeEach(function () {
     fs.mkdir('test/destination')
@@ -20,7 +20,7 @@ describe('jumpstart', function () {
   })
 
   it('should not download if magnolia-test.zip already exists', function () {
-    var creds = {username: '', password: ''}
+    const creds = {username: '', password: ''}
 
     downloadMagnolia.download('test/resources/', 'magnolia-test.zip', creds, function () {
       expect(fs.existsSync('test/resources/magnolia-test.zip')).to.be.true
@@ -50,14 +50,14 @@ describe('jumpstart', function () {
   }).timeout(10000)
 
   it('should print the next steps, even with no additional jars for download.', function () {
-    var config = require('../lib/config/mgnl-cli.json')
+    const config = require('../lib/config/mgnl-cli.json')
     expect(Object.keys(config.setupMagnolia.downloadJars).length).to.equal(0)
 
     // WHEN
-    var wd = path.join(process.cwd(), 'test/destination')
+    const wd = path.join(process.cwd(), 'test/destination')
     shell.cd(wd)
 
-    var result = testHelper.invokeMgnlSubcommand('jumpstart', 'test/destination')
+    const result = testHelper.invokeMgnlSubcommand('jumpstart', 'test/destination')
 
     // THEN
     expect(result.stdout.toString()).to.contain('Magnolia will be ready after')
@@ -67,11 +67,11 @@ describe('jumpstart', function () {
   it('should create the sample light-module if -i option is given', function () {
     // WHEN
     shell.cd('test/destination')
-    var lightModuleName = 'my-module'
+    const lightModuleName = 'my-module'
     testHelper.invokeMgnlSubcommand('jumpstart', '-i ' + lightModuleName)
 
     // THEN
-    var lightModulesSubDirs = fs.readdirSync('light-modules')
+    const lightModulesSubDirs = fs.readdirSync('light-modules')
     expect(fs.existsSync('apache-tomcat')).to.be.true
     expect(fs.existsSync('light-modules')).to.be.true
     expect(lightModulesSubDirs.length === 1).to.be.true
@@ -82,7 +82,7 @@ describe('jumpstart', function () {
 
   it('should fail if no credentials are provided to download an EE bundle', function () {
     // GIVEN
-    var dummyProgram = {
+    const dummyProgram = {
       enterpriseEdition: [],
       outputHelp: function () {}
     }
@@ -95,11 +95,11 @@ describe('jumpstart', function () {
 
   it('should not fail if credentials are provided to download an EE bundle', function () {
     // GIVEN
-    var dummyProgram = {
+    const dummyProgram = {
       enterpriseEdition: []
     }
 
-    var dummyCredentials = {
+    const dummyCredentials = {
       username: 'foo',
       password: 'bar',
       type: 'Baz'
@@ -113,7 +113,7 @@ describe('jumpstart', function () {
 
   it('should not require credentials to download a CE bundle', function () {
     // GIVEN
-    var dummyProgram = {
+    const dummyProgram = {
     }
 
     // WHEN THEN

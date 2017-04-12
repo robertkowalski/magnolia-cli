@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 describe('start', function () {
-  var fs = require('fs-extra')
+  const fs = require('fs-extra')
 
-  var testHelper = require('./testHelper')
+  const testHelper = require('./testHelper')
 
-  var expect = require('chai').expect
+  const expect = require('chai').expect
 
   beforeEach(function () {
     fs.mkdirsSync('test/destination/apache-tomcat')
@@ -15,7 +15,7 @@ describe('start', function () {
   })
 
   it('should fail if apache-tomcat folder is not a valid one', function () {
-    var result = testHelper.invokeMgnlSubcommand('start', '-p test/destination')
+    const result = testHelper.invokeMgnlSubcommand('start', '-p test/destination')
 
     expect(result.stderr.toString()).to.contain('magnolia_control.sh does not exist')
   })

@@ -2,10 +2,10 @@
 
 require('../lib/handleErrors.js')
 
-var packageJson = require('../package.json')
-var program = require('../lib/commander_shimmed.js')
-var build = require('@magnolia/magnolia-build')
-var helper = require('../lib/helper')
+const packageJson = require('../package.json')
+const program = require('../lib/commander_shimmed.js')
+const build = require('@magnolia/magnolia-build')
+const helper = require('../lib/helper')
 
 const i18next = require('../lib/bootstrap.js')()
 const MgnlCliError = helper.MgnlCliError
@@ -18,11 +18,11 @@ program
   .option('-p, --path <path>', i18next.t('mgnl-build--cmd-option-path'))
   .parse(process.argv)
 
-var node_modules = program.nodeModules || 'node_modules'
-var lightModulesRoot = program.path || helper.defaultLightModulesRootName
+const nodeModules = program.nodeModules || 'node_modules'
+const lightModulesRoot = program.path || helper.defaultLightModulesRootName
 
 try {
-  build(node_modules, lightModulesRoot)
+  build(nodeModules, lightModulesRoot)
 } catch (e) {
   if (e.code === 'ENOENT') {
     throw new MgnlCliError(

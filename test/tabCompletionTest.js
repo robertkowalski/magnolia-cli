@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 
-var expect = require('chai').expect
+const expect = require('chai').expect
 
 const os = require('os')
 const path = require('path')
@@ -41,7 +41,7 @@ noSudoMockDirs[BASH_GLOBAL_DIR] = mockFs.directory({
   items: {}
 })
 
-var powershellInstalled = true
+let powershellInstalled = true
 mockRequire('command-exists', {
   sync: (command) =>
   command === 'powershell' ? powershellInstalled : originalCommandExistsSync(command)

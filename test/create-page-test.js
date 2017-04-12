@@ -1,16 +1,16 @@
 /* eslint-env mocha */
 describe('create-page', function () {
-  var fs = require('fs-extra')
-  var path = require('path')
+  const fs = require('fs-extra')
+  const path = require('path')
 
-  var testHelper = require('./testHelper')
-  var invoke = testHelper.invoke
-  var invokeAndVerify = testHelper.invokeAndVerify
+  const testHelper = require('./testHelper')
+  const invoke = testHelper.invoke
+  const invokeAndVerify = testHelper.invokeAndVerify
   const invokeMgnlSubcommand = testHelper.invokeMgnlSubcommand
 
-  var shell = require('shelljs')
+  const shell = require('shelljs')
 
-  var expect = require('chai').expect
+  const expect = require('chai').expect
 
   beforeEach(function () {
     // make dirs expected when validating module structure
@@ -25,14 +25,14 @@ describe('create-page', function () {
   })
 
   it('should create a page template', function (done) {
-    var basedir = invoke('create-page', 'myPage -p test/light-modules/foo')
+    const basedir = invoke('create-page', 'myPage -p test/light-modules/foo')
 
     checkExpectations(path.join(basedir, 'foo'), done)
   })
 
   it('should create a page template from inside a light module without passing a path option', function (done) {
     shell.cd('test/light-modules/foo')
-    var basedir = invoke('create-page', 'myPage', process.cwd())
+    const basedir = invoke('create-page', 'myPage', process.cwd())
 
     checkExpectations(basedir, done)
     shell.cd('../../../')
@@ -110,23 +110,23 @@ describe('create-page', function () {
   })
 
   it('should fail if no arg is passed', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-page', '')
+    const result = testHelper.invokeMgnlSubcommand('create-page', '')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if path is non existent', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-page', 'foo -p baz/bar')
+    const result = testHelper.invokeMgnlSubcommand('create-page', 'foo -p baz/bar')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if light module is not a valid one', function () {
     fs.mkdirsSync('test/light-modules/bogus/meh')
-    var result = testHelper.invokeMgnlSubcommand('create-page', 'foo -p test/light-modules/bogus')
+    const result = testHelper.invokeMgnlSubcommand('create-page', 'foo -p test/light-modules/bogus')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if page already exists', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-page', 'baz -p test/light-modules/foo')
+    let result = testHelper.invokeMgnlSubcommand('create-page', 'baz -p test/light-modules/foo')
     expect(result.stderr.toString()).to.be.empty
 
     result = testHelper.invokeMgnlSubcommand('create-page', 'baz -p test/light-modules/foo')
@@ -134,7 +134,7 @@ describe('create-page', function () {
   })
 
   it('should fail if page name contains slash', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-page', 'baz/bar -p test/light-modules/foo')
+    const result = testHelper.invokeMgnlSubcommand('create-page', 'baz/bar -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 

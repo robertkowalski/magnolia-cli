@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 require('../lib/handleErrors.js')
 
-var program = require('../lib/commander_shimmed.js')
-var searchLightModule = require('../lib/searchLightModule.js')
-var packageJson = require('../package.json')
-var helper = require('../lib/helper')
-var log = helper.logger
+const program = require('../lib/commander_shimmed.js')
+const searchLightModule = require('../lib/searchLightModule.js')
+const packageJson = require('../package.json')
+const helper = require('../lib/helper')
+const log = helper.logger
 const i18next = require('../lib/bootstrap.js')()
 
-var queryValue = ''
+let queryValue = ''
 
 program
     .version(packageJson.version)

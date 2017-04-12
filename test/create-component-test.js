@@ -1,29 +1,29 @@
 /* eslint-env mocha */
 describe('create-component', function () {
-  var fs = require('fs-extra')
-  var path = require('path')
+  const fs = require('fs-extra')
+  const path = require('path')
 
-  var testHelper = require('./testHelper')
-  var invokeAndVerify = testHelper.invokeAndVerify
+  const testHelper = require('./testHelper')
+  const invokeAndVerify = testHelper.invokeAndVerify
   const invokeMgnlSubcommand = testHelper.invokeMgnlSubcommand
 
-  var shell = require('shelljs')
+  const shell = require('shelljs')
 
-  var expect = require('chai').expect
+  const expect = require('chai').expect
 
   beforeEach(function () {
-    var emptyPage =
+    const emptyPage =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       'templateScript: /foo/templates/pages/baz.ftl'
 
-    var pageWithAreas =
+    const pageWithAreas =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       'templateScript: /foo/templates/pages/baz.ftl\n' +
       'areas:\n' +
       '  fooArea:\n' +
       '    templateScript: /foo/templates/pages/baz.ftl'
 
-    var emptyPageWithTaggedElement =
+    const emptyPageWithTaggedElement =
     'class: info.magnolia.templating.definition.PageTemplateDefinition\n' +
       "includedFile: !include 'foo/bar'\n" +
       'templateScript: /foo/templates/pages/baz.ftl'
@@ -63,7 +63,7 @@ describe('create-component', function () {
   })
 
   it('should create dialog definitions and files', function (done) {
-    var basedir = invokeAndVerify('create-component',
+    const basedir = invokeAndVerify('create-component',
       'text -p test/light-modules/foo/',
       '/foo/templates/components/text.yaml',
       function (data) {
@@ -231,33 +231,33 @@ describe('create-component', function () {
   })
 
   it('should fail with no arg', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', '')
+    const result = testHelper.invokeMgnlSubcommand('create-component', '')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if path is non existent', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@main -p baz/bar')
+    const result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@main -p baz/bar')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if area argument is malformed', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@ -p test/light-modules/foo')
+    const result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@ -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if light module is not a valid one', function () {
     fs.mkdirsSync('test/light-modules/bogus/meh')
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a pages/emptyPage@main -p test/light-modules/bogus')
+    const result = testHelper.invokeMgnlSubcommand('create-component', 'text -a pages/emptyPage@main -p test/light-modules/bogus')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if called with both available and autogenerate options', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@main -g emptyPage@main -p test/light-modules/foo')
+    const result = testHelper.invokeMgnlSubcommand('create-component', 'text -a emptyPage@main -g emptyPage@main -p test/light-modules/foo')
     expect(result.stderr.toString()).not.to.be.empty
   })
 
   it('should fail if component already exists', function () {
-    var result = testHelper.invokeMgnlSubcommand('create-component', 'text -p test/light-modules/foo')
+    let result = testHelper.invokeMgnlSubcommand('create-component', 'text -p test/light-modules/foo')
     expect(result.stderr.toString()).to.be.empty
 
     result = testHelper.invokeMgnlSubcommand('create-component', 'text -p test/light-modules/foo')

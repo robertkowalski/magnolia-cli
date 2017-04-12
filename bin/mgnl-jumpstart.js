@@ -2,11 +2,11 @@
 
 require('../lib/handleErrors.js')
 
-var jumpstart = require('../lib/jumpstart')
+const jumpstart = require('../lib/jumpstart')
 
-var program = require('../lib/commander_shimmed.js')
-var prompt = require('inquirer').prompt
-var until = require('async').until
+const program = require('../lib/commander_shimmed.js')
+const prompt = require('inquirer').prompt
+const until = require('async').until
 const i18next = require('../lib/bootstrap.js')()
 
 function setup (program, credentials) {

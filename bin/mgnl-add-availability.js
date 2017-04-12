@@ -3,10 +3,10 @@
 require('../lib/handleErrors.js')
 const i18next = require('../lib/bootstrap.js')()
 
-var program = require('../lib/commander_shimmed.js')
-var addAvailability = require('../lib/addAvailability.js')
+const program = require('../lib/commander_shimmed.js')
+const addAvailability = require('../lib/addAvailability.js')
 
-var packageJson = require('../package.json')
+const packageJson = require('../package.json')
 
 program
   .version(packageJson.version)
@@ -17,5 +17,5 @@ program
   .option('-p, --path <path>', i18next.t('mgnl-add-availability--cmd-option-path'))
   .parse(process.argv)
 
-var args = addAvailability.validateAndResolveArgs(program)
+const args = addAvailability.validateAndResolveArgs(program)
 addAvailability.add(args)

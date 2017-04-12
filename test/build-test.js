@@ -1,11 +1,11 @@
 /* eslint-env mocha */
 describe('build', function () {
-  var fs = require('fs-extra')
+  const fs = require('fs-extra')
 
-  var testHelper = require('./testHelper')
-  var shell = require('shelljs')
+  const testHelper = require('./testHelper')
+  const shell = require('shelljs')
 
-  var expect = require('chai').expect
+  const expect = require('chai').expect
 
   beforeEach(function () {
     fs.mkdirsSync('test/destination/node_modules')
@@ -60,7 +60,7 @@ describe('build', function () {
   })
 
   function invoke (subcommand, argv) {
-    var result = testHelper.invokeMgnlSubcommand(subcommand, argv)
+    const result = testHelper.invokeMgnlSubcommand(subcommand, argv)
     // always convert to string as stderr may also be a buffer and then the assertion message would be unreadable
     expect(result.stderr.toString()).to.be.empty
   }

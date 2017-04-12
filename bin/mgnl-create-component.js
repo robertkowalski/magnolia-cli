@@ -2,16 +2,16 @@
 
 require('../lib/handleErrors.js')
 
-var program = require('../lib/commander_shimmed.js')
-var createComponent = require('../lib/createComponent.js')
-var helper = require('../lib/helper')
-var log = helper.logger
+const program = require('../lib/commander_shimmed.js')
+const createComponent = require('../lib/createComponent.js')
+const helper = require('../lib/helper')
+const log = helper.logger
 
-var packageJson = require('../package.json')
+const packageJson = require('../package.json')
 
 const i18next = require('../lib/bootstrap.js')()
 
-var matchesPattern = function (val) {
+const matchesPattern = function (val) {
   if (helper.matchesDefinitionReferenceWithAreaPattern(val) || helper.matchesDefinitionReferenceWithoutAreaPattern(val)) {
     return val
   }
@@ -30,5 +30,5 @@ program
   .option('-P, --prototype <name>', i18next.t('mgnl-create-component--cmd-option-prototype'))
   .parse(process.argv)
 
-var args = createComponent.validateAndResolveArgs(program)
+const args = createComponent.validateAndResolveArgs(program)
 createComponent.create(args)

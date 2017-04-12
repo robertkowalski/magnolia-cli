@@ -2,11 +2,11 @@
 
 require('../lib/handleErrors.js')
 
-var packageJson = require('../package.json')
-var program = require('../lib/commander_shimmed.js')
-var log = require('../lib/helper').logger
-var fs = require('fs-extra')
-var path = require('path')
+const packageJson = require('../package.json')
+const program = require('../lib/commander_shimmed.js')
+const log = require('../lib/helper').logger
+const fs = require('fs-extra')
+const path = require('path')
 const i18next = require('../lib/bootstrap.js')()
 
 program
@@ -40,13 +40,13 @@ function extractCLIConfig (location) {
     )
   )
 
-  var prototypesFolder = path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
-  var pathToExtractedPrototypes = path.join(location, 'mgnl-cli-prototypes')
-  var configJsonPath = path.resolve(__dirname, '../lib/config/mgnl-cli.json')
-  var pathToExtractedJson = path.join(location, 'mgnl-cli.json')
+  const prototypesFolder = path.resolve(__dirname, '../lib/config/mgnl-cli-prototypes')
+  const pathToExtractedPrototypes = path.join(location, 'mgnl-cli-prototypes')
+  const configJsonPath = path.resolve(__dirname, '../lib/config/mgnl-cli.json')
+  const pathToExtractedJson = path.join(location, 'mgnl-cli.json')
 
   // don't overwrite existing files
-  var options = {clobber: false}
+  const options = {clobber: false}
   fs.copy(prototypesFolder, pathToExtractedPrototypes, options, function (err) {
     if (err) {
       log.error(err)

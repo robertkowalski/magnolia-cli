@@ -1,15 +1,15 @@
 /* eslint-env mocha */
 describe('create-light-module', function () {
-  var fs = require('fs-extra')
-  var path = require('path')
-  var Promise = require('bluebird')
+  const fs = require('fs-extra')
+  const path = require('path')
+  const Promise = require('bluebird')
 
-  var testHelper = require('./testHelper')
-  var invoke = testHelper.invoke
-  var shell = require('shelljs')
-  var expect = require('chai').expect
+  const testHelper = require('./testHelper')
+  const invoke = testHelper.invoke
+  const shell = require('shelljs')
+  const expect = require('chai').expect
 
-  var createLightModule = require('../lib/createLightModule.js')
+  const createLightModule = require('../lib/createLightModule.js')
 
   const mockFs = require('mock-fs')
 
@@ -24,7 +24,7 @@ describe('create-light-module', function () {
       fs.removeSync('test/light-modules/footestcase/blerg')
     })
 
-    var config = {
+    const config = {
       lightDevFoldersInModule: {
         i18n: 'blerg'
       }
@@ -34,8 +34,8 @@ describe('create-light-module', function () {
       return createLightModule
         .createI18nProperties('test/light-modules/', 'footestcase', config)
         .then(function () {
-          var readFile = Promise.promisify(fs.readFile)
-          var propFile = path.join(
+          const readFile = Promise.promisify(fs.readFile)
+          const propFile = path.join(
             __dirname,
             'light-modules/footestcase/blerg/footestcase-messages_en.properties'
           )
@@ -86,18 +86,18 @@ describe('create-light-module', function () {
     })
 
     it('should create a light module', function () {
-      var lightModulesbasedir = invoke('create-light-module', 'foo -p test/light-modules')
+      const lightModulesbasedir = invoke('create-light-module', 'foo -p test/light-modules')
       checkExpectations(lightModulesbasedir)
     })
 
     it('should create a light module passing an absolute path option', function () {
-      var lightModulesbasedir = invoke('create-light-module', 'foo -p ' + path.join(process.cwd(), 'test/light-modules'))
+      const lightModulesbasedir = invoke('create-light-module', 'foo -p ' + path.join(process.cwd(), 'test/light-modules'))
       checkExpectations(lightModulesbasedir)
     })
 
     it('should create a light module in the current dir without passing a path option', function () {
       shell.cd('test/light-modules')
-      var lightModulesbasedir = invoke('create-light-module', 'foo', process.cwd())
+      const lightModulesbasedir = invoke('create-light-module', 'foo', process.cwd())
       checkExpectations(lightModulesbasedir)
       shell.cd('../../')
     })
@@ -110,7 +110,7 @@ describe('create-light-module', function () {
     })
 
     it('should fail if path is non existent', function () {
-      var result = testHelper.invokeMgnlSubcommand('create-light-module', 'foo -p baz/bar')
+      const result = testHelper.invokeMgnlSubcommand('create-light-module', 'foo -p baz/bar')
       expect(result.stderr.toString()).not.to.be.empty
     })
 
@@ -121,7 +121,7 @@ describe('create-light-module', function () {
     })
 
     it('prints help how to continue', function () {
-      var result = testHelper.invokeMgnlSubcommand('create-light-module', 'apple -p test/light-modules')
+      const result = testHelper.invokeMgnlSubcommand('create-light-module', 'apple -p test/light-modules')
 
       expect(result.stdout.toString())
         .to.contain('In order to add a page, run mgnl create-page $YOUR_PAGE_NAME -p')
