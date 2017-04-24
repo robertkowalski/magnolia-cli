@@ -97,14 +97,14 @@ describe('create-light-module', function () {
 
     it('should create a light module in the current dir without passing a path option', function () {
       shell.cd('test/light-modules')
-      const lightModulesbasedir = invoke('create-light-module', 'foo', process.cwd())
+      const lightModulesbasedir = invoke('create-light-module', 'foo -f', process.cwd())
       checkExpectations(lightModulesbasedir)
       shell.cd('../../')
     })
 
     it('should create a light module in the same folder if no arg is passed', function () {
       shell.cd('test/light-modules')
-      testHelper.invoke('create-light-module', '', 'test/light-modules')
+      invoke('create-light-module', '-f', 'test/light-modules')
       expect(fs.existsSync(path.join(__dirname, 'light-modules', 'README.md'))).to.be.true
       shell.cd('../../')
     })
@@ -120,11 +120,25 @@ describe('create-light-module', function () {
       expect(fs.existsSync(path.join(__dirname, 'light-modules', 'foo', 'README.md'))).to.be.true
     })
 
-    it('prints help how to continue', function () {
+    it('should print help how to continue', function () {
       const result = testHelper.invokeMgnlSubcommand('create-light-module', 'apple -p test/light-modules')
 
       expect(result.stdout.toString())
         .to.contain('In order to add a page template, run mgnl create-page $YOUR_PAGE_NAME -p')
+    })
+
+    it('should fail if light module folder from properties file is not current folder', () => {
+      const magnoliaPropertiesPath = 'test/light-modules/apache-tomcat/webapps/magnoliaAuthor/WEB-INF/config/default/'
+      fs.mkdirsSync(magnoliaPropertiesPath)
+
+      const cwd = path.join(__dirname, 'light-modules')
+
+      fs.writeFileSync(path.join(magnoliaPropertiesPath, 'magnolia.properties'),
+      'magnolia.resources.dir=/foo/baz', 'utf-8')
+
+      const out = testHelper.invokeMgnlSubcommand('create-light-module', 'foo', {cwd: cwd})
+      expect(out.stderr.toString()).to.contain('Use --force')
+      expect(out.stderr.toString()).to.contain('ERR!')
     })
 
     function checkExpectations (lightModulesbasedir) {
