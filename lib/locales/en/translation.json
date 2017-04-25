@@ -42,7 +42,9 @@
 
   "mgnl-create-light-module--cmd-option-description": "Creates a light module. Light modules are created under a \"root\" folder which is observed by Magnolia for changes. If no moduleName is given, use the directory name as name. The path to such folder is the value of \"magnolia.resources.dir\" property at <magnoliaWebapp>/WEB-INF/config/default/magnolia.properties.",
   "mgnl-create-light-module--cmd-option-path": "The path to the light modules root folder. If no path is provided, then the current directory is assumed to be the light modules root folder and the module will be created here.",
+  "mgnl-create-light-module--cmd-option-force": "Continue even if no light-modules folder was detected",
   "mgnl-create-light-module--error-invalid-path": "Path {{path}} does not exist. Please fix it or create it first",
+  "mgnl-create-light-module--error-no-lm-folder-detected": "Module is being created at [{{path}}] which doesn't match the light modules root [{{root}}] found at the nearest Tomcat installation at [{{tomcat}}]. This means Magnolia likely won't be able to observe your module. Use --force if you really want to continue or specify the --path to a valid light modules root folder.",
   "mgnl-create-light-module--info-no-path": "'No path option provided, light module will be created in the current folder.'",
   "mgnl-create-light-module--i18n-fileheader": "# Please, see https://documentation.magnolia-cms.com/display/DOCS/Internationalization",
   "mgnl-create-light-module--info-module-created": "Module {{name}} created at {{path}}",

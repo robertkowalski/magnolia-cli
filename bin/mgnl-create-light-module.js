@@ -14,6 +14,7 @@ program
   .usage('[moduleName] [options]')
   .description(i18next.t('mgnl-create-light-module--cmd-option-description'))
   .option('-p, --path <path>', i18next.t('mgnl-create-light-module--cmd-option-path'))
+  .option('-f, --force', i18next.t('mgnl-create-light-module--cmd-option-force'))
   .parse(process.argv)
 
 const args = createLightModule.validateAndResolveArgs(program)
